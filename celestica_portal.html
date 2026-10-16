@@ -317,7 +317,7 @@
         </div>
       </div>
 
-      <!-- 4 Interactive Executive Charts -->
+      <!-- 4 Interactive Executive Charts (Dual-Mode: Instant Interactive Visual Bars + Chart.js Canvas) -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Chart 1: Primavera P6 EVM S-Curve & Cost Breakdown -->
         <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
@@ -326,9 +326,42 @@
               <h3 class="font-bold text-slate-800 text-sm sm:text-base">1. Primavera P6 Earned Value Management (PV vs. EV vs. AC)</h3>
               <p class="text-xs text-slate-500">PMBOK / P6 EPPM Work Breakdown Structure (WBS 1.1 – 1.6) Cost &amp; Schedule Control</p>
             </div>
-            <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">BAC: $1,350,000</span>
+            <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">BAC: $1,250,000</span>
           </div>
-          <div class="h-64">
+          <!-- Built-in Instant Visual Chart (Always visible at 0ms & during Print; switches to Chart.js when ready) -->
+          <div id="fallbackEvm" class="space-y-2.5 text-xs font-mono py-1">
+            <div class="flex items-center justify-between text-[11px] text-slate-500 pb-1 border-b border-slate-100">
+              <span>WBS Package</span>
+              <div class="flex gap-3">
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-xs bg-sky-500 inline-block"></span>PV (Planned)</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-xs bg-emerald-500 inline-block"></span>EV (Earned)</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-xs bg-amber-500 inline-block"></span>AC (Actual)</span>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5"><span>WBS 1.1 Initiation &amp; Ringi-sho</span><span class="text-emerald-700 font-bold">PV $100k | EV $100k | AC $95.5k</span></div>
+                <div class="w-full bg-slate-100 h-3 rounded overflow-hidden flex gap-0.5"><div class="bg-sky-500 h-full" style="width:22%"></div><div class="bg-emerald-500 h-full" style="width:22%"></div><div class="bg-amber-500 h-full" style="width:21%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5"><span>WBS 1.2 BPR, CBA &amp; IIoT Eval</span><span class="text-emerald-700 font-bold">PV $103k | EV $103k | AC $99.0k</span></div>
+                <div class="w-full bg-slate-100 h-3 rounded overflow-hidden flex gap-0.5"><div class="bg-sky-500 h-full" style="width:23%"></div><div class="bg-emerald-500 h-full" style="width:23%"></div><div class="bg-amber-500 h-full" style="width:22%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5"><span>WBS 1.3 Vendor SOW &amp; SLA</span><span class="text-emerald-700 font-bold">PV $70k | EV $70k | AC $68.0k</span></div>
+                <div class="w-full bg-slate-100 h-3 rounded overflow-hidden flex gap-0.5"><div class="bg-sky-500 h-full" style="width:16%"></div><div class="bg-emerald-500 h-full" style="width:16%"></div><div class="bg-amber-500 h-full" style="width:15%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5"><span>WBS 1.4 Core MES &amp; SAP S/4 Integration</span><span class="text-sky-700 font-bold">PV $477k | EV $494.9k | AC $471.5k</span></div>
+                <div class="w-full bg-slate-100 h-3 rounded overflow-hidden flex gap-0.5"><div class="bg-sky-500 h-full" style="width:33%"></div><div class="bg-emerald-500 h-full" style="width:35%"></div><div class="bg-amber-500 h-full" style="width:32%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5"><span>WBS 1.5 J-SOX Audit &amp; Bilingual UAT</span><span class="text-amber-700 font-bold">PV $38k | EV $36.6k | AC $35.0k (BAC $215k)</span></div>
+                <div class="w-full bg-slate-100 h-3 rounded overflow-hidden flex gap-0.5"><div class="bg-sky-500 h-full" style="width:12%"></div><div class="bg-emerald-500 h-full" style="width:12%"></div><div class="bg-amber-500 h-full" style="width:11%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div id="wrapChartEvm" class="h-64 hidden">
             <canvas id="chartEvm"></canvas>
           </div>
         </div>
@@ -342,7 +375,33 @@
             </div>
             <button onclick="switchTab('tab-babok')" class="text-xs text-sky-600 hover:underline font-medium">Open Calculator &rarr;</button>
           </div>
-          <div class="h-64">
+          <div id="fallbackWsjf" class="space-y-2.5 text-xs font-mono py-1">
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>BRD-JP-001: Automated e-DHR &amp; Lot Genealogy (JP-TH)</span><span class="text-emerald-700 font-bold">WSJF 7.25 (MUST)</span></div>
+              <div class="w-full bg-slate-100 h-3.5 rounded overflow-hidden"><div class="bg-emerald-600 h-full rounded" style="width:96%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>BRD-JP-002: SMT Feeder Interlock &amp; MSD Floor-Life Timer</span><span class="text-emerald-700 font-bold">WSJF 7.00 (MUST)</span></div>
+              <div class="w-full bg-slate-100 h-3.5 rounded overflow-hidden"><div class="bg-emerald-500 h-full rounded" style="width:92%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>BRD-JP-003: J-SOX 3-Way Match &amp; Japan NTA e-Invoice</span><span class="text-sky-700 font-bold">WSJF 5.40 (MUST)</span></div>
+              <div class="w-full bg-slate-100 h-3.5 rounded overflow-hidden"><div class="bg-sky-600 h-full rounded" style="width:72%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>BRD-JP-004: Kinaxis RapidResponse Clear-to-Build (CTB)</span><span class="text-sky-700 font-bold">WSJF 5.20 (SHOULD)</span></div>
+              <div class="w-full bg-slate-100 h-3.5 rounded overflow-hidden"><div class="bg-sky-500 h-full rounded" style="width:69%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>BRD-JP-005: AI Computer Vision 3D AOI False-Call Filter</span><span class="text-amber-700 font-bold">WSJF 4.60 (SHOULD)</span></div>
+              <div class="w-full bg-slate-100 h-3.5 rounded overflow-hidden"><div class="bg-amber-500 h-full rounded" style="width:61%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>BRD-JP-006: Bilingual Customer RMA &amp; ITAD Portal</span><span class="text-amber-700 font-bold">WSJF 3.80 (COULD)</span></div>
+              <div class="w-full bg-slate-100 h-3.5 rounded overflow-hidden"><div class="bg-amber-400 h-full rounded" style="width:51%"></div></div>
+            </div>
+          </div>
+          <div id="wrapChartWsjf" class="h-64 hidden">
             <canvas id="chartWsjf"></canvas>
           </div>
         </div>
@@ -356,7 +415,25 @@
             </div>
             <button onclick="switchTab('tab-cba')" class="text-xs text-sky-600 hover:underline font-medium">Inspect CBA &rarr;</button>
           </div>
-          <div class="h-64">
+          <div id="fallbackBpr" class="space-y-3 text-xs font-mono py-1">
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>CBA-2026-JP01: Next-Gen MES &amp; SAP S/4 Bridge (NPV $3.45M)</span><span class="text-emerald-700 font-bold">OEE: 74.5% &rarr; 86.2% | Lead Time: 42h &rarr; 6.5h</span></div>
+              <div class="grid grid-cols-2 gap-1.5"><div class="bg-rose-100 rounded p-1"><div class="bg-rose-500 text-white text-[10px] px-1.5 rounded" style="width:74.5%">As-Is 74.5%</div></div><div class="bg-emerald-100 rounded p-1"><div class="bg-emerald-600 text-white text-[10px] px-1.5 rounded" style="width:86.2%">To-Be 86.2%</div></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>CBA-2026-JP02: SMT Line IIoT Edge Telemetry (NPV $0.68M)</span><span class="text-emerald-700 font-bold">OEE: 76.0% &rarr; 85.4% | Stop: 14.5h &rarr; 1.8h</span></div>
+              <div class="grid grid-cols-2 gap-1.5"><div class="bg-rose-100 rounded p-1"><div class="bg-rose-500 text-white text-[10px] px-1.5 rounded" style="width:76%">As-Is 76.0%</div></div><div class="bg-emerald-100 rounded p-1"><div class="bg-emerald-600 text-white text-[10px] px-1.5 rounded" style="width:85.4%">To-Be 85.4%</div></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>CBA-2026-JP03: Kinaxis RapidResponse AI CTB (NPV $0.81M)</span><span class="text-emerald-700 font-bold">OEE: 71.0% &rarr; 88.0% | Cycle: 108h &rarr; 4.0h</span></div>
+              <div class="grid grid-cols-2 gap-1.5"><div class="bg-rose-100 rounded p-1"><div class="bg-rose-500 text-white text-[10px] px-1.5 rounded" style="width:71%">As-Is 71.0%</div></div><div class="bg-emerald-100 rounded p-1"><div class="bg-emerald-600 text-white text-[10px] px-1.5 rounded" style="width:88%">To-Be 88.0%</div></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>CBA-2026-JP04: J-SOX Automated 3-Way Match (NPV $0.39M)</span><span class="text-emerald-700 font-bold">Eff: 68.0% &rarr; 94.5% | Cycle: 124h &rarr; 2.5h</span></div>
+              <div class="grid grid-cols-2 gap-1.5"><div class="bg-rose-100 rounded p-1"><div class="bg-rose-500 text-white text-[10px] px-1.5 rounded" style="width:68%">As-Is 68.0%</div></div><div class="bg-emerald-100 rounded p-1"><div class="bg-emerald-600 text-white text-[10px] px-1.5 rounded" style="width:94.5%">To-Be 94.5%</div></div></div>
+            </div>
+          </div>
+          <div id="wrapChartBpr" class="h-64 hidden">
             <canvas id="chartBpr"></canvas>
           </div>
         </div>
@@ -370,7 +447,25 @@
             </div>
             <button onclick="switchTab('tab-cba')" class="text-xs text-sky-600 hover:underline font-medium">View SOWs &rarr;</button>
           </div>
-          <div class="h-64">
+          <div id="fallbackVendor" class="space-y-3 text-xs font-mono py-1">
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>1. Siemens Digital Industries &amp; Hitachi (Opcenter MES v24)</span><span class="text-emerald-700 font-bold">95.1 / 100 (SELECTED)</span></div>
+              <div class="w-full bg-slate-100 h-4 rounded overflow-hidden"><div class="bg-gradient-to-r from-sky-600 to-emerald-500 h-full text-[10px] text-white px-2 flex items-center" style="width:95.1%">Fit:96 | Compat:95 | J-SOX:98 | TCO:90</div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>2. Advantech Japan &amp; NTT (MIC-770 V3 IIoT Edge Gateway)</span><span class="text-emerald-700 font-bold">94.0 / 100 (SELECTED)</span></div>
+              <div class="w-full bg-slate-100 h-4 rounded overflow-hidden"><div class="bg-gradient-to-r from-sky-600 to-emerald-500 h-full text-[10px] text-white px-2 flex items-center" style="width:94%">Fit:94 | Compat:96 | J-SOX:93 | TCO:92</div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>3. Kinaxis Inc. &amp; NRI (RapidResponse AI Demand &amp; CTB)</span><span class="text-sky-700 font-bold">93.1 / 100 (ACTIVE SOW)</span></div>
+              <div class="w-full bg-slate-100 h-4 rounded overflow-hidden"><div class="bg-gradient-to-r from-indigo-600 to-sky-500 h-full text-[10px] text-white px-2 flex items-center" style="width:93.1%">Fit:95 | Compat:92 | J-SOX:96 | TCO:88</div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-0.5"><span>4. Koh Young Technology &amp; Omron (KSMART 3D SPI/AOI AI)</span><span class="text-amber-700 font-bold">92.0 / 100 (READOUT)</span></div>
+              <div class="w-full bg-slate-100 h-4 rounded overflow-hidden"><div class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full text-[10px] text-white px-2 flex items-center" style="width:92%">Fit:93 | Compat:91 | J-SOX:94 | TCO:89</div></div>
+            </div>
+          </div>
+          <div id="wrapChartVendor" class="h-64 hidden">
             <canvas id="chartVendorEval"></canvas>
           </div>
         </div>
@@ -1460,25 +1555,35 @@
         });
       }
 
+      // Preserve input values into DOM attributes so print preview / clone captures everything typed by user
+      document.querySelectorAll('input, textarea, select').forEach(el => {
+        if (el.tagName === 'INPUT') {
+          el.setAttribute('value', el.value);
+        } else if (el.tagName === 'TEXTAREA') {
+          el.innerHTML = el.value;
+        }
+      });
+
       const isInIframe = (window.self !== window.top);
       try {
         window.focus();
         window.print();
       } catch (err) {}
 
-      // If running inside Google Apps Script sandboxed iframe where window.print() may be ignored by browser,
-      // also offer a clean standalone print window fallback if needed
+      // If running inside Google Apps Script sandboxed iframe where window.print() may be blocked,
+      // open a clean standalone print window using escaped tag tokens so bundler never matches closing tags
       if (isInIframe) {
         setTimeout(() => {
           const w = window.open('', '_blank', 'width=1200,height=850');
           if (w) {
-            w.document.write('<!DOCTYPE html><html><head><title>' + document.title + '</title>');
-            w.document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
-            w.document.write('<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">');
-            w.document.write('<style>body{font-family:Prompt,Sarabun,sans-serif;padding:20px;background:#fff;color:#000;} .no-print,header{display:none!important;}</style>');
-            w.document.write('</head><body>');
+            const openTag = '\x3c';
+            w.document.write(openTag + '!DOCTYPE html>' + openTag + 'html>' + openTag + 'head>' + openTag + 'title>' + document.title + openTag + '/title>');
+            w.document.write(openTag + 'script src="https://cdn.tailwindcss.com">' + openTag + '/script>');
+            w.document.write(openTag + 'link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">');
+            w.document.write(openTag + 'style>body{font-family:Prompt,Sarabun,sans-serif;padding:20px;background:#fff;color:#000;} .no-print,header{display:none!important;}' + openTag + '/style>');
+            w.document.write(openTag + '/head>' + openTag + 'body>');
             w.document.write(document.querySelector('main').innerHTML);
-            w.document.write('<script>setTimeout(function(){window.print();},800);<\/script></body></html>');
+            w.document.write(openTag + 'script>setTimeout(function(){window.print();},800);' + openTag + '/script>' + openTag + '/body>' + openTag + '/html>');
             w.document.close();
           }
         }, 300);
@@ -1489,6 +1594,98 @@
           hiddenPanels.forEach(p => p.classList.add('hidden'));
         }, 1200);
       }
+    }
+
+    // -----------------------------------------------------------------------
+    // QUICK-INPUT WORKBENCH HANDLER (TAB 1 DIRECT TYPING & INSTANT SAVE)
+    // -----------------------------------------------------------------------
+    async function saveQuickCockpitEntry() {
+      const titleEl = document.getElementById('quickProjectInput');
+      const siteEl = document.getElementById('quickSiteInput');
+      const budgetEl = document.getElementById('quickBudgetInput');
+      const memoEl = document.getElementById('quickMemoInput');
+      const statusEl = document.getElementById('quickSaveStatus');
+
+      const title = (titleEl?.value || '').trim() || 'Japan-Thailand MES & SAP S/4HANA Line Integration';
+      const site = siteEl?.value || 'Miyagi (Sendai) + Laem Chabang (CLC)';
+      const budgetUsd = Number(budgetEl?.value) || 450000;
+      const npvUsd = Math.round(budgetUsd * 2.65);
+      const memo = (memoEl?.value || '').trim();
+
+      const newCard = {
+        id: 'card-quick-' + Date.now(),
+        card_code: 'ITBP-JP-' + String((appState.kanban?.length || 10) + 101),
+        title: title,
+        title_jp: '日本・タイ工場 ITビジネスパートナー戦略プロジェクト (' + site.split(' ')[0] + ')',
+        stage: 'BPR_CBA',
+        priority: 'CRITICAL',
+        bu_site: site,
+        stakeholder_jp: 'Tanaka K. (VP Japan Ops) / Somchai P. (GM Laem Chabang)',
+        wsjf_score: 7.45,
+        budget_usd: budgetUsd,
+        npv_usd: npvUsd,
+        irr_percent: 39.5,
+        payback_months: 12.5,
+        owner_name: 'Manager, IT Business Partner 2 (Req ID: 133553)',
+        due_date: '2026-09-30',
+        progress_percent: 35,
+        tags: 'Quick-Workbench,J-SOX,MES,SAP-S4',
+        executive_memo: memo
+      };
+
+      appState.kanban.unshift(newCard);
+
+      // Also add to Requirements Traceability Matrix so WSJF Chart updates immediately
+      appState.requirements.unshift({
+        id: 'req-quick-' + Date.now(),
+        req_code: 'REQ-JP-' + String((appState.requirements?.length || 8) + 201),
+        workshop_method: 'Design Thinking + Gemba Kaizen',
+        bu_functional_area: site,
+        requirement_title: title,
+        requirement_title_jp: memo ? memo.slice(0, 60) : 'リアルタイム製造・ERP連携要件',
+        business_value: 10,
+        time_criticality: 9,
+        risk_reduction: 9,
+        job_size: 4,
+        wsjf_index: 7.00,
+        isa95_level: 'Level 3 (MES) <-> Level 4 (SAP)',
+        jsox_control_id: 'JSOX-ITGC-09',
+        verification_status: 'APPROVED'
+      });
+
+      // Also update CBA studies so BPR OEE chart reflects the new study
+      appState.cba_studies.push({
+        id: 'cba-quick-' + Date.now(),
+        study_code: 'CBA-2026-0' + String((appState.cba_studies?.length || 4) + 1),
+        initiative_name: title,
+        bu_site: site,
+        capex_usd: Math.round(budgetUsd * 0.8),
+        opex_annual_usd: Math.round(budgetUsd * 0.2),
+        annual_savings_usd: Math.round(budgetUsd * 0.95),
+        npv_5yr_usd: npvUsd,
+        irr_percent: 39.5,
+        payback_months: 12.5,
+        as_is_cycle_time_mins: 95,
+        to_be_cycle_time_mins: 18,
+        as_is_oee_percent: 68.0,
+        to_be_oee_percent: 87.5,
+        recommendation_status: 'RECOMMENDED FOR EXEC APPROVAL'
+      });
+
+      renderAllModules();
+
+      if (statusEl) {
+        statusEl.classList.remove('hidden');
+        statusEl.innerHTML = '<i class="fa-solid fa-circle-check mr-1"></i>บันทึก "' + title.slice(0, 32) + '..." สำเร็จ! อัปเดตกราฟทั้ง 4 และบอร์ด Kanban เรียบร้อยแล้ว (' + new Date().toLocaleTimeString() + ')';
+      }
+
+      try {
+        await apiCall('/api/celestica/kanban', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newCard)
+        });
+      } catch (err) {}
     }
 
     // -----------------------------------------------------------------------
@@ -1590,114 +1787,229 @@
     }
 
     // -----------------------------------------------------------------------
-    // 1. RENDER 4 EXECUTIVE CHARTS (CHART.JS)
+    // 1. RENDER 4 EXECUTIVE CHARTS (HYBRID VISUAL BARS + CHART.JS ENGINE)
     // -----------------------------------------------------------------------
     function renderExecutiveCharts() {
+      const wbsGroups = ['1.1', '1.2', '1.3', '1.4', '1.5', '1.6'];
+      const wbsLabels = ['WBS 1.1 Init', 'WBS 1.2 BPR/CBA', 'WBS 1.3 SOW', 'WBS 1.4 MES/SAP', 'WBS 1.5 J-SOX/UAT', 'WBS 1.6 Cutover'];
+      const pvData = wbsGroups.map(w => (appState.p6_activities || []).filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.planned_value_usd || 0), 0) / 1000);
+      const evData = wbsGroups.map(w => (appState.p6_activities || []).filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.earned_value_usd || 0), 0) / 1000);
+      const acData = wbsGroups.map(w => (appState.p6_activities || []).filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.actual_cost_usd || 0), 0) / 1000);
+
+      // Update Built-in Instant Visual Chart 1 (Guaranteed visible in GAS / Print / Offline)
+      const fbEvm = document.getElementById('fallbackEvm');
+      if (fbEvm && pvData.some(v => v > 0)) {
+        const maxVal = Math.max(...pvData, ...evData, ...acData, 700);
+        fbEvm.innerHTML = wbsLabels.map((lbl, idx) => {
+          const pv = Math.round(pvData[idx] || 0);
+          const ev = Math.round(evData[idx] || 0);
+          const ac = Math.round(acData[idx] || 0);
+          const pvPct = Math.min(100, Math.max(4, Math.round((pv / maxVal) * 100)));
+          const evPct = Math.min(100, Math.max(2, Math.round((ev / maxVal) * 100)));
+          const acPct = Math.min(100, Math.max(2, Math.round((ac / maxVal) * 100)));
+          return `
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-700">${lbl}</span>
+                <span class="text-slate-600">PV: $${pv}k | <strong class="text-emerald-700">EV: $${ev}k</strong> | AC: $${ac}k</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 h-3 bg-slate-100 p-0.5 rounded">
+                <div class="bg-sky-500 rounded-sm h-full" style="width:${pvPct}%" title="PV $${pv}k"></div>
+                <div class="bg-emerald-500 rounded-sm h-full" style="width:${evPct}%" title="EV $${ev}k"></div>
+                <div class="bg-amber-500 rounded-sm h-full" style="width:${acPct}%" title="AC $${ac}k"></div>
+              </div>
+            </div>
+          `;
+        }).join('') + `
+          <div class="flex items-center justify-center gap-4 pt-1 text-[10px] font-mono text-slate-600">
+            <span><span class="inline-block w-2.5 h-2.5 bg-sky-500 rounded-sm mr-1"></span>PV Planned ($k)</span>
+            <span><span class="inline-block w-2.5 h-2.5 bg-emerald-500 rounded-sm mr-1"></span>EV Earned ($k)</span>
+            <span><span class="inline-block w-2.5 h-2.5 bg-amber-500 rounded-sm mr-1"></span>AC Actual Cost ($k)</span>
+          </div>
+        `;
+      }
+
+      // Update Built-in Instant Visual Chart 2 (WSJF Ranking)
+      const reqs = [...(appState.requirements || [])].sort((a, b) => b.wsjf_index - a.wsjf_index).slice(0, 6);
+      const fbWsjf = document.getElementById('fallbackWsjf');
+      if (fbWsjf && reqs.length > 0) {
+        fbWsjf.innerHTML = reqs.map(r => {
+          const score = Number(r.wsjf_index || 5).toFixed(2);
+          const pct = Math.min(100, Math.max(15, Math.round((Number(r.wsjf_index || 5) / 8.5) * 100)));
+          const barColor = r.wsjf_index >= 6.5 ? 'bg-emerald-600' : (r.wsjf_index >= 5.5 ? 'bg-sky-600' : 'bg-amber-500');
+          const txtColor = r.wsjf_index >= 6.5 ? 'text-emerald-700' : (r.wsjf_index >= 5.5 ? 'text-sky-700' : 'text-amber-700');
+          return `
+            <div>
+              <div class="flex justify-between text-[11px] font-mono mb-0.5">
+                <span class="font-bold text-slate-800 truncate max-w-[340px]">${r.req_code}: ${r.requirement_title}</span>
+                <span class="font-bold ${txtColor}">WSJF ${score}</span>
+              </div>
+              <div class="w-full bg-slate-100 h-3.5 rounded-full overflow-hidden">
+                <div class="${barColor} h-full rounded-full" style="width:${pct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update Built-in Instant Visual Chart 3 (BPR OEE)
+      const cbas = appState.cba_studies || [];
+      const fbBpr = document.getElementById('fallbackBpr');
+      if (fbBpr && cbas.length > 0) {
+        fbBpr.innerHTML = cbas.slice(0, 5).map(c => {
+          const asIs = Number(c.as_is_oee_percent || 65);
+          const toBe = Number(c.to_be_oee_percent || 85);
+          const diff = (toBe - asIs).toFixed(1);
+          return `
+            <div class="space-y-1">
+              <div class="flex justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-800 truncate max-w-[260px]">${c.study_code}: ${c.initiative_name}</span>
+                <span class="text-emerald-700 font-bold">As-Is ${asIs}% &rarr; To-Be ${toBe}% (+${diff}%)</span>
+              </div>
+              <div class="flex gap-1.5 items-center">
+                <div class="w-1/2 bg-slate-100 h-4 rounded overflow-hidden">
+                  <div class="bg-rose-500 h-full text-[9px] text-white font-mono px-1.5 flex items-center" style="width:${asIs}%">As-Is ${asIs}%</div>
+                </div>
+                <div class="w-1/2 bg-slate-100 h-4 rounded overflow-hidden">
+                  <div class="bg-emerald-500 h-full text-[9px] text-white font-mono px-1.5 flex items-center" style="width:${toBe}%">To-Be ${toBe}%</div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update Built-in Instant Visual Chart 4 (Vendor MCDA)
+      const sows = appState.sow_vendors || [];
+      const fbVendor = document.getElementById('fallbackVendor');
+      if (fbVendor && sows.length > 0) {
+        fbVendor.innerHTML = sows.map(s => {
+          const fit = Number(s.functional_fit_score || 90);
+          const compat = Number(s.compatibility_score || 90);
+          const sec = Number(s.cybersecurity_jsox_score || 90);
+          const weighted = Number(s.weighted_eval_score || 90);
+          return `
+            <div class="p-2 rounded-lg bg-slate-50 border border-slate-200 space-y-1">
+              <div class="flex justify-between text-[11px] font-mono">
+                <span class="font-bold text-slate-900">${s.vendor_name}</span>
+                <span class="font-bold text-amber-700">Weighted: ${weighted} / 100</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5 text-[10px] font-mono">
+                <div><span class="text-slate-500 block">Fit: ${fit}</span><div class="w-full bg-slate-200 h-2 rounded"><div class="bg-sky-600 h-2 rounded" style="width:${fit}%"></div></div></div>
+                <div><span class="text-slate-500 block">SAP/MES: ${compat}</span><div class="w-full bg-slate-200 h-2 rounded"><div class="bg-emerald-500 h-2 rounded" style="width:${compat}%"></div></div></div>
+                <div><span class="text-slate-500 block">J-SOX: ${sec}</span><div class="w-full bg-slate-200 h-2 rounded"><div class="bg-purple-600 h-2 rounded" style="width:${sec}%"></div></div></div>
+                <div><span class="text-slate-500 block">Total: ${weighted}</span><div class="w-full bg-slate-200 h-2 rounded"><div class="bg-amber-500 h-2 rounded" style="width:${weighted}%"></div></div></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
       if (typeof Chart === 'undefined') return;
 
-      // Chart 1: Primavera P6 Earned Value Management by WBS
-      const ctxEvm = document.getElementById('chartEvm');
-      if (ctxEvm) {
-        if (charts.evm) charts.evm.destroy();
-        const wbsGroups = ['1.1', '1.2', '1.3', '1.4', '1.5', '1.6'];
-        const wbsLabels = ['WBS 1.1 Init', 'WBS 1.2 BPR/CBA', 'WBS 1.3 SOW', 'WBS 1.4 MES/SAP', 'WBS 1.5 J-SOX/UAT', 'WBS 1.6 Cutover'];
-        const pvData = wbsGroups.map(w => appState.p6_activities.filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.planned_value_usd || 0), 0) / 1000);
-        const evData = wbsGroups.map(w => appState.p6_activities.filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.earned_value_usd || 0), 0) / 1000);
-        const acData = wbsGroups.map(w => appState.p6_activities.filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.actual_cost_usd || 0), 0) / 1000);
+      // Also render interactive Chart.js canvases when Chart.js CDN is available
+      try {
+        const wrapEvm = document.getElementById('wrapChartEvm');
+        const ctxEvm = document.getElementById('chartEvm');
+        if (ctxEvm && wrapEvm) {
+          wrapEvm.classList.remove('hidden');
+          if (charts.evm) charts.evm.destroy();
+          charts.evm = new Chart(ctxEvm, {
+            type: 'bar',
+            data: {
+              labels: wbsLabels,
+              datasets: [
+                { label: 'PV Planned ($k)', data: pvData, backgroundColor: 'rgba(14, 165, 233, 0.75)', borderRadius: 5 },
+                { label: 'EV Earned ($k)', data: evData, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 5 },
+                { label: 'AC Actual Cost ($k)', data: acData, backgroundColor: 'rgba(245, 158, 11, 0.8)', borderRadius: 5 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
+              scales: { y: { beginAtZero: true, title: { display: true, text: 'USD ($ Thousands)', font: { size: 10 } } } }
+            }
+          });
+        }
 
-        charts.evm = new Chart(ctxEvm, {
-          type: 'bar',
-          data: {
-            labels: wbsLabels,
-            datasets: [
-              { label: 'PV Planned ($k)', data: pvData, backgroundColor: 'rgba(14, 165, 233, 0.75)', borderRadius: 5 },
-              { label: 'EV Earned ($k)', data: evData, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 5 },
-              { label: 'AC Actual Cost ($k)', data: acData, backgroundColor: 'rgba(245, 158, 11, 0.8)', borderRadius: 5 }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
-            scales: { y: { beginAtZero: true, title: { display: true, text: 'USD ($ Thousands)', font: { size: 10 } } } }
-          }
-        });
-      }
+        const wrapWsjf = document.getElementById('wrapChartWsjf');
+        const ctxWsjf = document.getElementById('chartWsjf');
+        if (ctxWsjf && wrapWsjf) {
+          wrapWsjf.classList.remove('hidden');
+          if (charts.wsjf) charts.wsjf.destroy();
+          charts.wsjf = new Chart(ctxWsjf, {
+            type: 'bar',
+            data: {
+              labels: reqs.map(r => `${r.req_code}: ${(r.requirement_title || '').slice(0, 26)}...`),
+              datasets: [
+                {
+                  label: 'WSJF Priority Score',
+                  data: reqs.map(r => Number(r.wsjf_index)),
+                  backgroundColor: reqs.map(r => r.wsjf_index >= 6.5 ? '#059669' : (r.wsjf_index >= 5.0 ? '#0284c7' : '#d97706')),
+                  borderRadius: 5
+                }
+              ]
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: { x: { beginAtZero: true, max: 9, title: { display: true, text: 'WSJF Score (CoD / Job Size)', font: { size: 10 } } } }
+            }
+          });
+        }
 
-      // Chart 2: SAFe WSJF Prioritization Ranking
-      const ctxWsjf = document.getElementById('chartWsjf');
-      if (ctxWsjf) {
-        if (charts.wsjf) charts.wsjf.destroy();
-        const reqs = [...(appState.requirements || [])].sort((a, b) => b.wsjf_index - a.wsjf_index).slice(0, 7);
-        charts.wsjf = new Chart(ctxWsjf, {
-          type: 'bar',
-          data: {
-            labels: reqs.map(r => `${r.req_code}: ${(r.requirement_title || '').slice(0, 26)}...`),
-            datasets: [
-              {
-                label: 'WSJF Priority Score',
-                data: reqs.map(r => Number(r.wsjf_index)),
-                backgroundColor: reqs.map(r => r.wsjf_index >= 6.5 ? '#059669' : (r.wsjf_index >= 5.0 ? '#0284c7' : '#d97706')),
-                borderRadius: 5
-              }
-            ]
-          },
-          options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { x: { beginAtZero: true, max: 9, title: { display: true, text: 'WSJF Score (CoD / Job Size)', font: { size: 10 } } } }
-          }
-        });
-      }
+        const wrapBpr = document.getElementById('wrapChartBpr');
+        const ctxBpr = document.getElementById('chartBpr');
+        if (ctxBpr && wrapBpr) {
+          wrapBpr.classList.remove('hidden');
+          if (charts.bpr) charts.bpr.destroy();
+          charts.bpr = new Chart(ctxBpr, {
+            type: 'bar',
+            data: {
+              labels: cbas.map(c => c.study_code),
+              datasets: [
+                { label: 'As-Is OEE (%)', data: cbas.map(c => Number(c.as_is_oee_percent)), backgroundColor: 'rgba(244, 63, 94, 0.7)', borderRadius: 5 },
+                { label: 'To-Be OEE (%)', data: cbas.map(c => Number(c.to_be_oee_percent)), backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 5 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
+              scales: { y: { min: 50, max: 100, title: { display: true, text: 'Shop-Floor OEE (%)', font: { size: 10 } } } }
+            }
+          });
+        }
 
-      // Chart 3: BPR As-Is vs To-Be OEE (%) & NPV
-      const ctxBpr = document.getElementById('chartBpr');
-      if (ctxBpr) {
-        if (charts.bpr) charts.bpr.destroy();
-        const cbas = appState.cba_studies || [];
-        charts.bpr = new Chart(ctxBpr, {
-          type: 'bar',
-          data: {
-            labels: cbas.map(c => c.study_code),
-            datasets: [
-              { label: 'As-Is OEE (%)', data: cbas.map(c => Number(c.as_is_oee_percent)), backgroundColor: 'rgba(244, 63, 94, 0.7)', borderRadius: 5 },
-              { label: 'To-Be OEE (%)', data: cbas.map(c => Number(c.to_be_oee_percent)), backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 5 }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
-            scales: { y: { min: 50, max: 100, title: { display: true, text: 'Shop-Floor OEE (%)', font: { size: 10 } } } }
-          }
-        });
-      }
-
-      // Chart 4: Hardware & Software Evaluation Matrix (MCDA)
-      const ctxVendor = document.getElementById('chartVendorEval');
-      if (ctxVendor) {
-        if (charts.vendor) charts.vendor.destroy();
-        const sows = appState.sow_vendors || [];
-        charts.vendor = new Chart(ctxVendor, {
-          type: 'bar',
-          data: {
-            labels: sows.map(s => (s.vendor_name || '').split('&')[0].trim()),
-            datasets: [
-              { label: 'Functional Fit', data: sows.map(s => Number(s.functional_fit_score)), backgroundColor: '#0284c7', borderRadius: 4 },
-              { label: 'SAP/MES Compat.', data: sows.map(s => Number(s.compatibility_score)), backgroundColor: '#10b981', borderRadius: 4 },
-              { label: 'J-SOX / Security', data: sows.map(s => Number(s.cybersecurity_jsox_score)), backgroundColor: '#8b5cf6', borderRadius: 4 },
-              { label: 'Weighted Score', data: sows.map(s => Number(s.weighted_eval_score)), backgroundColor: '#f59e0b', borderRadius: 4 }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
-            scales: { y: { min: 75, max: 100 } }
-          }
-        });
+        const wrapVendor = document.getElementById('wrapChartVendor');
+        const ctxVendor = document.getElementById('chartVendorEval');
+        if (ctxVendor && wrapVendor) {
+          wrapVendor.classList.remove('hidden');
+          if (charts.vendor) charts.vendor.destroy();
+          charts.vendor = new Chart(ctxVendor, {
+            type: 'bar',
+            data: {
+              labels: sows.map(s => (s.vendor_name || '').split('&')[0].trim()),
+              datasets: [
+                { label: 'Functional Fit', data: sows.map(s => Number(s.functional_fit_score)), backgroundColor: '#0284c7', borderRadius: 4 },
+                { label: 'SAP/MES Compat.', data: sows.map(s => Number(s.compatibility_score)), backgroundColor: '#10b981', borderRadius: 4 },
+                { label: 'J-SOX / Security', data: sows.map(s => Number(s.cybersecurity_jsox_score)), backgroundColor: '#8b5cf6', borderRadius: 4 },
+                { label: 'Weighted Score', data: sows.map(s => Number(s.weighted_eval_score)), backgroundColor: '#f59e0b', borderRadius: 4 }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+              scales: { y: { min: 75, max: 100 } }
+            }
+          });
+        }
+      } catch (chartErr) {
+        console.warn('Chart.js canvas fallback active:', chartErr);
       }
     }
 
@@ -2430,10 +2742,28 @@
       } catch (e) {}
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      recalcWsjfSimulator();
-      recalcCbaSimulator();
-      loadOverviewData();
+    let portalInitialized = false;
+    function initPortal() {
+      if (portalInitialized) {
+        renderExecutiveCharts();
+        return;
+      }
+      portalInitialized = true;
+      try { recalcWsjfSimulator(); } catch (e) {}
+      try { recalcCbaSimulator(); } catch (e) {}
+      try { loadOverviewData(); } catch (e) { renderAllModules(); }
+      setTimeout(() => { try { renderExecutiveCharts(); } catch (e) {} }, 600);
+      setTimeout(() => { try { renderExecutiveCharts(); } catch (e) {} }, 1800);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPortal);
+    } else {
+      initPortal();
+    }
+    window.addEventListener('load', () => {
+      initPortal();
+      renderExecutiveCharts();
     });
   </script>
 </body>
