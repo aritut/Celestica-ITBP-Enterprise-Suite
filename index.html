@@ -119,9 +119,14 @@
             <span>Primavera P6: <strong id="hdrSpi" class="text-emerald-400 font-mono">SPI 1.02</strong> | <strong id="hdrCpi" class="text-sky-400 font-mono">CPI 1.05</strong></span>
           </div>
 
-          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-medium flex items-center space-x-1.5 transition" title="Print Current Active View">
+          <button onclick="smartPrint(false)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-medium flex items-center space-x-1.5 transition" title="Print Current Active View">
             <i class="fa-solid fa-print text-sky-400"></i>
             <span class="hidden sm:inline">Print View</span>
+          </button>
+
+          <button onclick="smartPrint(true)" class="px-3 py-1.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white border border-sky-500 text-xs font-semibold flex items-center space-x-1.5 transition" title="Print All 7 Modules Together">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span class="hidden sm:inline">พิมพ์ทั้งระบบ (Print All)</span>
           </button>
 
           <button onclick="switchTab('tab-docs')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs flex items-center space-x-1.5 transition shadow-md">
@@ -129,8 +134,8 @@
             <span>ศูนย์พิมพ์เอกสาร A4 (3 ฉบับ)</span>
           </button>
 
-          <a href="/" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition" title="Back to Main Suite Gateway">
-            <i class="fa-solid fa-house"></i>
+          <a href="https://aritut.github.io/Celestica-ITBP-Enterprise-Suite/" target="_blank" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition" title="Open Standalone Host">
+            <i class="fa-solid fa-up-right-from-square"></i>
           </a>
         </div>
       </div>
@@ -262,6 +267,53 @@
           </div>
           <div class="text-2xl font-bold text-emerald-600 mt-1 font-mono">99.98% SLA</div>
           <div class="text-[11px] text-slate-500 mt-1">SAP S/4 • Opcenter • Kinaxis • P6</div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE QUICK ENTRY, EXECUTIVE MEMO & INSTANT PRINT WORKBENCH -->
+      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-sky-200 bg-gradient-to-r from-sky-50/60 via-white to-emerald-50/40">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-4 items-end">
+          <!-- Quick Project Entry -->
+          <div class="xl:col-span-7 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <i class="fa-solid fa-keyboard text-sky-600"></i>
+                <span>พิมพ์เพิ่มโครงการด่วน / บันทึกความต้องการใหม่ (Quick Interactive Input &rarr; อัปเดตกราฟ &amp; Kanban ทันที)</span>
+              </span>
+              <span id="quickSaveToast" class="text-[11px] font-mono text-emerald-600 font-semibold hidden">✓ บันทึกและอัปเดตกราฟสำเร็จ!</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs">
+              <input id="quickProjTitle" type="text" placeholder="พิมพ์ชื่อโครงการ / Requirement ที่นี่ (เช่น AOI AI Vision Line 5 Miyagi)..." class="sm:col-span-5 px-3 py-2 rounded-lg border border-slate-300 bg-white focus:border-sky-600 focus:outline-none">
+              <select id="quickProjSite" class="sm:col-span-3 px-2.5 py-2 rounded-lg border border-slate-300 bg-white">
+                <option value="CLS-MYG (Miyagi Plant)">🇯🇵 CLS-MYG (Miyagi)</option>
+                <option value="CLS-TYO (Tokyo HQ)">🇯🇵 CLS-TYO (Tokyo)</option>
+                <option value="CLS-LCB (Laem Chabang)">🇹🇭 CLS-LCB (Chonburi)</option>
+                <option value="CLS-GLOBAL (Toronto/APAC)">🇨🇦 CLS-GLOBAL</option>
+              </select>
+              <input id="quickProjBudget" type="number" value="220000" placeholder="Budget ($)" title="Budget ($ USD)" class="sm:col-span-2 px-2.5 py-2 rounded-lg border border-slate-300 bg-white font-mono">
+              <button onclick="quickAddInitiativeFromCockpit()" class="sm:col-span-2 px-3 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold shadow-sm transition whitespace-nowrap">
+                <i class="fa-solid fa-plus mr-1"></i>บันทึกทันที
+              </button>
+            </div>
+          </div>
+
+          <!-- Executive Memo & Direct Print Buttons -->
+          <div class="xl:col-span-5 space-y-2 border-t xl:border-t-0 xl:border-l border-slate-200 pt-3 xl:pt-0 xl:pl-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-800"><i class="fa-solid fa-pen-to-square text-amber-600 mr-1"></i>พิมพ์บันทึกผู้บริหาร (แสดงในเอกสารเวลาสั่งพิมพ์):</span>
+              <div class="flex gap-1.5 no-print">
+                <button onclick="openPrintableDoc('celestica_doc_charter_cba.html')" class="px-2 py-0.5 rounded bg-sky-100 hover:bg-sky-200 text-sky-800 font-semibold text-[11px]">พิมพ์ DOC-1 (CBA)</button>
+                <button onclick="openPrintableDoc('celestica_doc_sow_vmp.html')" class="px-2 py-0.5 rounded bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-semibold text-[11px]">พิมพ์ DOC-2 (SOW)</button>
+                <button onclick="openPrintableDoc('celestica_doc_p6_pmo.html')" class="px-2 py-0.5 rounded bg-amber-100 hover:bg-amber-200 text-amber-900 font-semibold text-[11px]">พิมพ์ DOC-3 (P6)</button>
+              </div>
+            </div>
+            <div class="flex gap-2 text-xs">
+              <input id="execMemoInput" type="text" value="Approved for Q4 Execution — Target SPI ≥ 1.00, CPI ≥ 1.02 across Miyagi & Laem Chabang." placeholder="พิมพ์หมายเหตุสำหรับแนบในการพิมพ์รายงาน..." class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-white focus:border-amber-500 focus:outline-none">
+              <button onclick="smartPrint(false)" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold whitespace-nowrap shadow-sm no-print">
+                <i class="fa-solid fa-print mr-1 text-amber-400"></i>สั่งพิมพ์หน้านี้
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1326,13 +1378,444 @@
 
     const REMOTE_API_HOST = "https://zabb-delivery-71o1.onrender.com";
     let apiBaseUrl = "";
-    const REMOTE_API_HOST = "https://zabb-delivery-71o1.onrender.com";
-    let apiBaseUrl = "";
-    let appState = {"kanban":[{"id":"KBN-01","card_code":"CLS-ITBP-101","title":"AI Visual Solder Joint Inspection (AOI) Edge Integration for High-Density Optical PCBA","title_jp":"高密度光通信基板向けAI外観検査(AOI)エッジ統合ワークショップ","stage":"IDEATION_WORKSHOP","priority":"HIGH","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Quality & IPC","wsjf_score":4.8,"budget_usd":185000,"npv_usd":420000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Kenji Takahashi (VP Quality, Miyagi)","due_date":"2026-11-15","progress_percent":35,"checklist_done":2,"checklist_total":5,"tags":"Design Thinking,IPC-A-610,Computer Vision,ATS","summary":"Facilitating 5-stage Design Thinking workshop with Miyagi NPI quality engineers to reduce false-call rates on 800G optical transceiver SMT lines by 62%.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-03","card_code":"CLS-ITBP-103","title":"BPR & Feasibility: Digital Twin Box-Build Traceability (Miyagi NPI to Laem Chabang Mass Prod)","title_jp":"宮城NPIからレムチャバン量産へのデジタルツイン筐体組立トレーサビリティBPR","stage":"FEASIBILITY_CBA","priority":"CRITICAL","bu_site":"CLS-GLOBAL (Toronto/APAC)","functional_area":"Manufacturing & MES","wsjf_score":6.75,"budget_usd":420000,"npv_usd":1180000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Hiroshi Watanabe (GM Operations, Miyagi)","due_date":"2026-11-05","progress_percent":70,"checklist_done":4,"checklist_total":5,"tags":"BPR,Feasibility,CBA,NPI-to-MP,DFM","summary":"Cost-benefit analysis & As-Is/To-Be process re-engineering unifying BOM/BOP transfer from Miyagi NPI Center to Laem Chabang Plant 2, cutting NPI transfer lead time by 18 days.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-05","card_code":"CLS-ITBP-105","title":"SMT Line IIoT Edge Gateway & SECS/GEM Protocol Hardware/Software Evaluation Readout","title_jp":"SMTラインIIoTエッジゲートウェイおよびSECS/GEMプロトコル機器選定評価","stage":"WSJF_HWSW_EVAL","priority":"CRITICAL","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"IT Infrastructure","wsjf_score":6.25,"budget_usd":260000,"npv_usd":680000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Daisuke Ito (Chief Mfg Engineer, Miyagi)","due_date":"2026-10-28","progress_percent":85,"checklist_done":5,"checklist_total":6,"tags":"HW/SW Eval,SECS/GEM,OPC-UA,Fuji NXT","summary":"Evaluating Advantech vs. Dell NativeEdge vs. Cisco Industrial Gateways for real-time telemetry across 14 Fuji NXT & Panasonic NPM pick-and-place lines.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-07","card_code":"CLS-ITBP-107","title":"Vendor SOW & Governance: Siemens Opcenter Execution Electronics (Camstar) v24 Upgrade","title_jp":"シーメンスOpcenter Execution Electronics (Camstar) v24アップグレードSOW契約管理","stage":"SOW_VENDOR_GOV","priority":"CRITICAL","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Manufacturing & MES","wsjf_score":7.25,"budget_usd":580000,"npv_usd":1640000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Taro Nakamura (IT Director, APAC)","due_date":"2026-10-25","progress_percent":90,"checklist_done":5,"checklist_total":5,"tags":"SOW,Vendor Mgmt,Siemens MES,PMO Escalation","summary":"Finalized Statement of Work with Siemens Digital Industries & Hitachi Systems; resolved DB migration roadblock via PMO escalation protocol.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-09","card_code":"CLS-ITBP-109","title":"Master Program: Next-Gen MES & SAP S/4HANA Shop-Floor Convergence (Japan-Thailand Bridge)","title_jp":"次世代MES・SAP S/4HANAショップフロア統合マスタープログラム（日タイ連携）","stage":"P6_EXECUTION","priority":"CRITICAL","bu_site":"CLS-GLOBAL (Toronto/APAC)","functional_area":"Manufacturing & MES","wsjf_score":7.5,"budget_usd":1250000,"npv_usd":3450000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Exec SteerCo (Toronto / Tokyo / Chonburi)","due_date":"2026-12-20","progress_percent":68,"checklist_done":7,"checklist_total":10,"tags":"Primavera P6,CPM,EVM,SAP S/4HANA,MES","summary":"Active execution tracked in Oracle Primavera P6 EPPM (14 WBS activities). Current SPI = 1.02, CPI = 1.05; Critical Path on API Gateway & Bilingual UAT.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-11","card_code":"CLS-ITBP-111","title":"Bilingual EDI 850/856/810 ASN Hub for Japanese Semiconductor & Capital Equipment OEMs","title_jp":"日本の半導体・製造装置OEM向け日英バイリンガルEDI/ASN自動連携ハブ","stage":"UAT_VALUE_REALIZED","priority":"HIGH","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Supply Chain & APS","wsjf_score":6.4,"budget_usd":175000,"npv_usd":540000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Kazuo Fujita (VP Commercial, Tokyo)","due_date":"2026-10-10","progress_percent":100,"checklist_done":6,"checklist_total":6,"tags":"Go-Live,EDI/B2B,E2Open,Value Realized","summary":"Completed UAT and Go-Live across 12 Japanese Tier-1 OEM customers. Achieved 99.94% ASN accuracy and reduced order entry cycle time from 4.5 hrs to 3 mins.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-02","card_code":"CLS-ITBP-102","title":"Automated Reverse Logistics & ITAD RMA Customer Portal for Tokyo Enterprise OEMs","title_jp":"東京エンタープライズOEM向けRMA・ITAD逆物流自動化ポータル","stage":"IDEATION_WORKSHOP","priority":"MEDIUM","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Supply Chain & APS","wsjf_score":3.75,"budget_usd":110000,"npv_usd":265000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Yuki Sato (Director After-Market, Tokyo)","due_date":"2026-11-30","progress_percent":25,"checklist_done":1,"checklist_total":4,"tags":"BABOK,Customer Portal,After-Market,ITAD","summary":"Requirements solicitation & playback sessions with Tokyo Commercial & Hino Repair Depot to automate RMA serialization and warranty entitlement checks.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-04","card_code":"CLS-ITBP-104","title":"J-SOX & Global Finance Automated Three-Way Match (SAP S/4HANA & Japan e-Tax Invoice)","title_jp":"J-SOX対応・SAP S/4HANA自動三面照合およびインボイス制度統合","stage":"FEASIBILITY_CBA","priority":"HIGH","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Finance & J-SOX","wsjf_score":5.25,"budget_usd":145000,"npv_usd":390000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Akiko Tanaka (Finance Controller, Japan)","due_date":"2026-11-12","progress_percent":80,"checklist_done":4,"checklist_total":5,"tags":"J-SOX,SAP FICO,BPR,Compliance","summary":"Objective analysis of AP/AR reconciliation between Japanese subcontractors and Global SAP S/4HANA ledger; eliminates 1,400 manual hours/quarter.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-06","card_code":"CLS-ITBP-106","title":"Kinaxis RapidResponse AI Demand Sensing & Semiconductor Buffer Allocation Prioritization","title_jp":"Kinaxis RapidResponse AI需要予測・半導体在庫アロケーション優先順位付け","stage":"WSJF_HWSW_EVAL","priority":"HIGH","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Supply Chain & APS","wsjf_score":5.6,"budget_usd":290000,"npv_usd":810000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Somchai K. (SCM Dir, LCB) & K. Yamamoto","due_date":"2026-11-02","progress_percent":65,"checklist_done":3,"checklist_total":5,"tags":"WSJF,Kinaxis APS,Supply Chain,Buffer Stock","summary":"Qualifying and prioritizing 19 business requirements under Q4 IT execution capacity constraints using SAFe WSJF scoring matrix.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-08","card_code":"CLS-ITBP-108","title":"Automated ESD & Cleanroom Environmental Telemetry SOW (Omron IoT Sensors)","title_jp":"クリーンルーム環境・ESD自動監視テレメトリSOW契約（オムロンIoT）","stage":"SOW_VENDOR_GOV","priority":"MEDIUM","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Quality & IPC","wsjf_score":4.2,"budget_usd":95000,"npv_usd":240000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Nattapong S. (Quality Mgr, Laem Chabang)","due_date":"2026-11-10","progress_percent":75,"checklist_done":3,"checklist_total":4,"tags":"SOW,Omron IIoT,ESD Compliance,Aerospace","summary":"Prepared vendor SOW and SLA penalty matrix for AS9100 Aerospace & Defense cleanroom humidity/ESD real-time compliance logging.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-10","card_code":"CLS-ITBP-110","title":"Valor Process Preparation & Automated SMT Stencil/Feeder Verification Rollout","title_jp":"Valor工程設計・SMTステンシル/フィーダー自動照合システム展開","stage":"P6_EXECUTION","priority":"HIGH","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Manufacturing & MES","wsjf_score":5.8,"budget_usd":215000,"npv_usd":590000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Shinji Abe (NPI Engineering Lead, Miyagi)","due_date":"2026-11-28","progress_percent":55,"checklist_done":3,"checklist_total":5,"tags":"Primavera P6,Valor DFM,SMT Setup,Zero-Defect","summary":"P6 WBS 1.3 execution phase: integrating Mentor Valor NPI package with shop-floor barcode scanners to prevent wrong-reel feeder loading.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-12","card_code":"CLS-ITBP-112","title":"Automated Failure Analysis Lab LIMS & X-Ray Inspection Archive (Laem Chabang & Miyagi)","title_jp":"故障解析ラボLIMSおよびX線検査画像アーカイブ統合（レムチャバン・宮城）","stage":"UAT_VALUE_REALIZED","priority":"MEDIUM","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Quality & IPC","wsjf_score":4.5,"budget_usd":130000,"npv_usd":310000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Dr. Pornchai V. (FA Lab Lead, LCB)","due_date":"2026-10-01","progress_percent":100,"checklist_done":5,"checklist_total":5,"tags":"LIMS,Failure Analysis,Quality,Cloud S3","summary":"Delivered cross-site Failure Analysis knowledge repository linking Laem Chabang and Miyagi labs; cut root-cause 8D report turnaround by 44%.","display_order":2,"updated_at":"2026-10-16 04:35:37"}],"p6_activities":[{"id":"P6-01","project_id":"PRJ-JP-2026-MES","wbs_code":"1.1","wbs_name":"1.1 Initiation & Japan Ringi-sho Alignment","activity_id":"A1000","activity_name":"Project Charter & Japan Ringi-sho (稟議書) Executive Sign-Off","activity_type":"Start Milestone","original_duration_days":5,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-01","early_finish":"2026-07-07","late_start":"2026-07-01","late_finish":"2026-07-07","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"-","relationship_type":"FS","primary_resource":"Aritut (Mgr, ITBP 2)","resource_role":"IT Business Partner Lead","planned_value_usd":35000,"earned_value_usd":35000,"actual_cost_usd":33500,"bac_usd":35000,"status":"COMPLETED","notes":"Approved by Director of ITBP (Toronto), GM Miyagi Plant, and VP Operations Laem Chabang."},{"id":"P6-02","project_id":"PRJ-JP-2026-MES","wbs_code":"1.1","wbs_name":"1.1 Initiation & Japan Ringi-sho Alignment","activity_id":"A1010","activity_name":"Design Thinking & Gemba Requirements Workshop (Miyagi & Tokyo)","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-08","early_finish":"2026-07-28","late_start":"2026-07-08","late_finish":"2026-07-28","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1000","relationship_type":"FS","primary_resource":"Aritut / K. Takahashi","resource_role":"ITBP & Japan SMEs","planned_value_usd":65000,"earned_value_usd":65000,"actual_cost_usd":62000,"bac_usd":65000,"status":"COMPLETED","notes":"5-Stage Design Thinking conducted in Japanese/English; 42 user stories & BABOK BRD baseline signed."},{"id":"P6-03","project_id":"PRJ-JP-2026-MES","wbs_code":"1.2","wbs_name":"1.2 BPR, Feasibility & Architecture Blueprint","activity_id":"A1020","activity_name":"As-Is / To-Be BPR Flowcharts & 5-Year Financial CBA Readout","activity_type":"Task Dependent","original_duration_days":12,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-29","early_finish":"2026-08-13","late_start":"2026-07-29","late_finish":"2026-08-13","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1010","relationship_type":"FS","primary_resource":"Aritut / A. Tanaka","resource_role":"ITBP & Finance Controller","planned_value_usd":55000,"earned_value_usd":55000,"actual_cost_usd":51800,"bac_usd":55000,"status":"COMPLETED","notes":"Validated NPV = $3.45M, IRR = 38.4%, Payback = 14.2 months across Miyagi & Laem Chabang."},{"id":"P6-04","project_id":"PRJ-JP-2026-MES","wbs_code":"1.2","wbs_name":"1.2 BPR, Feasibility & Architecture Blueprint","activity_id":"A1030","activity_name":"Hardware/Software Evaluation (IIoT Edge Gateways & SECS/GEM)","activity_type":"Task Dependent","original_duration_days":10,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-29","early_finish":"2026-08-11","late_start":"2026-08-03","late_finish":"2026-08-16","total_float_days":4,"free_float_days":4,"is_critical":0,"predecessors":"A1010","relationship_type":"FS","primary_resource":"Daisuke Ito / Infra Team","resource_role":"Solutions Architect","planned_value_usd":48000,"earned_value_usd":48000,"actual_cost_usd":47200,"bac_usd":48000,"status":"COMPLETED","notes":"Non-critical path (4d Float). Selected Advantech MIC-770 V3 + OPC-UA/SECS-GEM Broker."},{"id":"P6-05","project_id":"PRJ-JP-2026-MES","wbs_code":"1.3","wbs_name":"1.3 Vendor SOW & PMO Procurement Governance","activity_id":"A1040","activity_name":"Vendor RFP, Statement of Work (SOW) & SLA Contract Execution","activity_type":"Task Dependent","original_duration_days":14,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-08-14","early_finish":"2026-09-02","late_start":"2026-08-14","late_finish":"2026-09-02","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1020, A1030","relationship_type":"FS","primary_resource":"Aritut / Global Procurement","resource_role":"ITBP & Legal/Vendor Mgmt","planned_value_usd":70000,"earned_value_usd":70000,"actual_cost_usd":68000,"bac_usd":70000,"status":"COMPLETED","notes":"Signed fixed-price milestone SOW ($580k) with Siemens Digital Industries & Hitachi Systems."},{"id":"P6-06","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1050","activity_name":"Siemens Opcenter MES v24 Core Schema & Bilingual UI Localization","activity_type":"Task Dependent","original_duration_days":22,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-09-03","early_finish":"2026-10-02","late_start":"2026-09-03","late_finish":"2026-10-02","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1040","relationship_type":"FS","primary_resource":"Hitachi MES Squad / LCB Dev","resource_role":"MES Lead Engineer","planned_value_usd":180000,"earned_value_usd":180000,"actual_cost_usd":171500,"bac_usd":180000,"status":"COMPLETED","notes":"Japanese/English/Thai operator terminal screens and IPC-1782 traceability schema deployed."},{"id":"P6-07","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1060","activity_name":"SAP S/4HANA PP/MM IDoc & REST API Integration Bridge (BAPI/OData)","activity_type":"Task Dependent","original_duration_days":20,"remaining_duration_days":4,"percent_complete":80,"early_start":"2026-09-25","early_finish":"2026-10-22","late_start":"2026-09-25","late_finish":"2026-10-22","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1050","relationship_type":"SS+15d","primary_resource":"Global SAP CoE (Toronto/LCB)","resource_role":"ERP Integration Specialist","planned_value_usd":135000,"earned_value_usd":144000,"actual_cost_usd":136000,"bac_usd":180000,"status":"IN_PROGRESS","notes":"CRITICAL PATH: Real-time Production Order & Backflush confirmation sync between SAP and Opcenter."},{"id":"P6-08","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1070","activity_name":"SMT Pick-and-Place (Fuji NXT / Panasonic NPM) Edge Telemetry Setup","activity_type":"Task Dependent","original_duration_days":16,"remaining_duration_days":3,"percent_complete":81.25,"early_start":"2026-09-28","early_finish":"2026-10-19","late_start":"2026-10-05","late_finish":"2026-10-26","total_float_days":5,"free_float_days":2,"is_critical":0,"predecessors":"A1050","relationship_type":"FS","primary_resource":"Miyagi Automation Team","resource_role":"IIoT Field Engineer","planned_value_usd":90000,"earned_value_usd":97500,"actual_cost_usd":93000,"bac_usd":120000,"status":"IN_PROGRESS","notes":"11 of 14 SMT lines streaming live feeder splice & nozzle vacuum telemetry via Kafka."},{"id":"P6-09","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1080","activity_name":"Kinaxis RapidResponse APS & E2Open Supplier Portal Connector","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":5,"percent_complete":66.7,"early_start":"2026-10-05","early_finish":"2026-10-23","late_start":"2026-10-12","late_finish":"2026-10-30","total_float_days":5,"free_float_days":5,"is_critical":0,"predecessors":"A1060","relationship_type":"SS+7d","primary_resource":"SCM IT Team (Laem Chabang)","resource_role":"Supply Chain Architect","planned_value_usd":72000,"earned_value_usd":73370,"actual_cost_usd":71000,"bac_usd":110000,"status":"IN_PROGRESS","notes":"Automated WIP visibility feed for Tokyo OEM order promising and CTB (Clear-to-Build) checks."},{"id":"P6-10","project_id":"PRJ-JP-2026-MES","wbs_code":"1.5","wbs_name":"1.5 Verification, J-SOX Audit & Bilingual UAT","activity_id":"A1090","activity_name":"End-to-End SIT & Cybersecurity / J-SOX ITGC Penetration Testing","activity_type":"Task Dependent","original_duration_days":12,"remaining_duration_days":8,"percent_complete":33.3,"early_start":"2026-10-12","early_finish":"2026-10-28","late_start":"2026-10-12","late_finish":"2026-10-28","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1060, A1070","relationship_type":"FS","primary_resource":"Global InfoSec & Japan Audit","resource_role":"Security & J-SOX Auditor","planned_value_usd":38000,"earned_value_usd":36630,"actual_cost_usd":35000,"bac_usd":110000,"status":"IN_PROGRESS","notes":"CRITICAL PATH: Validating role-based access control (RBAC) and immutable audit trails."},{"id":"P6-11","project_id":"PRJ-JP-2026-MES","wbs_code":"1.5","wbs_name":"1.5 Verification, J-SOX Audit & Bilingual UAT","activity_id":"A1100","activity_name":"Bilingual User Acceptance Testing (UAT) — Miyagi NPI & LCB Plant 2","activity_type":"Task Dependent","original_duration_days":14,"remaining_duration_days":14,"percent_complete":0,"early_start":"2026-10-29","early_finish":"2026-11-17","late_start":"2026-10-29","late_finish":"2026-11-17","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1090","relationship_type":"FS","primary_resource":"Aritut / Shop Floor Key Users","resource_role":"ITBP UAT Facilitator","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":105000,"status":"NOT_STARTED","notes":"CRITICAL PATH: Parallel simulation of 5 optical & server blade work orders across JP and TH."},{"id":"P6-12","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1110","activity_name":"Operator Training & Bilingual SOP Handover (JP/EN/TH)","activity_type":"Task Dependent","original_duration_days":10,"remaining_duration_days":10,"percent_complete":0,"early_start":"2026-11-05","early_finish":"2026-11-18","late_start":"2026-11-11","late_finish":"2026-11-24","total_float_days":4,"free_float_days":4,"is_critical":0,"predecessors":"A1090","relationship_type":"FS","primary_resource":"HRD & ITBP Change Mgmt","resource_role":"Change Management Lead","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":52000,"status":"NOT_STARTED","notes":"Training 180 line leaders in Miyagi (Japanese) and 420 operators in Laem Chabang (Thai/EN)."},{"id":"P6-13","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1120","activity_name":"Production Cutover, Go-Live & 24x7 War-Room Hypercare","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":15,"percent_complete":0,"early_start":"2026-11-18","early_finish":"2026-12-08","late_start":"2026-11-18","late_finish":"2026-12-08","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1100, A1110","relationship_type":"FS","primary_resource":"Aritut / Global PMO / Vendors","resource_role":"Cutover Commander","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":85000,"status":"NOT_STARTED","notes":"CRITICAL PATH: Zero-downtime weekend cutover during scheduled plant maintenance window."},{"id":"P6-14","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1130","activity_name":"Post-Implementation Review (PIR) & Benefits Realization Sign-Off","activity_type":"Finish Milestone","original_duration_days":8,"remaining_duration_days":8,"percent_complete":0,"early_start":"2026-12-09","early_finish":"2026-12-18","late_start":"2026-12-09","late_finish":"2026-12-18","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1120","relationship_type":"FS","primary_resource":"Aritut / Director of ITBP","resource_role":"IT Business Partner Lead","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":35000,"status":"NOT_STARTED","notes":"Final readout to Toronto PMO & Japan Executive Board verifying OEE (+6.8%) and Cycle Time KPIs."}],"p6_summary":{"total_activities":14,"critical_activities":10,"completed_activities":6,"pv_usd":788000,"ev_usd":804500,"ac_usd":769000,"bac_usd":1250000,"spi":1.02,"cpi":1.05,"eac_usd":1190476,"vac_usd":59524,"overall_progress_percent":64.4},"requirements":[{"id":"REQ-01","req_code":"BRD-JP-001","project_code":"CLS-ITBP-109","workshop_method":"Design Thinking (5-Stage)","bu_department":"Miyagi NPI & Laem Chabang Box-Build","stakeholder_jp":"Hiroshi Watanabe (宮城工場長)","requirement_title":"Automated e-DHR & Lot Genealogy Across Japan NPI and Thailand Mass Production","requirement_title_jp":"日タイ拠点間での電子デバイス履歴記録(e-DHR)およびロット追跡の完全自動化","business_need":"Eliminate manual Excel/PDF serialization handoffs during NPI-to-MP transfer, reducing transfer cycle time from 28 days to 10 days.","technical_spec":"ISA-95 Level 3 REST/Kafka bridge syncing Siemens Opcenter e-DHR XML packages with SAP S/4HANA Batch Management (MSC1N) & Valor BOM.","user_business_value":10,"time_criticality":9,"risk_reduction":10,"job_size":4,"cost_of_delay":29,"wsjf_index":7.25,"moscow_priority":"MUST_HAVE","verification_method":"End-to-End Lot Traceability Audit (< 3 sec query)","traceability_status":"IN_DEV"},{"id":"REQ-02","req_code":"BRD-JP-002","project_code":"CLS-ITBP-105","workshop_method":"Gemba Kaizen Walk","bu_department":"Miyagi SMT Assembly Line 1-14","stakeholder_jp":"Daisuke Ito (生産技術部長)","requirement_title":"Real-Time SMT Feeder Wrong-Reel Interlock & MSD (Moisture Sensitive Device) Floor-Life Timer","requirement_title_jp":"SMTフィーダー異품種装填インターロックおよびMSD湿度管理タイマー自動遮断","business_need":"Prevent costly PCBA scrap on high-density optical modules caused by expired J-STD-033 moisture exposure time.","technical_spec":"SECS/GEM S2F41 Host Command interlock to Fuji NXT / Panasonic NPM halting machine start if barcode scan mismatches BOM or MSD floor-life > 72 hrs.","user_business_value":10,"time_criticality":9,"risk_reduction":9,"job_size":4,"cost_of_delay":28,"wsjf_index":7,"moscow_priority":"MUST_HAVE","verification_method":"Shop-Floor Interlock Simulation (100% Block Rate)","traceability_status":"APPROVED"},{"id":"REQ-03","req_code":"BRD-JP-003","project_code":"CLS-ITBP-104","workshop_method":"J-SOX Compliance Audit","bu_department":"Japan Finance & Global Shared Services","stakeholder_jp":"Akiko Tanaka (財務統括部長)","requirement_title":"J-SOX Compliant Automated Three-Way Match & Qualified Invoice System (適格請求書) Validation","requirement_title_jp":"J-SOX準拠の自動三面照合および適格請求書（インボイス制度）NTA API検証","business_need":"Ensure 100% statutory compliance with Japan National Tax Agency (NTA) invoice registration and eliminate manual PO-GR-IR discrepancies.","technical_spec":"SAP S/4HANA FI/MM BAPI integration with NTA T-Number validation API and automated workflow approval matrix.","user_business_value":9,"time_criticality":8,"risk_reduction":10,"job_size":5,"cost_of_delay":27,"wsjf_index":5.4,"moscow_priority":"MUST_HAVE","verification_method":"External Auditor J-SOX ITGC Sample Test (0 Findings)","traceability_status":"VALIDATED"},{"id":"REQ-04","req_code":"BRD-JP-004","project_code":"CLS-ITBP-106","workshop_method":"BPM SIPOC Workshop","bu_department":"Global Supply Chain & Tokyo OEM Sales","stakeholder_jp":"Kazuo Fujita (営業本部長)","requirement_title":"Bi-Directional Kinaxis RapidResponse Clear-to-Build (CTB) & Allocation Simulation","requirement_title_jp":"Kinaxis RapidResponse双方向クリア・トゥ・ビルド(CTB)および部材引当シミュレーション","business_need":"Provide Japanese OEM customers with real-time commit dates when long-lead semiconductor components experience allocation constraints.","technical_spec":"High-frequency OData delta sync between SAP S/4HANA MD04 MRP Live, E2Open Supplier commits, and Kinaxis RapidResponse.","user_business_value":9,"time_criticality":9,"risk_reduction":8,"job_size":5,"cost_of_delay":26,"wsjf_index":5.2,"moscow_priority":"SHOULD_HAVE","verification_method":"Parallel MRP vs. Kinaxis Scenario Playback","traceability_status":"APPROVED"},{"id":"REQ-05","req_code":"BRD-JP-005","project_code":"CLS-ITBP-101","workshop_method":"Design Thinking (5-Stage)","bu_department":"Miyagi & Laem Chabang Quality Assurance","stakeholder_jp":"Kenji Takahashi (品質保証部長)","requirement_title":"AI Computer Vision Secondary Verification for 3D AOI / AXI False Calls","requirement_title_jp":"3D AOI/AXI過検出削減のためのAI画像認識二次判定エンジン統合","business_need":"Reduce manual operator re-inspection workload by 60% while maintaining zero escape rate (0 DPPM) for IPC-A-610 Class 3 assemblies.","technical_spec":"NVIDIA Jetson Orin Industrial edge inference container receiving Koh Young / Omron 3D AOI image crops via gRPC.","user_business_value":8,"time_criticality":7,"risk_reduction":8,"job_size":5,"cost_of_delay":23,"wsjf_index":4.6,"moscow_priority":"SHOULD_HAVE","verification_method":"Gage R&R & Confusion Matrix Validation (AUC > 0.994)","traceability_status":"ELICITED"},{"id":"REQ-06","req_code":"BRD-JP-006","project_code":"CLS-ITBP-102","workshop_method":"Design Thinking (5-Stage)","bu_department":"Tokyo After-Market & Hino Repair Hub","stakeholder_jp":"Yuki Sato (アフターマーケット部長)","requirement_title":"Self-Service Japanese/English Customer RMA & ITAD Certificate Portal","requirement_title_jp":"日英対応セルフサービスRMA申請・ITADデータ消去証明書発行ポータル","business_need":"Allow enterprise cloud & telecom customers in Japan to track RMA repair TAT and download NIST 800-88 data sanitization certificates.","technical_spec":"React/Tailwind portal integrated with ServiceNow CSM and shop-floor repair routing via OAuth2/OIDC.","user_business_value":7,"time_criticality":6,"risk_reduction":6,"job_size":5,"cost_of_delay":19,"wsjf_index":3.8,"moscow_priority":"COULD_HAVE","verification_method":"Customer UAT Playback with 3 Pilot Tokyo OEMs","traceability_status":"ELICITED"}],"cba_studies":[{"id":"CBA-01","study_code":"CBA-2026-JP01","initiative_name":"Next-Gen MES & SAP S/4HANA Shop-Floor Convergence (Japan-Thailand Bridge)","target_site":"Miyagi Plant (CLS-MYG) & Laem Chabang (CLS-LCB)","functional_domain":"Manufacturing Operations & MES","as_is_process_desc":"Manual paper traveler & fragmented legacy shop-floor logs; batch ERP backflushing every 12 hours causing WIP blind spots and 18-day NPI handoff delays.","as_is_cycle_time_hrs":42,"as_is_defect_dppm":480,"as_is_oee_percent":74.5,"to_be_process_desc":"Unified Siemens Opcenter v24 + SAP S/4HANA real-time event mesh; barcode/RFID automated e-DHR genealogy, instant SECS/GEM machine interlocks, and 1-click NPI-to-MP BOM/BOP transfer.","to_be_cycle_time_hrs":6.5,"to_be_defect_dppm":45,"to_be_oee_percent":86.2,"capex_usd":1250000,"annual_opex_usd":145000,"annual_gross_savings_usd":1180000,"discount_rate_percent":8.5,"npv_5yr_usd":3450000,"irr_percent":38.4,"roi_percent":276,"payback_months":14.2,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-088"},{"id":"CBA-03","study_code":"CBA-2026-JP03","initiative_name":"Kinaxis RapidResponse AI Demand Sensing & Automated Supplier CTB Portal","target_site":"Tokyo Commercial HQ (CLS-TYO) & Laem Chabang SCM","functional_domain":"Supply Chain & Production Planning","as_is_process_desc":"Weekly spreadsheet-based Clear-to-Build (CTB) consolidation across 340+ suppliers; 4.5-day latency in responding to Japanese OEM forecast changes.","as_is_cycle_time_hrs":108,"as_is_defect_dppm":1250,"as_is_oee_percent":71,"to_be_process_desc":"Bi-directional Kinaxis RapidResponse + E2Open B2B EDI hub with automated constraints simulation, real-time supplier commit updates, and instant ATP/CTP readouts.","to_be_cycle_time_hrs":4,"to_be_defect_dppm":120,"to_be_oee_percent":88,"capex_usd":290000,"annual_opex_usd":42000,"annual_gross_savings_usd":340000,"discount_rate_percent":8.5,"npv_5yr_usd":810000,"irr_percent":46.8,"roi_percent":279.3,"payback_months":11.5,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-119"},{"id":"CBA-02","study_code":"CBA-2026-JP02","initiative_name":"SMT Line IIoT Edge Telemetry & Predictive Maintenance (14 High-Speed Lines)","target_site":"Miyagi Plant (CLS-MYG) & Laem Chabang Plant 1","functional_domain":"Industrial IoT & Production Engineering","as_is_process_desc":"Reactive nozzle/feeder maintenance; manual USB log extraction from Fuji NXT & Panasonic NPM machines; unplanned line stops averaging 5.8 hrs/week.","as_is_cycle_time_hrs":14.5,"as_is_defect_dppm":310,"as_is_oee_percent":76,"to_be_process_desc":"Real-time IPC-CFX / SECS-GEM edge streaming to Kafka & AI anomaly detection; automated splice validation and predictive nozzle cleaning alerts before pickup errors occur.","to_be_cycle_time_hrs":1.8,"to_be_defect_dppm":62,"to_be_oee_percent":85.4,"capex_usd":260000,"annual_opex_usd":38000,"annual_gross_savings_usd":295000,"discount_rate_percent":8.5,"npv_5yr_usd":680000,"irr_percent":44.2,"roi_percent":261.5,"payback_months":11.8,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-104"},{"id":"CBA-04","study_code":"CBA-2026-JP04","initiative_name":"J-SOX Automated 3-Way Match & Qualified e-Invoice (インボイス) FinOps Suite","target_site":"Tokyo Finance & Thailand Regional Shared Services","functional_domain":"Finance, Accounting & Compliance","as_is_process_desc":"Manual PDF invoice data entry, physical hanko/stamp routing, and manual NTA tax registration verification taking 5.2 days per voucher batch.","as_is_cycle_time_hrs":124.8,"as_is_defect_dppm":890,"as_is_oee_percent":68,"to_be_process_desc":"OCR + RPA + SAP S/4HANA BAPI automated 3-way match (PO/GR/IR) with real-time Japan NTA API tax ID verification and digital Ringi-sho workflow.","to_be_cycle_time_hrs":2.5,"to_be_defect_dppm":15,"to_be_oee_percent":94.5,"capex_usd":145000,"annual_opex_usd":22000,"annual_gross_savings_usd":178000,"discount_rate_percent":8.5,"npv_5yr_usd":390000,"irr_percent":48.5,"roi_percent":268.9,"payback_months":11.1,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-127"}],"sow_vendors":[{"id":"SOW-01","sow_number":"SOW-CLS-2026-081","vendor_name":"Siemens Digital Industries & Hitachi Systems (日立システムズ)","solution_category":"MES_SHOPFLOOR","project_title":"Opcenter Execution Electronics v24 Multi-Site Deployment (Miyagi & Laem Chabang)","contract_type":"Fixed-Price Milestone","total_contract_usd":580000,"start_date":"2026-08-15","end_date":"2026-12-18","functional_fit_score":96,"compatibility_score":95,"cybersecurity_jsox_score":98,"tco_commercial_score":90,"weighted_eval_score":95.1,"sla_uptime_target":"99.95% (P1 Response < 15m)","milestones_completed":4,"milestones_total":6,"governance_status":"ON_TRACK","escalation_note":"Resolved Milestone 3 Oracle-to-PostgreSQL partitioning delay via PMO escalation on 02-Oct-2026; vendor added 2 senior Japanese-speaking MES architects at zero extra cost."},{"id":"SOW-02","sow_number":"SOW-CLS-2026-094","vendor_name":"Advantech Japan & NTT Communications","solution_category":"IIOT_HARDWARE_EDGE","project_title":"MIC-770 V3 Industrial Edge Gateways & SECS/GEM Telemetry Appliance (14 SMT Lines)","contract_type":"Fixed-Price Milestone","total_contract_usd":260000,"start_date":"2026-09-01","end_date":"2026-11-30","functional_fit_score":94,"compatibility_score":96,"cybersecurity_jsox_score":93,"tco_commercial_score":92,"weighted_eval_score":94,"sla_uptime_target":"99.98% Edge High-Availability","milestones_completed":3,"milestones_total":4,"governance_status":"ON_TRACK","escalation_note":"Outscored Dell NativeEdge (88.4) and Cisco IC3000 (86.2) in multi-criteria HW/SW evaluation due to native Fuji NXT & Panasonic NPM driver compatibility and 18% lower 5-year TCO."},{"id":"SOW-03","sow_number":"SOW-CLS-2026-103","vendor_name":"Kinaxis Inc. & Nomura Research Institute (NRI / 野村総合研究所)","solution_category":"ERP_SUPPLY_CHAIN","project_title":"RapidResponse AI Demand Sensing & Japan OEM CTB Integration Pack","contract_type":"Time & Materials (Capped)","total_contract_usd":290000,"start_date":"2026-09-15","end_date":"2026-12-10","functional_fit_score":95,"compatibility_score":92,"cybersecurity_jsox_score":96,"tco_commercial_score":88,"weighted_eval_score":93.1,"sla_uptime_target":"99.90% Cloud SaaS SLA","milestones_completed":2,"milestones_total":5,"governance_status":"ROADBLOCK_ESCALATED","escalation_note":"PMO Escalation Active: SAP S/4HANA custom Z-table field mapping for consigned Japanese OEM silicon wafers delayed by 3 days. Negotiated fast-track CR review with Toronto Global ERP CoE."},{"id":"SOW-04","sow_number":"SOW-CLS-2026-112","vendor_name":"Koh Young Technology & Omron Automation","solution_category":"QUALITY_AOI_VISION","project_title":"KSMART AI True3D SPI/AOI Closed-Loop Feedback & IPC-CFX Bridge","contract_type":"Fixed-Price Milestone","total_contract_usd":185000,"start_date":"2026-10-10","end_date":"2027-01-31","functional_fit_score":93,"compatibility_score":91,"cybersecurity_jsox_score":94,"tco_commercial_score":89,"weighted_eval_score":92,"sla_uptime_target":"99.90% Vision Server SLA","milestones_completed":1,"milestones_total":4,"governance_status":"EVALUATION_READOUT","escalation_note":"Hardware & software readout presented to Miyagi & Laem Chabang Quality SteerCo; awaiting final Q4 CapEx release."}],"integrations":[{"id":"INT-01","connector_code":"SAP-S4-MES-BRIDGE","system_name":"SAP S/4HANA Global ERP <-> Siemens Opcenter MES (Miyagi & LCB)","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"OData v4 / SAP IDoc (PP_ORDER / BAPI_PRODORDCONF)","source_endpoint":"https://sap-s4.celestica.global/sap/opu/odata/sap/API_PRODUCTION_ORDER","target_endpoint":"https://mes-apac.celestica.global/api/v24/workorders/sync","sync_frequency":"Real-Time Event (< 5s)","latency_ms":42,"records_synced_today":18420,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"message_id\":\"IDOC-PP-20261016-8841\",\"plant_code\":\"JP01_MIYAGI_TO_TH02_LCB\",\"production_order\":\"PO-800G-OPT-99201\",\"material_sku\":\"CLS-OPT-800G-DR8-REV3\",\"order_qty\":2500,\"bom_revision\":\"REV-3.4-IPC3\",\"j_sox_control_hash\":\"SHA256:9f84b2c1e7a04891d23a\"}"},{"id":"INT-02","connector_code":"SECS-GEM-SMT-EDGE","system_name":"Fuji NXT / Panasonic NPM SMT Lines <-> Kafka IIoT Telemetry Broker","isa95_level":"Level 2 (SMT/IIoT Edge)","protocol_standard":"SECS/GEM (E5/E30/E37) & IPC-CFX over MQTT/TLS","source_endpoint":"tcp://10.148.22.101:5000/secsgem/miyagi-smt-line04","target_endpoint":"kafka://msk-apac.celestica.global:9094/topic/smt-telemetry-events","sync_frequency":"Streaming (100ms)","latency_ms":14,"records_synced_today":142500,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"machine_id\":\"MYG-SMT-L04-FUJI-NXT3\",\"event\":\"IPC_CFX_UNITS_PROCESSED\",\"board_barcode\":\"SN-MYG264100892\",\"placement_rate_cph\":38400,\"pickup_rate_percent\":99.97,\"msd_floor_life_remaining_hrs\":58.4,\"solder_paste_spi_status\":\"PASS_IPC_CLASS_3\"}"},{"id":"INT-03","connector_code":"KINAXIS-APS-E2OPEN","system_name":"Kinaxis RapidResponse APS <-> E2Open Multi-Tier Supplier Hub","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"REST JSON / AS2 EDI (850/856/860)","source_endpoint":"https://celestica.kinaxis.net/integration/v1/ctb-simulation","target_endpoint":"https://b2b.celestica.global/e2open/jp-oem-allocation","sync_frequency":"Every 15 Minutes","latency_ms":118,"records_synced_today":6340,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"simulation_id\":\"KIN-CTB-JP-2026-441\",\"customer_oem\":\"TOKYO_CLOUD_INFRA_OEM\",\"target_plant\":\"TH02_LAEM_CHABANG\",\"clear_to_build_percent\":98.5,\"critical_component\":\"DSP-7NM-ASIC-BGA\",\"allocated_buffer_qty\":12000,\"expedite_recommendation\":\"NO_ACTION_REQUIRED\"}"},{"id":"INT-04","connector_code":"PRIMAVERA-P6-SERVICENOW","system_name":"Oracle Primavera P6 EPPM <-> ServiceNow ITBM & Global PMO Cockpit","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"Primavera P6 REST API / XER Web Services","source_endpoint":"https://p6.celestica.global/p6ws/restapi/activity?projectId=PRJ-JP-2026-MES","target_endpoint":"https://celestica.service-now.com/api/now/table/pm_project_task","sync_frequency":"Hourly / On-Demand","latency_ms":85,"records_synced_today":940,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"eps_node\":\"CLS-APAC-ITBP\",\"project_id\":\"PRJ-JP-2026-MES\",\"data_date\":\"2026-10-16\",\"cpi\":1.05,\"spi\":1.02,\"critical_activities_count\":10,\"total_float_min_days\":0}"}],"integration_logs":[{"id":4,"connector_code":"KINAXIS-APS-E2OPEN","event_type":"CTB_ALLOCATION_SYNC","source_system":"Kinaxis RapidResponse","target_system":"Tokyo OEM Portal & LCB Warehouse","payload_summary":"Updated Clear-to-Build (98.5%) for Q4 High-Speed Switch Box-Build","status_code":200,"triggered_by":"SCM Batch Sync","created_at":"2026-10-16 04:35:38"},{"id":3,"connector_code":"PRIMAVERA-P6-SERVICENOW","event_type":"CPM_SCHEDULE_CALC","source_system":"Oracle Primavera P6 EPPM","target_system":"Global IT PMO Dashboard","payload_summary":"Recalculated Critical Path (Data Date: 16-Oct-2026): SPI=1.02, CPI=1.05","status_code":200,"triggered_by":"Aritut (Mgr, ITBP 2)","created_at":"2026-10-16 04:35:38"},{"id":2,"connector_code":"SECS-GEM-SMT-EDGE","event_type":"MSD_INTERLOCK_VERIFY","source_system":"Fuji NXT III Line 04 (Miyagi)","target_system":"Opcenter Camstar Quality Gate","payload_summary":"Verified J-STD-033 floor-life timer (58.4h remaining) — Line Start Authorized","status_code":200,"triggered_by":"Edge Gateway MIC-770","created_at":"2026-10-16 04:35:38"},{"id":1,"connector_code":"SAP-S4-MES-BRIDGE","event_type":"WORK_ORDER_RELEASE","source_system":"SAP S/4HANA (Global)","target_system":"Siemens Opcenter MES (Miyagi/LCB)","payload_summary":"Synced PO-800G-OPT-99201 (2,500 units) with e-DHR BOM Rev 3.4","status_code":200,"triggered_by":"System Auto-Scheduler","created_at":"2026-10-16 04:35:38"}],"kpis":{"active_initiatives":12,"total_portfolio_budget_usd":3855000,"total_portfolio_npv_usd":10515000,"avg_oee_improvement_pct":16.1,"p6_spi":1.02,"p6_cpi":1.05,"p6_overall_progress":64.4}};
+    let charts = {};
+    let draggedCardId = null;
+
+    let appState = {"kanban":[{"id":"KBN-01","card_code":"CLS-ITBP-101","title":"AI Visual Solder Joint Inspection (AOI) Edge Integration for High-Density Optical PCBA","title_jp":"高密度光通信基板向けAI外観検査(AOI)エッジ統合ワークショップ","stage":"IDEATION_WORKSHOP","priority":"HIGH","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Quality & IPC","wsjf_score":4.8,"budget_usd":185000,"npv_usd":420000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Kenji Takahashi (VP Quality, Miyagi)","due_date":"2026-11-15","progress_percent":35,"checklist_done":2,"checklist_total":5,"tags":"Design Thinking,IPC-A-610,Computer Vision,ATS","summary":"Facilitating 5-stage Design Thinking workshop with Miyagi NPI quality engineers to reduce false-call rates on 800G optical transceiver SMT lines by 62%.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-03","card_code":"CLS-ITBP-103","title":"BPR & Feasibility: Digital Twin Box-Build Traceability (Miyagi NPI to Laem Chabang Mass Prod)","title_jp":"宮城NPIからレムチャバン量産へのデジタルツイン筐体組立トレーサビリティBPR","stage":"FEASIBILITY_CBA","priority":"CRITICAL","bu_site":"CLS-GLOBAL (Toronto/APAC)","functional_area":"Manufacturing & MES","wsjf_score":6.75,"budget_usd":420000,"npv_usd":1180000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Hiroshi Watanabe (GM Operations, Miyagi)","due_date":"2026-11-05","progress_percent":70,"checklist_done":4,"checklist_total":5,"tags":"BPR,Feasibility,CBA,NPI-to-MP,DFM","summary":"Cost-benefit analysis & As-Is/To-Be process re-engineering unifying BOM/BOP transfer from Miyagi NPI Center to Laem Chabang Plant 2, cutting NPI transfer lead time by 18 days.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-05","card_code":"CLS-ITBP-105","title":"SMT Line IIoT Edge Gateway & SECS/GEM Protocol Hardware/Software Evaluation Readout","title_jp":"SMTラインIIoTエッジゲートウェイおよびSECS/GEMプロトコル機器選定評価","stage":"WSJF_HWSW_EVAL","priority":"CRITICAL","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"IT Infrastructure","wsjf_score":6.25,"budget_usd":260000,"npv_usd":680000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Daisuke Ito (Chief Mfg Engineer, Miyagi)","due_date":"2026-10-28","progress_percent":85,"checklist_done":5,"checklist_total":6,"tags":"HW/SW Eval,SECS/GEM,OPC-UA,Fuji NXT","summary":"Evaluating Advantech vs. Dell NativeEdge vs. Cisco Industrial Gateways for real-time telemetry across 14 Fuji NXT & Panasonic NPM pick-and-place lines.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-07","card_code":"CLS-ITBP-107","title":"Vendor SOW & Governance: Siemens Opcenter Execution Electronics (Camstar) v24 Upgrade","title_jp":"シーメンスOpcenter Execution Electronics (Camstar) v24アップグレードSOW契約管理","stage":"SOW_VENDOR_GOV","priority":"CRITICAL","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Manufacturing & MES","wsjf_score":7.25,"budget_usd":580000,"npv_usd":1640000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Taro Nakamura (IT Director, APAC)","due_date":"2026-10-25","progress_percent":90,"checklist_done":5,"checklist_total":5,"tags":"SOW,Vendor Mgmt,Siemens MES,PMO Escalation","summary":"Finalized Statement of Work with Siemens Digital Industries & Hitachi Systems; resolved DB migration roadblock via PMO escalation protocol.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-09","card_code":"CLS-ITBP-109","title":"Master Program: Next-Gen MES & SAP S/4HANA Shop-Floor Convergence (Japan-Thailand Bridge)","title_jp":"次世代MES・SAP S/4HANAショップフロア統合マスタープログラム（日タイ連携）","stage":"P6_EXECUTION","priority":"CRITICAL","bu_site":"CLS-GLOBAL (Toronto/APAC)","functional_area":"Manufacturing & MES","wsjf_score":7.5,"budget_usd":1250000,"npv_usd":3450000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Exec SteerCo (Toronto / Tokyo / Chonburi)","due_date":"2026-12-20","progress_percent":68,"checklist_done":7,"checklist_total":10,"tags":"Primavera P6,CPM,EVM,SAP S/4HANA,MES","summary":"Active execution tracked in Oracle Primavera P6 EPPM (14 WBS activities). Current SPI = 1.02, CPI = 1.05; Critical Path on API Gateway & Bilingual UAT.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-11","card_code":"CLS-ITBP-111","title":"Bilingual EDI 850/856/810 ASN Hub for Japanese Semiconductor & Capital Equipment OEMs","title_jp":"日本の半導体・製造装置OEM向け日英バイリンガルEDI/ASN自動連携ハブ","stage":"UAT_VALUE_REALIZED","priority":"HIGH","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Supply Chain & APS","wsjf_score":6.4,"budget_usd":175000,"npv_usd":540000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Kazuo Fujita (VP Commercial, Tokyo)","due_date":"2026-10-10","progress_percent":100,"checklist_done":6,"checklist_total":6,"tags":"Go-Live,EDI/B2B,E2Open,Value Realized","summary":"Completed UAT and Go-Live across 12 Japanese Tier-1 OEM customers. Achieved 99.94% ASN accuracy and reduced order entry cycle time from 4.5 hrs to 3 mins.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-02","card_code":"CLS-ITBP-102","title":"Automated Reverse Logistics & ITAD RMA Customer Portal for Tokyo Enterprise OEMs","title_jp":"東京エンタープライズOEM向けRMA・ITAD逆物流自動化ポータル","stage":"IDEATION_WORKSHOP","priority":"MEDIUM","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Supply Chain & APS","wsjf_score":3.75,"budget_usd":110000,"npv_usd":265000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Yuki Sato (Director After-Market, Tokyo)","due_date":"2026-11-30","progress_percent":25,"checklist_done":1,"checklist_total":4,"tags":"BABOK,Customer Portal,After-Market,ITAD","summary":"Requirements solicitation & playback sessions with Tokyo Commercial & Hino Repair Depot to automate RMA serialization and warranty entitlement checks.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-04","card_code":"CLS-ITBP-104","title":"J-SOX & Global Finance Automated Three-Way Match (SAP S/4HANA & Japan e-Tax Invoice)","title_jp":"J-SOX対応・SAP S/4HANA自動三面照合およびインボイス制度統合","stage":"FEASIBILITY_CBA","priority":"HIGH","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Finance & J-SOX","wsjf_score":5.25,"budget_usd":145000,"npv_usd":390000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Akiko Tanaka (Finance Controller, Japan)","due_date":"2026-11-12","progress_percent":80,"checklist_done":4,"checklist_total":5,"tags":"J-SOX,SAP FICO,BPR,Compliance","summary":"Objective analysis of AP/AR reconciliation between Japanese subcontractors and Global SAP S/4HANA ledger; eliminates 1,400 manual hours/quarter.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-06","card_code":"CLS-ITBP-106","title":"Kinaxis RapidResponse AI Demand Sensing & Semiconductor Buffer Allocation Prioritization","title_jp":"Kinaxis RapidResponse AI需要予測・半導体在庫アロケーション優先順位付け","stage":"WSJF_HWSW_EVAL","priority":"HIGH","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Supply Chain & APS","wsjf_score":5.6,"budget_usd":290000,"npv_usd":810000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Somchai K. (SCM Dir, LCB) & K. Yamamoto","due_date":"2026-11-02","progress_percent":65,"checklist_done":3,"checklist_total":5,"tags":"WSJF,Kinaxis APS,Supply Chain,Buffer Stock","summary":"Qualifying and prioritizing 19 business requirements under Q4 IT execution capacity constraints using SAFe WSJF scoring matrix.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-08","card_code":"CLS-ITBP-108","title":"Automated ESD & Cleanroom Environmental Telemetry SOW (Omron IoT Sensors)","title_jp":"クリーンルーム環境・ESD自動監視テレメトリSOW契約（オムロンIoT）","stage":"SOW_VENDOR_GOV","priority":"MEDIUM","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Quality & IPC","wsjf_score":4.2,"budget_usd":95000,"npv_usd":240000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Nattapong S. (Quality Mgr, Laem Chabang)","due_date":"2026-11-10","progress_percent":75,"checklist_done":3,"checklist_total":4,"tags":"SOW,Omron IIoT,ESD Compliance,Aerospace","summary":"Prepared vendor SOW and SLA penalty matrix for AS9100 Aerospace & Defense cleanroom humidity/ESD real-time compliance logging.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-10","card_code":"CLS-ITBP-110","title":"Valor Process Preparation & Automated SMT Stencil/Feeder Verification Rollout","title_jp":"Valor工程設計・SMTステンシル/フィーダー自動照合システム展開","stage":"P6_EXECUTION","priority":"HIGH","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Manufacturing & MES","wsjf_score":5.8,"budget_usd":215000,"npv_usd":590000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Shinji Abe (NPI Engineering Lead, Miyagi)","due_date":"2026-11-28","progress_percent":55,"checklist_done":3,"checklist_total":5,"tags":"Primavera P6,Valor DFM,SMT Setup,Zero-Defect","summary":"P6 WBS 1.3 execution phase: integrating Mentor Valor NPI package with shop-floor barcode scanners to prevent wrong-reel feeder loading.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-12","card_code":"CLS-ITBP-112","title":"Automated Failure Analysis Lab LIMS & X-Ray Inspection Archive (Laem Chabang & Miyagi)","title_jp":"故障解析ラボLIMSおよびX線検査画像アーカイブ統合（レムチャバン・宮城）","stage":"UAT_VALUE_REALIZED","priority":"MEDIUM","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Quality & IPC","wsjf_score":4.5,"budget_usd":130000,"npv_usd":310000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Dr. Pornchai V. (FA Lab Lead, LCB)","due_date":"2026-10-01","progress_percent":100,"checklist_done":5,"checklist_total":5,"tags":"LIMS,Failure Analysis,Quality,Cloud S3","summary":"Delivered cross-site Failure Analysis knowledge repository linking Laem Chabang and Miyagi labs; cut root-cause 8D report turnaround by 44%.","display_order":2,"updated_at":"2026-10-16 04:35:37"}],"p6_activities":[{"id":"P6-01","project_id":"PRJ-JP-2026-MES","wbs_code":"1.1","wbs_name":"1.1 Initiation & Japan Ringi-sho Alignment","activity_id":"A1000","activity_name":"Project Charter & Japan Ringi-sho (稟議書) Executive Sign-Off","activity_type":"Start Milestone","original_duration_days":5,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-01","early_finish":"2026-07-07","late_start":"2026-07-01","late_finish":"2026-07-07","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"-","relationship_type":"FS","primary_resource":"Aritut (Mgr, ITBP 2)","resource_role":"IT Business Partner Lead","planned_value_usd":35000,"earned_value_usd":35000,"actual_cost_usd":33500,"bac_usd":35000,"status":"COMPLETED","notes":"Approved by Director of ITBP (Toronto), GM Miyagi Plant, and VP Operations Laem Chabang."},{"id":"P6-02","project_id":"PRJ-JP-2026-MES","wbs_code":"1.1","wbs_name":"1.1 Initiation & Japan Ringi-sho Alignment","activity_id":"A1010","activity_name":"Design Thinking & Gemba Requirements Workshop (Miyagi & Tokyo)","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-08","early_finish":"2026-07-28","late_start":"2026-07-08","late_finish":"2026-07-28","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1000","relationship_type":"FS","primary_resource":"Aritut / K. Takahashi","resource_role":"ITBP & Japan SMEs","planned_value_usd":65000,"earned_value_usd":65000,"actual_cost_usd":62000,"bac_usd":65000,"status":"COMPLETED","notes":"5-Stage Design Thinking conducted in Japanese/English; 42 user stories & BABOK BRD baseline signed."},{"id":"P6-03","project_id":"PRJ-JP-2026-MES","wbs_code":"1.2","wbs_name":"1.2 BPR, Feasibility & Architecture Blueprint","activity_id":"A1020","activity_name":"As-Is / To-Be BPR Flowcharts & 5-Year Financial CBA Readout","activity_type":"Task Dependent","original_duration_days":12,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-29","early_finish":"2026-08-13","late_start":"2026-07-29","late_finish":"2026-08-13","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1010","relationship_type":"FS","primary_resource":"Aritut / A. Tanaka","resource_role":"ITBP & Finance Controller","planned_value_usd":55000,"earned_value_usd":55000,"actual_cost_usd":51800,"bac_usd":55000,"status":"COMPLETED","notes":"Validated NPV = $3.45M, IRR = 38.4%, Payback = 14.2 months across Miyagi & Laem Chabang."},{"id":"P6-04","project_id":"PRJ-JP-2026-MES","wbs_code":"1.2","wbs_name":"1.2 BPR, Feasibility & Architecture Blueprint","activity_id":"A1030","activity_name":"Hardware/Software Evaluation (IIoT Edge Gateways & SECS/GEM)","activity_type":"Task Dependent","original_duration_days":10,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-29","early_finish":"2026-08-11","late_start":"2026-08-03","late_finish":"2026-08-16","total_float_days":4,"free_float_days":4,"is_critical":0,"predecessors":"A1010","relationship_type":"FS","primary_resource":"Daisuke Ito / Infra Team","resource_role":"Solutions Architect","planned_value_usd":48000,"earned_value_usd":48000,"actual_cost_usd":47200,"bac_usd":48000,"status":"COMPLETED","notes":"Non-critical path (4d Float). Selected Advantech MIC-770 V3 + OPC-UA/SECS-GEM Broker."},{"id":"P6-05","project_id":"PRJ-JP-2026-MES","wbs_code":"1.3","wbs_name":"1.3 Vendor SOW & PMO Procurement Governance","activity_id":"A1040","activity_name":"Vendor RFP, Statement of Work (SOW) & SLA Contract Execution","activity_type":"Task Dependent","original_duration_days":14,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-08-14","early_finish":"2026-09-02","late_start":"2026-08-14","late_finish":"2026-09-02","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1020, A1030","relationship_type":"FS","primary_resource":"Aritut / Global Procurement","resource_role":"ITBP & Legal/Vendor Mgmt","planned_value_usd":70000,"earned_value_usd":70000,"actual_cost_usd":68000,"bac_usd":70000,"status":"COMPLETED","notes":"Signed fixed-price milestone SOW ($580k) with Siemens Digital Industries & Hitachi Systems."},{"id":"P6-06","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1050","activity_name":"Siemens Opcenter MES v24 Core Schema & Bilingual UI Localization","activity_type":"Task Dependent","original_duration_days":22,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-09-03","early_finish":"2026-10-02","late_start":"2026-09-03","late_finish":"2026-10-02","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1040","relationship_type":"FS","primary_resource":"Hitachi MES Squad / LCB Dev","resource_role":"MES Lead Engineer","planned_value_usd":180000,"earned_value_usd":180000,"actual_cost_usd":171500,"bac_usd":180000,"status":"COMPLETED","notes":"Japanese/English/Thai operator terminal screens and IPC-1782 traceability schema deployed."},{"id":"P6-07","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1060","activity_name":"SAP S/4HANA PP/MM IDoc & REST API Integration Bridge (BAPI/OData)","activity_type":"Task Dependent","original_duration_days":20,"remaining_duration_days":4,"percent_complete":80,"early_start":"2026-09-25","early_finish":"2026-10-22","late_start":"2026-09-25","late_finish":"2026-10-22","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1050","relationship_type":"SS+15d","primary_resource":"Global SAP CoE (Toronto/LCB)","resource_role":"ERP Integration Specialist","planned_value_usd":135000,"earned_value_usd":144000,"actual_cost_usd":136000,"bac_usd":180000,"status":"IN_PROGRESS","notes":"CRITICAL PATH: Real-time Production Order & Backflush confirmation sync between SAP and Opcenter."},{"id":"P6-08","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1070","activity_name":"SMT Pick-and-Place (Fuji NXT / Panasonic NPM) Edge Telemetry Setup","activity_type":"Task Dependent","original_duration_days":16,"remaining_duration_days":3,"percent_complete":81.25,"early_start":"2026-09-28","early_finish":"2026-10-19","late_start":"2026-10-05","late_finish":"2026-10-26","total_float_days":5,"free_float_days":2,"is_critical":0,"predecessors":"A1050","relationship_type":"FS","primary_resource":"Miyagi Automation Team","resource_role":"IIoT Field Engineer","planned_value_usd":90000,"earned_value_usd":97500,"actual_cost_usd":93000,"bac_usd":120000,"status":"IN_PROGRESS","notes":"11 of 14 SMT lines streaming live feeder splice & nozzle vacuum telemetry via Kafka."},{"id":"P6-09","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1080","activity_name":"Kinaxis RapidResponse APS & E2Open Supplier Portal Connector","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":5,"percent_complete":66.7,"early_start":"2026-10-05","early_finish":"2026-10-23","late_start":"2026-10-12","late_finish":"2026-10-30","total_float_days":5,"free_float_days":5,"is_critical":0,"predecessors":"A1060","relationship_type":"SS+7d","primary_resource":"SCM IT Team (Laem Chabang)","resource_role":"Supply Chain Architect","planned_value_usd":72000,"earned_value_usd":73370,"actual_cost_usd":71000,"bac_usd":110000,"status":"IN_PROGRESS","notes":"Automated WIP visibility feed for Tokyo OEM order promising and CTB (Clear-to-Build) checks."},{"id":"P6-10","project_id":"PRJ-JP-2026-MES","wbs_code":"1.5","wbs_name":"1.5 Verification, J-SOX Audit & Bilingual UAT","activity_id":"A1090","activity_name":"End-to-End SIT & Cybersecurity / J-SOX ITGC Penetration Testing","activity_type":"Task Dependent","original_duration_days":12,"remaining_duration_days":8,"percent_complete":33.3,"early_start":"2026-10-12","early_finish":"2026-10-28","late_start":"2026-10-12","late_finish":"2026-10-28","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1060, A1070","relationship_type":"FS","primary_resource":"Global InfoSec & Japan Audit","resource_role":"Security & J-SOX Auditor","planned_value_usd":38000,"earned_value_usd":36630,"actual_cost_usd":35000,"bac_usd":110000,"status":"IN_PROGRESS","notes":"CRITICAL PATH: Validating role-based access control (RBAC) and immutable audit trails."},{"id":"P6-11","project_id":"PRJ-JP-2026-MES","wbs_code":"1.5","wbs_name":"1.5 Verification, J-SOX Audit & Bilingual UAT","activity_id":"A1100","activity_name":"Bilingual User Acceptance Testing (UAT) — Miyagi NPI & LCB Plant 2","activity_type":"Task Dependent","original_duration_days":14,"remaining_duration_days":14,"percent_complete":0,"early_start":"2026-10-29","early_finish":"2026-11-17","late_start":"2026-10-29","late_finish":"2026-11-17","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1090","relationship_type":"FS","primary_resource":"Aritut / Shop Floor Key Users","resource_role":"ITBP UAT Facilitator","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":105000,"status":"NOT_STARTED","notes":"CRITICAL PATH: Parallel simulation of 5 optical & server blade work orders across JP and TH."},{"id":"P6-12","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1110","activity_name":"Operator Training & Bilingual SOP Handover (JP/EN/TH)","activity_type":"Task Dependent","original_duration_days":10,"remaining_duration_days":10,"percent_complete":0,"early_start":"2026-11-05","early_finish":"2026-11-18","late_start":"2026-11-11","late_finish":"2026-11-24","total_float_days":4,"free_float_days":4,"is_critical":0,"predecessors":"A1090","relationship_type":"FS","primary_resource":"HRD & ITBP Change Mgmt","resource_role":"Change Management Lead","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":52000,"status":"NOT_STARTED","notes":"Training 180 line leaders in Miyagi (Japanese) and 420 operators in Laem Chabang (Thai/EN)."},{"id":"P6-13","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1120","activity_name":"Production Cutover, Go-Live & 24x7 War-Room Hypercare","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":15,"percent_complete":0,"early_start":"2026-11-18","early_finish":"2026-12-08","late_start":"2026-11-18","late_finish":"2026-12-08","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1100, A1110","relationship_type":"FS","primary_resource":"Aritut / Global PMO / Vendors","resource_role":"Cutover Commander","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":85000,"status":"NOT_STARTED","notes":"CRITICAL PATH: Zero-downtime weekend cutover during scheduled plant maintenance window."},{"id":"P6-14","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1130","activity_name":"Post-Implementation Review (PIR) & Benefits Realization Sign-Off","activity_type":"Finish Milestone","original_duration_days":8,"remaining_duration_days":8,"percent_complete":0,"early_start":"2026-12-09","early_finish":"2026-12-18","late_start":"2026-12-09","late_finish":"2026-12-18","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1120","relationship_type":"FS","primary_resource":"Aritut / Director of ITBP","resource_role":"IT Business Partner Lead","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":35000,"status":"NOT_STARTED","notes":"Final readout to Toronto PMO & Japan Executive Board verifying OEE (+6.8%) and Cycle Time KPIs."}],"p6_summary":{"total_activities":14,"critical_activities":10,"completed_activities":6,"pv_usd":788000,"ev_usd":804500,"ac_usd":769000,"bac_usd":1250000,"spi":1.02,"cpi":1.05,"eac_usd":1190476,"vac_usd":59524,"overall_progress_percent":64.4},"requirements":[{"id":"REQ-01","req_code":"BRD-JP-001","project_code":"CLS-ITBP-109","workshop_method":"Design Thinking (5-Stage)","bu_department":"Miyagi NPI & Laem Chabang Box-Build","stakeholder_jp":"Hiroshi Watanabe (宮城工場長)","requirement_title":"Automated e-DHR & Lot Genealogy Across Japan NPI and Thailand Mass Production","requirement_title_jp":"日タイ拠点間での電子デバイス履歴記録(e-DHR)およびロット追跡の完全自動化","business_need":"Eliminate manual Excel/PDF serialization handoffs during NPI-to-MP transfer, reducing transfer cycle time from 28 days to 10 days.","technical_spec":"ISA-95 Level 3 REST/Kafka bridge syncing Siemens Opcenter e-DHR XML packages with SAP S/4HANA Batch Management (MSC1N) & Valor BOM.","user_business_value":10,"time_criticality":9,"risk_reduction":10,"job_size":4,"cost_of_delay":29,"wsjf_index":7.25,"moscow_priority":"MUST_HAVE","verification_method":"End-to-End Lot Traceability Audit (< 3 sec query)","traceability_status":"IN_DEV"},{"id":"REQ-02","req_code":"BRD-JP-002","project_code":"CLS-ITBP-105","workshop_method":"Gemba Kaizen Walk","bu_department":"Miyagi SMT Assembly Line 1-14","stakeholder_jp":"Daisuke Ito (生産技術部長)","requirement_title":"Real-Time SMT Feeder Wrong-Reel Interlock & MSD (Moisture Sensitive Device) Floor-Life Timer","requirement_title_jp":"SMTフィーダー異品種装填インターロックおよびMSD湿度管理タイマー自動遮断","business_need":"Prevent costly PCBA scrap on high-density optical modules caused by expired J-STD-033 moisture exposure time.","technical_spec":"SECS/GEM S2F41 Host Command interlock to Fuji NXT / Panasonic NPM halting machine start if barcode scan mismatches BOM or MSD floor-life > 72 hrs.","user_business_value":10,"time_criticality":9,"risk_reduction":9,"job_size":4,"cost_of_delay":28,"wsjf_index":7,"moscow_priority":"MUST_HAVE","verification_method":"Shop-Floor Interlock Simulation (100% Block Rate)","traceability_status":"APPROVED"},{"id":"REQ-03","req_code":"BRD-JP-003","project_code":"CLS-ITBP-104","workshop_method":"J-SOX Compliance Audit","bu_department":"Japan Finance & Global Shared Services","stakeholder_jp":"Akiko Tanaka (財務統括部長)","requirement_title":"J-SOX Compliant Automated Three-Way Match & Qualified Invoice System (適格請求書) Validation","requirement_title_jp":"J-SOX準拠の自動三面照合および適格請求書（インボイス制度）NTA API検証","business_need":"Ensure 100% statutory compliance with Japan National Tax Agency (NTA) invoice registration and eliminate manual PO-GR-IR discrepancies.","technical_spec":"SAP S/4HANA FI/MM BAPI integration with NTA T-Number validation API and automated workflow approval matrix.","user_business_value":9,"time_criticality":8,"risk_reduction":10,"job_size":5,"cost_of_delay":27,"wsjf_index":5.4,"moscow_priority":"MUST_HAVE","verification_method":"External Auditor J-SOX ITGC Sample Test (0 Findings)","traceability_status":"VALIDATED"},{"id":"REQ-04","req_code":"BRD-JP-004","project_code":"CLS-ITBP-106","workshop_method":"BPM SIPOC Workshop","bu_department":"Global Supply Chain & Tokyo OEM Sales","stakeholder_jp":"Kazuo Fujita (営業本部長)","requirement_title":"Bi-Directional Kinaxis RapidResponse Clear-to-Build (CTB) & Allocation Simulation","requirement_title_jp":"Kinaxis RapidResponse双方向クリア・トゥ・ビルド(CTB)および部材引当シミュレーション","business_need":"Provide Japanese OEM customers with real-time commit dates when long-lead semiconductor components experience allocation constraints.","technical_spec":"High-frequency OData delta sync between SAP S/4HANA MD04 MRP Live, E2Open Supplier commits, and Kinaxis RapidResponse.","user_business_value":9,"time_criticality":9,"risk_reduction":8,"job_size":5,"cost_of_delay":26,"wsjf_index":5.2,"moscow_priority":"SHOULD_HAVE","verification_method":"Parallel MRP vs. Kinaxis Scenario Playback","traceability_status":"APPROVED"},{"id":"REQ-05","req_code":"BRD-JP-005","project_code":"CLS-ITBP-101","workshop_method":"Design Thinking (5-Stage)","bu_department":"Miyagi & Laem Chabang Quality Assurance","stakeholder_jp":"Kenji Takahashi (品質保証部長)","requirement_title":"AI Computer Vision Secondary Verification for 3D AOI / AXI False Calls","requirement_title_jp":"3D AOI/AXI過検出削減のためのAI画像認識二次判定エンジン統合","business_need":"Reduce manual operator re-inspection workload by 60% while maintaining zero escape rate (0 DPPM) for IPC-A-610 Class 3 assemblies.","technical_spec":"NVIDIA Jetson Orin Industrial edge inference container receiving Koh Young / Omron 3D AOI image crops via gRPC.","user_business_value":8,"time_criticality":7,"risk_reduction":8,"job_size":5,"cost_of_delay":23,"wsjf_index":4.6,"moscow_priority":"SHOULD_HAVE","verification_method":"Gage R&R & Confusion Matrix Validation (AUC > 0.994)","traceability_status":"ELICITED"},{"id":"REQ-06","req_code":"BRD-JP-006","project_code":"CLS-ITBP-102","workshop_method":"Design Thinking (5-Stage)","bu_department":"Tokyo After-Market & Hino Repair Hub","stakeholder_jp":"Yuki Sato (アフターマーケット部長)","requirement_title":"Self-Service Japanese/English Customer RMA & ITAD Certificate Portal","requirement_title_jp":"日英対応セルフサービスRMA申請・ITADデータ消去証明書発行ポータル","business_need":"Allow enterprise cloud & telecom customers in Japan to track RMA repair TAT and download NIST 800-88 data sanitization certificates.","technical_spec":"React/Tailwind portal integrated with ServiceNow CSM and shop-floor repair routing via OAuth2/OIDC.","user_business_value":7,"time_criticality":6,"risk_reduction":6,"job_size":5,"cost_of_delay":19,"wsjf_index":3.8,"moscow_priority":"COULD_HAVE","verification_method":"Customer UAT Playback with 3 Pilot Tokyo OEMs","traceability_status":"ELICITED"}],"cba_studies":[{"id":"CBA-01","study_code":"CBA-2026-JP01","initiative_name":"Next-Gen MES & SAP S/4HANA Shop-Floor Convergence (Japan-Thailand Bridge)","target_site":"Miyagi Plant (CLS-MYG) & Laem Chabang (CLS-LCB)","functional_domain":"Manufacturing Operations & MES","as_is_process_desc":"Manual paper traveler & fragmented legacy shop-floor logs; batch ERP backflushing every 12 hours causing WIP blind spots and 18-day NPI handoff delays.","as_is_cycle_time_hrs":42,"as_is_defect_dppm":480,"as_is_oee_percent":74.5,"to_be_process_desc":"Unified Siemens Opcenter v24 + SAP S/4HANA real-time event mesh; barcode/RFID automated e-DHR genealogy, instant SECS/GEM machine interlocks, and 1-click NPI-to-MP BOM/BOP transfer.","to_be_cycle_time_hrs":6.5,"to_be_defect_dppm":45,"to_be_oee_percent":86.2,"capex_usd":1250000,"annual_opex_usd":145000,"annual_gross_savings_usd":1180000,"discount_rate_percent":8.5,"npv_5yr_usd":3450000,"irr_percent":38.4,"roi_percent":276,"payback_months":14.2,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-088"},{"id":"CBA-03","study_code":"CBA-2026-JP03","initiative_name":"Kinaxis RapidResponse AI Demand Sensing & Automated Supplier CTB Portal","target_site":"Tokyo Commercial HQ (CLS-TYO) & Laem Chabang SCM","functional_domain":"Supply Chain & Production Planning","as_is_process_desc":"Weekly spreadsheet-based Clear-to-Build (CTB) consolidation across 340+ suppliers; 4.5-day latency in responding to Japanese OEM forecast changes.","as_is_cycle_time_hrs":108,"as_is_defect_dppm":1250,"as_is_oee_percent":71,"to_be_process_desc":"Bi-directional Kinaxis RapidResponse + E2Open B2B EDI hub with automated constraints simulation, real-time supplier commit updates, and instant ATP/CTP readouts.","to_be_cycle_time_hrs":4,"to_be_defect_dppm":120,"to_be_oee_percent":88,"capex_usd":290000,"annual_opex_usd":42000,"annual_gross_savings_usd":340000,"discount_rate_percent":8.5,"npv_5yr_usd":810000,"irr_percent":46.8,"roi_percent":279.3,"payback_months":11.5,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-119"},{"id":"CBA-02","study_code":"CBA-2026-JP02","initiative_name":"SMT Line IIoT Edge Telemetry & Predictive Maintenance (14 High-Speed Lines)","target_site":"Miyagi Plant (CLS-MYG) & Laem Chabang Plant 1","functional_domain":"Industrial IoT & Production Engineering","as_is_process_desc":"Reactive nozzle/feeder maintenance; manual USB log extraction from Fuji NXT & Panasonic NPM machines; unplanned line stops averaging 5.8 hrs/week.","as_is_cycle_time_hrs":14.5,"as_is_defect_dppm":310,"as_is_oee_percent":76,"to_be_process_desc":"Real-time IPC-CFX / SECS-GEM edge streaming to Kafka & AI anomaly detection; automated splice validation and predictive nozzle cleaning alerts before pickup errors occur.","to_be_cycle_time_hrs":1.8,"to_be_defect_dppm":62,"to_be_oee_percent":85.4,"capex_usd":260000,"annual_opex_usd":38000,"annual_gross_savings_usd":295000,"discount_rate_percent":8.5,"npv_5yr_usd":680000,"irr_percent":44.2,"roi_percent":261.5,"payback_months":11.8,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-104"},{"id":"CBA-04","study_code":"CBA-2026-JP04","initiative_name":"J-SOX Automated 3-Way Match & Qualified e-Invoice (インボイス) FinOps Suite","target_site":"Tokyo Finance & Thailand Regional Shared Services","functional_domain":"Finance, Accounting & Compliance","as_is_process_desc":"Manual PDF invoice data entry, physical hanko/stamp routing, and manual NTA tax registration verification taking 5.2 days per voucher batch.","as_is_cycle_time_hrs":124.8,"as_is_defect_dppm":890,"as_is_oee_percent":68,"to_be_process_desc":"OCR + RPA + SAP S/4HANA BAPI automated 3-way match (PO/GR/IR) with real-time Japan NTA API tax ID verification and digital Ringi-sho workflow.","to_be_cycle_time_hrs":2.5,"to_be_defect_dppm":15,"to_be_oee_percent":94.5,"capex_usd":145000,"annual_opex_usd":22000,"annual_gross_savings_usd":178000,"discount_rate_percent":8.5,"npv_5yr_usd":390000,"irr_percent":48.5,"roi_percent":268.9,"payback_months":11.1,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-127"}],"sow_vendors":[{"id":"SOW-01","sow_number":"SOW-CLS-2026-081","vendor_name":"Siemens Digital Industries & Hitachi Systems (日立システムズ)","solution_category":"MES_SHOPFLOOR","project_title":"Opcenter Execution Electronics v24 Multi-Site Deployment (Miyagi & Laem Chabang)","contract_type":"Fixed-Price Milestone","total_contract_usd":580000,"start_date":"2026-08-15","end_date":"2026-12-18","functional_fit_score":96,"compatibility_score":95,"cybersecurity_jsox_score":98,"tco_commercial_score":90,"weighted_eval_score":95.1,"sla_uptime_target":"99.95% (P1 Response < 15m)","milestones_completed":4,"milestones_total":6,"governance_status":"ON_TRACK","escalation_note":"Resolved Milestone 3 Oracle-to-PostgreSQL partitioning delay via PMO escalation on 02-Oct-2026; vendor added 2 senior Japanese-speaking MES architects at zero extra cost."},{"id":"SOW-02","sow_number":"SOW-CLS-2026-094","vendor_name":"Advantech Japan & NTT Communications","solution_category":"IIOT_HARDWARE_EDGE","project_title":"MIC-770 V3 Industrial Edge Gateways & SECS/GEM Telemetry Appliance (14 SMT Lines)","contract_type":"Fixed-Price Milestone","total_contract_usd":260000,"start_date":"2026-09-01","end_date":"2026-11-30","functional_fit_score":94,"compatibility_score":96,"cybersecurity_jsox_score":93,"tco_commercial_score":92,"weighted_eval_score":94,"sla_uptime_target":"99.98% Edge High-Availability","milestones_completed":3,"milestones_total":4,"governance_status":"ON_TRACK","escalation_note":"Outscored Dell NativeEdge (88.4) and Cisco IC3000 (86.2) in multi-criteria HW/SW evaluation due to native Fuji NXT & Panasonic NPM driver compatibility and 18% lower 5-year TCO."},{"id":"SOW-03","sow_number":"SOW-CLS-2026-103","vendor_name":"Kinaxis Inc. & Nomura Research Institute (NRI / 野村総合研究所)","solution_category":"ERP_SUPPLY_CHAIN","project_title":"RapidResponse AI Demand Sensing & Japan OEM CTB Integration Pack","contract_type":"Time & Materials (Capped)","total_contract_usd":290000,"start_date":"2026-09-15","end_date":"2026-12-10","functional_fit_score":95,"compatibility_score":92,"cybersecurity_jsox_score":96,"tco_commercial_score":88,"weighted_eval_score":93.1,"sla_uptime_target":"99.90% Cloud SaaS SLA","milestones_completed":2,"milestones_total":5,"governance_status":"ROADBLOCK_ESCALATED","escalation_note":"PMO Escalation Active: SAP S/4HANA custom Z-table field mapping for consigned Japanese OEM silicon wafers delayed by 3 days. Negotiated fast-track CR review with Toronto Global ERP CoE."},{"id":"SOW-04","sow_number":"SOW-CLS-2026-112","vendor_name":"Koh Young Technology & Omron Automation","solution_category":"QUALITY_AOI_VISION","project_title":"KSMART AI True3D SPI/AOI Closed-Loop Feedback & IPC-CFX Bridge","contract_type":"Fixed-Price Milestone","total_contract_usd":185000,"start_date":"2026-10-10","end_date":"2027-01-31","functional_fit_score":93,"compatibility_score":91,"cybersecurity_jsox_score":94,"tco_commercial_score":89,"weighted_eval_score":92,"sla_uptime_target":"99.90% Vision Server SLA","milestones_completed":1,"milestones_total":4,"governance_status":"EVALUATION_READOUT","escalation_note":"Hardware & software readout presented to Miyagi & Laem Chabang Quality SteerCo; awaiting final Q4 CapEx release."}],"integrations":[{"id":"INT-01","connector_code":"SAP-S4-MES-BRIDGE","system_name":"SAP S/4HANA Global ERP <-> Siemens Opcenter MES (Miyagi & LCB)","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"OData v4 / SAP IDoc (PP_ORDER / BAPI_PRODORDCONF)","source_endpoint":"https://sap-s4.celestica.global/sap/opu/odata/sap/API_PRODUCTION_ORDER","target_endpoint":"https://mes-apac.celestica.global/api/v24/workorders/sync","sync_frequency":"Real-Time Event (< 5s)","latency_ms":42,"records_synced_today":18420,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"message_id\":\"IDOC-PP-20261016-8841\",\"plant_code\":\"JP01_MIYAGI_TO_TH02_LCB\",\"production_order\":\"PO-800G-OPT-99201\",\"material_sku\":\"CLS-OPT-800G-DR8-REV3\",\"order_qty\":2500,\"bom_revision\":\"REV-3.4-IPC3\",\"j_sox_control_hash\":\"SHA256:9f84b2c1e7a04891d23a\"}"},{"id":"INT-02","connector_code":"SECS-GEM-SMT-EDGE","system_name":"Fuji NXT / Panasonic NPM SMT Lines <-> Kafka IIoT Telemetry Broker","isa95_level":"Level 2 (SMT/IIoT Edge)","protocol_standard":"SECS/GEM (E5/E30/E37) & IPC-CFX over MQTT/TLS","source_endpoint":"tcp://10.148.22.101:5000/secsgem/miyagi-smt-line04","target_endpoint":"kafka://msk-apac.celestica.global:9094/topic/smt-telemetry-events","sync_frequency":"Streaming (100ms)","latency_ms":14,"records_synced_today":142500,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"machine_id\":\"MYG-SMT-L04-FUJI-NXT3\",\"event\":\"IPC_CFX_UNITS_PROCESSED\",\"board_barcode\":\"SN-MYG264100892\",\"placement_rate_cph\":38400,\"pickup_rate_percent\":99.97,\"msd_floor_life_remaining_hrs\":58.4,\"solder_paste_spi_status\":\"PASS_IPC_CLASS_3\"}"},{"id":"INT-03","connector_code":"KINAXIS-APS-E2OPEN","system_name":"Kinaxis RapidResponse APS <-> E2Open Multi-Tier Supplier Hub","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"REST JSON / AS2 EDI (850/856/860)","source_endpoint":"https://celestica.kinaxis.net/integration/v1/ctb-simulation","target_endpoint":"https://b2b.celestica.global/e2open/jp-oem-allocation","sync_frequency":"Every 15 Minutes","latency_ms":118,"records_synced_today":6340,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"simulation_id\":\"KIN-CTB-JP-2026-441\",\"customer_oem\":\"TOKYO_CLOUD_INFRA_OEM\",\"target_plant\":\"TH02_LAEM_CHABANG\",\"clear_to_build_percent\":98.5,\"critical_component\":\"DSP-7NM-ASIC-BGA\",\"allocated_buffer_qty\":12000,\"expedite_recommendation\":\"NO_ACTION_REQUIRED\"}"},{"id":"INT-04","connector_code":"PRIMAVERA-P6-SERVICENOW","system_name":"Oracle Primavera P6 EPPM <-> ServiceNow ITBM & Global PMO Cockpit","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"Primavera P6 REST API / XER Web Services","source_endpoint":"https://p6.celestica.global/p6ws/restapi/activity?projectId=PRJ-JP-2026-MES","target_endpoint":"https://celestica.service-now.com/api/now/table/pm_project_task","sync_frequency":"Hourly / On-Demand","latency_ms":85,"records_synced_today":940,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"eps_node\":\"CLS-APAC-ITBP\",\"project_id\":\"PRJ-JP-2026-MES\",\"data_date\":\"2026-10-16\",\"cpi\":1.05,\"spi\":1.02,\"critical_activities_count\":10,\"total_float_min_days\":0}"}],"integration_logs":[{"id":4,"connector_code":"KINAXIS-APS-E2OPEN","event_type":"CTB_ALLOCATION_SYNC","source_system":"Kinaxis RapidResponse","target_system":"Tokyo OEM Portal & LCB Warehouse","payload_summary":"Updated Clear-to-Build (98.5%) for Q4 High-Speed Switch Box-Build","status_code":200,"triggered_by":"SCM Batch Sync","created_at":"2026-10-16 04:35:38"},{"id":3,"connector_code":"PRIMAVERA-P6-SERVICENOW","event_type":"CPM_SCHEDULE_CALC","source_system":"Oracle Primavera P6 EPPM","target_system":"Global IT PMO Dashboard","payload_summary":"Recalculated Critical Path (Data Date: 16-Oct-2026): SPI=1.02, CPI=1.05","status_code":200,"triggered_by":"Aritut (Mgr, ITBP 2)","created_at":"2026-10-16 04:35:38"},{"id":2,"connector_code":"SECS-GEM-SMT-EDGE","event_type":"MSD_INTERLOCK_VERIFY","source_system":"Fuji NXT III Line 04 (Miyagi)","target_system":"Opcenter Camstar Quality Gate","payload_summary":"Verified J-STD-033 floor-life timer (58.4h remaining) — Line Start Authorized","status_code":200,"triggered_by":"Edge Gateway MIC-770","created_at":"2026-10-16 04:35:38"},{"id":1,"connector_code":"SAP-S4-MES-BRIDGE","event_type":"WORK_ORDER_RELEASE","source_system":"SAP S/4HANA (Global)","target_system":"Siemens Opcenter MES (Miyagi/LCB)","payload_summary":"Synced PO-800G-OPT-99201 (2,500 units) with e-DHR BOM Rev 3.4","status_code":200,"triggered_by":"System Auto-Scheduler","created_at":"2026-10-16 04:35:38"}],"kpis":{"active_initiatives":12,"total_portfolio_budget_usd":3855000,"total_portfolio_npv_usd":10515000,"avg_oee_improvement_pct":16.1,"p6_spi":1.02,"p6_cpi":1.05,"p6_overall_progress":64.4}};
+
+    // Load any user-created items from localStorage so offline/GAS edits persist
+    try {
+      const saved = localStorage.getItem('celestica_itbp_state_v2');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.kanban && parsed.kanban.length >= 12) {
+          appState = parsed;
+        }
+      }
+    } catch (e) {}
+
+    function saveLocalState() {
+      try {
+        localStorage.setItem('celestica_itbp_state_v2', JSON.stringify(appState));
+      } catch (e) {}
+    }
+
+    // -----------------------------------------------------------------------
+    // NAVIGATION, MODALS & SMART PRINT ENGINE (WORKS ON GAS / IFRAME / WEB)
+    // -----------------------------------------------------------------------
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(el => el.classList.add('hidden'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.tab-nav-btn').forEach(btn => {
+        btn.className = 'tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition';
+      });
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.className = 'tab-nav-btn px-3.5 py-2 rounded-lg text-white bg-sky-600/90 shadow flex items-center space-x-2 whitespace-nowrap transition';
+      }
+
+      if (tabId === 'tab-cockpit') {
+        setTimeout(() => renderExecutiveCharts(), 60);
+      }
+    }
+
+    function openModal(id) {
+      const m = document.getElementById(id);
+      if (m) {
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
+    }
+
+    function closeModal(id) {
+      const m = document.getElementById(id);
+      if (m) {
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+    }
+
+    function openNewCardModal() { openModal('modalNewCard'); }
+    function openNewP6Modal() { openModal('modalNewP6'); }
+    function openNewReqModal() { openModal('modalNewReq'); }
+
+    function openPrintableDoc(docFile) {
+      const isGasOrRemote = window.location.hostname.includes('googleusercontent.com') ||
+                            window.location.hostname.includes('script.google.com') ||
+                            window.location.hostname.includes('github.io');
+      const url = isGasOrRemote
+        ? 'https://aritut.github.io/Celestica-ITBP-Enterprise-Suite/' + docFile
+        : docFile;
+      window.open(url, '_blank');
+    }
+
+    function smartPrint(printAll) {
+      const hiddenPanels = [];
+      if (printAll) {
+        document.querySelectorAll('.tab-panel.hidden').forEach(p => {
+          hiddenPanels.push(p);
+          p.classList.remove('hidden');
+        });
+      }
+
+      const isInIframe = (window.self !== window.top);
+      try {
+        window.focus();
+        window.print();
+      } catch (err) {}
+
+      // If running inside Google Apps Script sandboxed iframe where window.print() may be ignored by browser,
+      // also offer a clean standalone print window fallback if needed
+      if (isInIframe) {
+        setTimeout(() => {
+          const w = window.open('', '_blank', 'width=1200,height=850');
+          if (w) {
+            w.document.write('<!DOCTYPE html><html><head><title>' + document.title + '</title>');
+            w.document.write('<script src="https://cdn.tailwindcss.com"><\/script>');
+            w.document.write('<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">');
+            w.document.write('<style>body{font-family:Prompt,Sarabun,sans-serif;padding:20px;background:#fff;color:#000;} .no-print,header{display:none!important;}</style>');
+            w.document.write('</head><body>');
+            w.document.write(document.querySelector('main').innerHTML);
+            w.document.write('<script>setTimeout(function(){window.print();},800);<\/script></body></html>');
+            w.document.close();
+          }
+        }, 300);
+      }
+
+      if (printAll) {
+        setTimeout(() => {
+          hiddenPanels.forEach(p => p.classList.add('hidden'));
+        }, 1200);
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // REST API BRIDGE + LOCAL FALLBACK ENGINE
+    // -----------------------------------------------------------------------
+    async function apiCall(endpoint, options = {}) {
+      const candidates = ['', REMOTE_API_HOST];
+      for (const base of candidates) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 3500);
+          const res = await fetch(base + endpoint, { ...options, signal: controller.signal });
+          clearTimeout(timer);
+          if (res.ok) {
+            apiBaseUrl = base;
+            return await res.json();
+          }
+        } catch (err) {}
+      }
+      throw new Error('Offline or Standalone Mode');
+    }
+
+    async function loadOverviewData() {
+      // Always render immediately from current appState first so UI & Charts never wait
+      renderAllModules();
+      try {
+        const res = await apiCall('/api/celestica/overview');
+        if (res && res.status === 'ok' && res.data) {
+          appState = res.data;
+          saveLocalState();
+          renderAllModules();
+          const badge = document.getElementById('sqliteStatusText');
+          if (badge) badge.innerText = apiBaseUrl ? 'SQLite WAL: Cloud Synced' : 'SQLite WAL: Local Connected';
+        }
+      } catch (err) {
+        const badge = document.getElementById('sqliteStatusText');
+        if (badge) badge.innerText = 'SQLite Engine: Active (Hybrid State)';
+      }
+    }
+
+    function recalculateKpisAndP6Summary() {
+      const totalBudget = appState.kanban.reduce((s, c) => s + (Number(c.budget_usd) || 0), 0);
+      const totalNpv = appState.kanban.reduce((s, c) => s + (Number(c.npv_usd) || 0), 0);
+      appState.kpis.active_initiatives = appState.kanban.length;
+      appState.kpis.total_portfolio_budget_usd = totalBudget;
+      appState.kpis.total_portfolio_npv_usd = totalNpv;
+
+      const acts = appState.p6_activities || [];
+      if (acts.length > 0) {
+        const pv = acts.reduce((s, a) => s + (Number(a.planned_value_usd) || 0), 0);
+        const ev = acts.reduce((s, a) => s + (Number(a.earned_value_usd) || 0), 0);
+        const ac = acts.reduce((s, a) => s + (Number(a.actual_cost_usd) || 0), 0);
+        const bac = acts.reduce((s, a) => s + (Number(a.bac_usd) || 0), 0);
+        const spi = pv > 0 ? Number((ev / pv).toFixed(2)) : 1.0;
+        const cpi = ac > 0 ? Number((ev / ac).toFixed(2)) : 1.0;
+        const eac = cpi > 0 ? Math.round(bac / cpi) : bac;
+        appState.p6_summary = {
+          total_activities: acts.length,
+          critical_activities: acts.filter(a => Number(a.is_critical) === 1).length,
+          completed_activities: acts.filter(a => Number(a.percent_complete) >= 100).length,
+          pv_usd: pv,
+          ev_usd: ev,
+          ac_usd: ac,
+          bac_usd: bac,
+          spi,
+          cpi,
+          eac_usd: eac,
+          vac_usd: bac - eac,
+          overall_progress_percent: bac > 0 ? Number(((ev / bac) * 100).toFixed(1)) : 64.4
+        };
+        appState.kpis.p6_spi = spi;
+        appState.kpis.p6_cpi = cpi;
+      }
+      saveLocalState();
+    }
+
+    function renderAllModules() {
+      recalculateKpisAndP6Summary();
+      renderHeaderAndKpis();
+      renderExecutiveCharts();
+      renderKanbanBoard();
+      renderP6Schedule();
+      renderRtmTable();
+      renderCbaAndSowTables();
+      renderIntegrationsHub();
+    }
+
+    function renderHeaderAndKpis() {
+      const k = appState.kpis || {};
+      const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.innerText = val; };
+      setTxt('kpiActiveCount', `${k.active_initiatives || appState.kanban.length} Projects`);
+      setTxt('kpiTotalBudget', `$${((k.total_portfolio_budget_usd || 3855000) / 1e6).toFixed(2)}M USD`);
+      setTxt('kpiTotalNpv', `$${((k.total_portfolio_npv_usd || 10515000) / 1e6).toFixed(2)}M`);
+      setTxt('kpiSpi', `SPI ${k.p6_spi || 1.02}`);
+      setTxt('kpiCpi', `CPI ${k.p6_cpi || 1.05}`);
+      setTxt('hdrSpi', `SPI ${k.p6_spi || 1.02}`);
+      setTxt('hdrCpi', `CPI ${k.p6_cpi || 1.05}`);
+      setTxt('kpiOeeGain', `+${k.avg_oee_improvement_pct || 16.1}%`);
+    }
+
+    // -----------------------------------------------------------------------
+    // 1. RENDER 4 EXECUTIVE CHARTS (CHART.JS)
+    // -----------------------------------------------------------------------
+    function renderExecutiveCharts() {
+      if (typeof Chart === 'undefined') return;
+
+      // Chart 1: Primavera P6 Earned Value Management by WBS
+      const ctxEvm = document.getElementById('chartEvm');
+      if (ctxEvm) {
+        if (charts.evm) charts.evm.destroy();
+        const wbsGroups = ['1.1', '1.2', '1.3', '1.4', '1.5', '1.6'];
+        const wbsLabels = ['WBS 1.1 Init', 'WBS 1.2 BPR/CBA', 'WBS 1.3 SOW', 'WBS 1.4 MES/SAP', 'WBS 1.5 J-SOX/UAT', 'WBS 1.6 Cutover'];
+        const pvData = wbsGroups.map(w => appState.p6_activities.filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.planned_value_usd || 0), 0) / 1000);
+        const evData = wbsGroups.map(w => appState.p6_activities.filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.earned_value_usd || 0), 0) / 1000);
+        const acData = wbsGroups.map(w => appState.p6_activities.filter(a => a.wbs_code === w).reduce((s, a) => s + Number(a.actual_cost_usd || 0), 0) / 1000);
+
+        charts.evm = new Chart(ctxEvm, {
+          type: 'bar',
+          data: {
+            labels: wbsLabels,
+            datasets: [
+              { label: 'PV Planned ($k)', data: pvData, backgroundColor: 'rgba(14, 165, 233, 0.75)', borderRadius: 5 },
+              { label: 'EV Earned ($k)', data: evData, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 5 },
+              { label: 'AC Actual Cost ($k)', data: acData, backgroundColor: 'rgba(245, 158, 11, 0.8)', borderRadius: 5 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
+            scales: { y: { beginAtZero: true, title: { display: true, text: 'USD ($ Thousands)', font: { size: 10 } } } }
+          }
+        });
+      }
+
+      // Chart 2: SAFe WSJF Prioritization Ranking
+      const ctxWsjf = document.getElementById('chartWsjf');
+      if (ctxWsjf) {
+        if (charts.wsjf) charts.wsjf.destroy();
+        const reqs = [...(appState.requirements || [])].sort((a, b) => b.wsjf_index - a.wsjf_index).slice(0, 7);
+        charts.wsjf = new Chart(ctxWsjf, {
+          type: 'bar',
+          data: {
+            labels: reqs.map(r => `${r.req_code}: ${(r.requirement_title || '').slice(0, 26)}...`),
+            datasets: [
+              {
+                label: 'WSJF Priority Score',
+                data: reqs.map(r => Number(r.wsjf_index)),
+                backgroundColor: reqs.map(r => r.wsjf_index >= 6.5 ? '#059669' : (r.wsjf_index >= 5.0 ? '#0284c7' : '#d97706')),
+                borderRadius: 5
+              }
+            ]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true, max: 9, title: { display: true, text: 'WSJF Score (CoD / Job Size)', font: { size: 10 } } } }
+          }
+        });
+      }
+
+      // Chart 3: BPR As-Is vs To-Be OEE (%) & NPV
+      const ctxBpr = document.getElementById('chartBpr');
+      if (ctxBpr) {
+        if (charts.bpr) charts.bpr.destroy();
+        const cbas = appState.cba_studies || [];
+        charts.bpr = new Chart(ctxBpr, {
+          type: 'bar',
+          data: {
+            labels: cbas.map(c => c.study_code),
+            datasets: [
+              { label: 'As-Is OEE (%)', data: cbas.map(c => Number(c.as_is_oee_percent)), backgroundColor: 'rgba(244, 63, 94, 0.7)', borderRadius: 5 },
+              { label: 'To-Be OEE (%)', data: cbas.map(c => Number(c.to_be_oee_percent)), backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 5 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } },
+            scales: { y: { min: 50, max: 100, title: { display: true, text: 'Shop-Floor OEE (%)', font: { size: 10 } } } }
+          }
+        });
+      }
+
+      // Chart 4: Hardware & Software Evaluation Matrix (MCDA)
+      const ctxVendor = document.getElementById('chartVendorEval');
+      if (ctxVendor) {
+        if (charts.vendor) charts.vendor.destroy();
+        const sows = appState.sow_vendors || [];
+        charts.vendor = new Chart(ctxVendor, {
+          type: 'bar',
+          data: {
+            labels: sows.map(s => (s.vendor_name || '').split('&')[0].trim()),
+            datasets: [
+              { label: 'Functional Fit', data: sows.map(s => Number(s.functional_fit_score)), backgroundColor: '#0284c7', borderRadius: 4 },
+              { label: 'SAP/MES Compat.', data: sows.map(s => Number(s.compatibility_score)), backgroundColor: '#10b981', borderRadius: 4 },
+              { label: 'J-SOX / Security', data: sows.map(s => Number(s.cybersecurity_jsox_score)), backgroundColor: '#8b5cf6', borderRadius: 4 },
+              { label: 'Weighted Score', data: sows.map(s => Number(s.weighted_eval_score)), backgroundColor: '#f59e0b', borderRadius: 4 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+            scales: { y: { min: 75, max: 100 } }
+          }
+        });
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // 2. RENDER TRELLO-STYLE DRAG & DROP KANBAN BOARD + QUICK COCKPIT INPUT
+    // -----------------------------------------------------------------------
+    function renderKanbanBoard() {
+      const container = document.getElementById('kanbanBoardContainer');
+      if (!container) return;
+
+      const siteFilter = (document.getElementById('kanbanSiteFilter')?.value || 'ALL').toUpperCase();
+      const searchQ = (document.getElementById('kanbanSearchInput')?.value || '').trim().toLowerCase();
+
+      container.innerHTML = KANBAN_STAGES.map(stage => {
+        const cards = (appState.kanban || []).filter(c => {
+          if (c.stage !== stage.key) return false;
+          if (siteFilter !== 'ALL' && !(c.bu_site || '').toUpperCase().includes(siteFilter)) return false;
+          if (searchQ) {
+            const hay = `${c.card_code} ${c.title} ${c.title_jp} ${c.stakeholder_jp} ${c.tags}`.toLowerCase();
+            if (!hay.includes(searchQ)) return false;
+          }
+          return true;
+        });
+
+        const cardsHtml = cards.map(c => {
+          const priColor = c.priority === 'CRITICAL'
+            ? 'bg-rose-100 text-rose-800 border-rose-300'
+            : (c.priority === 'HIGH' ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-sky-100 text-sky-800 border-sky-300');
+          return `
+            <div class="kanban-card bg-white rounded-xl p-3.5 shadow-sm border border-slate-200 hover:border-sky-400 space-y-2.5"
+                 draggable="true"
+                 ondragstart="handleDragStart(event, '${c.id}')"
+                 ondragend="handleDragEnd(event)"
+                 onclick="openCardDetail('${c.id}')">
+              <div class="flex items-center justify-between gap-1">
+                <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-slate-900 text-sky-300">${c.card_code}</span>
+                <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded border ${priColor}">${c.priority}</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900 leading-snug">${c.title}</h4>
+                <p class="text-[10px] text-slate-500 font-jp mt-0.5">${c.title_jp || ''}</p>
+              </div>
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-600 bg-slate-50 px-2 py-1 rounded border border-slate-200/80">
+                <span>WSJF: <strong class="text-sky-700">${c.wsjf_score}</strong></span>
+                <span>NPV: <strong class="text-emerald-700">$${Math.round((c.npv_usd || 0) / 1000)}k</strong></span>
+              </div>
+              <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                <div class="${stage.badgeBg} h-full rounded-full" style="width: ${c.progress_percent || 40}%"></div>
+              </div>
+              <div class="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-100">
+                <span class="truncate max-w-[130px]" title="${c.bu_site}"><i class="fa-solid fa-location-dot text-sky-600 mr-1"></i>${c.bu_site}</span>
+                <span class="font-mono">${c.progress_percent || 40}%</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="kanban-col bg-slate-200/75 rounded-2xl p-3 border-2 border-transparent flex flex-col space-y-3 min-h-[540px]"
+               ondragover="handleDragOver(event)"
+               ondragleave="handleDragLeave(event)"
+               ondrop="handleDrop(event, '${stage.key}')">
+            <div class="flex items-center justify-between px-1">
+              <div>
+                <span class="text-xs font-bold text-slate-900 block">${stage.label}</span>
+                <span class="text-[10px] text-slate-500 font-jp">${stage.jp}</span>
+              </div>
+              <span class="px-2 py-0.5 rounded-full text-xs font-mono font-bold text-white ${stage.badgeBg}">${cards.length}</span>
+            </div>
+            <div class="space-y-2.5 flex-1">
+              ${cardsHtml || '<div class="text-center py-10 text-xs text-slate-400 border-2 border-dashed border-slate-300 rounded-xl">ลากการ์ดมาวางที่นี่</div>'}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleDragStart(ev, cardId) {
+      draggedCardId = cardId;
+      ev.dataTransfer.setData('text/plain', cardId);
+      ev.currentTarget.classList.add('dragging');
+    }
+
+    function handleDragEnd(ev) {
+      ev.currentTarget.classList.remove('dragging');
+    }
+
+    function handleDragOver(ev) {
+      ev.preventDefault();
+      ev.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(ev) {
+      ev.currentTarget.classList.remove('drag-over');
+    }
+
+    async function handleDrop(ev, newStage) {
+      ev.preventDefault();
+      ev.currentTarget.classList.remove('drag-over');
+      const cardId = ev.dataTransfer.getData('text/plain') || draggedCardId;
+      if (!cardId) return;
+
+      const stageProgressMap = {
+        IDEATION_WORKSHOP: 25,
+        FEASIBILITY_CBA: 50,
+        WSJF_HWSW_EVAL: 70,
+        SOW_VENDOR_GOV: 85,
+        P6_EXECUTION: 92,
+        UAT_VALUE_REALIZED: 100
+      };
+
+      const card = appState.kanban.find(c => c.id === cardId);
+      if (card) {
+        card.stage = newStage;
         if (stageProgressMap[newStage] !== undefined) {
           card.progress_percent = stageProgressMap[newStage];
         }
-        renderKanbanBoard();
+        renderAllModules();
       }
       try {
         await apiCall(`/api/celestica/kanban/${encodeURIComponent(cardId)}/move`, {
@@ -1340,34 +1823,112 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ stage: newStage })
         });
-        await loadOverviewData();
-      } catch (err) {
-        console.warn('Move persisted locally:', err.message);
+      } catch (err) {}
+    }
+
+    async function quickAddInitiativeFromCockpit() {
+      const titleInput = document.getElementById('quickProjTitle');
+      const siteSelect = document.getElementById('quickProjSite');
+      const budgetInput = document.getElementById('quickProjBudget');
+      const title = (titleInput?.value || '').trim() || 'Automated SMT Line 5 AI Solder Paste Inspection (SPI) Feedback';
+      const site = siteSelect?.value || 'CLS-MYG (Miyagi Plant)';
+      const budget = parseFloat(budgetInput?.value) || 220000;
+
+      const nextNum = 101 + appState.kanban.length;
+      const newCard = {
+        id: 'KBN-' + Date.now(),
+        card_code: 'CLS-ITBP-' + nextNum,
+        title: title,
+        title_jp: '日タイ次世代スマートファクトリー統合イニシアチブ #' + nextNum,
+        stage: 'IDEATION_WORKSHOP',
+        priority: 'HIGH',
+        bu_site: site,
+        functional_area: 'Manufacturing & MES',
+        wsjf_score: 6.4,
+        budget_usd: budget,
+        npv_usd: Math.round(budget * 2.65),
+        owner_name: 'Aritut (Mgr, ITBP 2)',
+        stakeholder_jp: 'Hiroshi Watanabe (Miyagi GM)',
+        due_date: '2026-12-15',
+        progress_percent: 30,
+        checklist_done: 1,
+        checklist_total: 5,
+        tags: 'Quick-Entry,Design Thinking,ITBP',
+        summary: 'Created via Executive Cockpit Quick Input Workbench.',
+        display_order: 1
+      };
+
+      appState.kanban.unshift(newCard);
+      appState.requirements.unshift({
+        id: 'REQ-' + Date.now(),
+        req_code: 'BRD-JP-00' + (appState.requirements.length + 1),
+        project_code: newCard.card_code,
+        workshop_method: 'Design Thinking (5-Stage)',
+        bu_department: site,
+        stakeholder_jp: 'Hiroshi Watanabe (宮城工場長)',
+        requirement_title: title,
+        requirement_title_jp: newCard.title_jp,
+        business_need: 'Added directly from Executive Cockpit for immediate WSJF & BPR evaluation.',
+        technical_spec: 'ISA-95 Level 3 REST/Kafka integration with Siemens Opcenter MES & SAP S/4HANA.',
+        user_business_value: 9,
+        time_criticality: 9,
+        risk_reduction: 8,
+        job_size: 4,
+        cost_of_delay: 26,
+        wsjf_index: 6.5,
+        moscow_priority: 'MUST_HAVE',
+        verification_method: 'Bilingual UAT & Shop-Floor Simulation',
+        traceability_status: 'APPROVED'
+      });
+
+      if (titleInput) titleInput.value = '';
+      renderAllModules();
+
+      const toast = document.getElementById('quickSaveToast');
+      if (toast) {
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3500);
       }
+
+      try {
+        await apiCall('/api/celestica/kanban', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newCard)
+        });
+      } catch (e) {}
     }
 
     async function submitNewKanbanCard() {
+      const budget = parseFloat(document.getElementById('newCardBudget').value) || 180000;
+      const nextNum = 101 + appState.kanban.length;
       const payload = {
+        id: 'KBN-' + Date.now(),
+        card_code: 'CLS-ITBP-' + nextNum,
         title: document.getElementById('newCardTitle').value || 'Automated Optical Transceiver Traceability Initiative',
         title_jp: document.getElementById('newCardTitleJp').value || '光トランシーバ自動トレーサビリティ統合プロジェクト',
         stage: document.getElementById('newCardStage').value,
         priority: document.getElementById('newCardPriority').value,
         bu_site: document.getElementById('newCardSite').value,
         functional_area: document.getElementById('newCardFunc').value,
-        budget_usd: parseFloat(document.getElementById('newCardBudget').value) || 180000,
+        budget_usd: budget,
+        npv_usd: Math.round(budget * 2.5),
         wsjf_score: parseFloat(document.getElementById('newCardWsjf').value) || 5.8,
-        stakeholder_jp: document.getElementById('newCardStakeholder').value,
-        due_date: document.getElementById('newCardDue').value,
-        summary: document.getElementById('newCardSummary').value
+        owner_name: 'Aritut (Mgr, ITBP 2)',
+        stakeholder_jp: document.getElementById('newCardStakeholder').value || 'Kenji Takahashi (Miyagi Quality)',
+        due_date: document.getElementById('newCardDue').value || '2026-12-15',
+        progress_percent: 30,
+        summary: document.getElementById('newCardSummary').value || 'Strategic ITBP initiative aligned with Japan & Global IT roadmap.'
       };
       closeModal('modalNewCard');
+      appState.kanban.unshift(payload);
+      renderAllModules();
       try {
         await apiCall('/api/celestica/kanban', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-        await loadOverviewData();
       } catch (e) {}
     }
 
@@ -1418,8 +1979,11 @@
       const delBtn = document.getElementById('btnDeleteCard');
       delBtn.onclick = async () => {
         closeModal('modalCardDetail');
-        await apiCall(`/api/celestica/kanban/${encodeURIComponent(card.id)}`, { method: 'DELETE' });
-        await loadOverviewData();
+        appState.kanban = appState.kanban.filter(c => c.id !== card.id);
+        renderAllModules();
+        try {
+          await apiCall(`/api/celestica/kanban/${encodeURIComponent(card.id)}`, { method: 'DELETE' });
+        } catch (e) {}
       };
       openModal('modalCardDetail');
     }
@@ -1466,7 +2030,7 @@
             <td class="py-2.5 px-3">
               <div class="text-[10px] font-mono text-slate-400">${act.wbs_name}</div>
               <div class="font-semibold text-slate-900">${act.activity_name}</div>
-              <div class="text-[10px] text-slate-500">${act.primary_resource}</div>
+              <div class="text-[10px] text-slate-500">${act.primary_resource || 'Aritut (Mgr, ITBP 2)'}</div>
             </td>
             <td class="py-2.5 px-2 text-center font-mono">${act.original_duration_days}d</td>
             <td class="py-2.5 px-2 text-center font-mono font-bold">${act.remaining_duration_days}d</td>
@@ -1503,38 +2067,61 @@
     }
 
     async function updateP6Progress(actId, newPct) {
+      const act = appState.p6_activities.find(a => a.id === actId);
+      if (act) {
+        act.percent_complete = newPct;
+        act.remaining_duration_days = Math.max(0, Math.round(act.original_duration_days * (1 - newPct / 100)));
+        act.earned_value_usd = Math.round(act.bac_usd * (newPct / 100));
+        if (act.planned_value_usd === 0) act.planned_value_usd = act.earned_value_usd;
+        if (act.actual_cost_usd === 0) act.actual_cost_usd = Math.round(act.earned_value_usd * 0.96);
+        act.status = newPct >= 100 ? 'COMPLETED' : 'IN_PROGRESS';
+        renderAllModules();
+      }
       try {
         await apiCall(`/api/celestica/p6-activities/${encodeURIComponent(actId)}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ percent_complete: newPct })
         });
-        await loadOverviewData();
       } catch (e) {}
     }
 
     async function submitNewP6Activity() {
       const wbsRaw = document.getElementById('newP6Wbs').value.split('|');
+      const dur = parseInt(document.getElementById('newP6Dur').value, 10) || 10;
+      const tf = parseInt(document.getElementById('newP6Float').value, 10) || 0;
+      const bac = parseFloat(document.getElementById('newP6Bac').value) || 65000;
       const payload = {
-        activity_id: document.getElementById('newP6ActId').value,
+        id: 'P6-' + Date.now(),
+        project_id: 'PRJ-JP-2026-MES',
+        activity_id: document.getElementById('newP6ActId').value || 'A1140',
         wbs_code: wbsRaw[0],
         wbs_name: wbsRaw[1],
         activity_name: document.getElementById('newP6Name').value || 'Automated Bilingual UAT Regression Pack',
-        original_duration_days: parseInt(document.getElementById('newP6Dur').value, 10) || 10,
-        total_float_days: parseInt(document.getElementById('newP6Float').value, 10) || 0,
-        early_start: document.getElementById('newP6Es').value,
-        early_finish: document.getElementById('newP6Ef').value,
-        predecessors: document.getElementById('newP6Pred').value,
-        bac_usd: parseFloat(document.getElementById('newP6Bac').value) || 65000,
+        original_duration_days: dur,
+        remaining_duration_days: Math.round(dur * 0.8),
+        total_float_days: tf,
+        is_critical: tf === 0 ? 1 : 0,
+        early_start: document.getElementById('newP6Es').value || '2026-11-02',
+        early_finish: document.getElementById('newP6Ef').value || '2026-11-16',
+        predecessors: document.getElementById('newP6Pred').value || 'A1090',
+        primary_resource: 'Aritut (Mgr, ITBP 2)',
+        bac_usd: bac,
+        planned_value_usd: Math.round(bac * 0.25),
+        earned_value_usd: Math.round(bac * 0.2),
+        actual_cost_usd: Math.round(bac * 0.19),
         percent_complete: 20
       };
       closeModal('modalNewP6');
-      await apiCall('/api/celestica/p6-activities', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      await loadOverviewData();
+      appState.p6_activities.push(payload);
+      renderAllModules();
+      try {
+        await apiCall('/api/celestica/p6-activities', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
     }
 
     function exportP6XerCsv() {
@@ -1595,7 +2182,7 @@
           <td class="py-3 px-3">
             <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-medium">${r.workshop_method}</span>
             <div class="font-semibold text-slate-800 mt-1">${r.stakeholder_jp}</div>
-            <div class="text-[11px] text-slate-500">${r.bu_department}</div>
+            <div class="text-[11px] text-slate-500">${r.bu_department || 'Miyagi & Laem Chabang'}</div>
           </td>
           <td class="py-3 px-3">
             <div class="font-bold text-slate-900">${r.requirement_title}</div>
@@ -1610,32 +2197,49 @@
             <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-sky-300 font-bold text-xs">${Number(r.wsjf_index).toFixed(2)}</span>
           </td>
           <td class="py-3 px-3">
-            <div class="text-[11px] text-slate-700">${r.verification_method}</div>
-            <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-100 text-emerald-800">${r.traceability_status}</span>
+            <div class="text-[11px] text-slate-700">${r.verification_method || 'Bilingual UAT Playback'}</div>
+            <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-100 text-emerald-800">${r.traceability_status || 'APPROVED'}</span>
           </td>
         </tr>
       `).join('');
     }
 
     async function submitNewRequirement() {
+      const uv = parseInt(document.getElementById('newReqUv').value, 10) || 9;
+      const tc = parseInt(document.getElementById('newReqTc').value, 10) || 8;
+      const rr = parseInt(document.getElementById('newReqRr').value, 10) || 9;
+      const js = parseInt(document.getElementById('newReqJs').value, 10) || 4;
+      const cod = uv + tc + rr;
+      const wsjf = Number((cod / js).toFixed(2));
       const payload = {
+        id: 'REQ-' + Date.now(),
+        req_code: 'BRD-JP-00' + (appState.requirements.length + 1),
+        project_code: 'CLS-ITBP-109',
         requirement_title: document.getElementById('newReqTitle').value || 'Automated SMT Stencil Tension Telemetry',
         requirement_title_jp: document.getElementById('newReqTitleJp').value || 'SMTステンシル張力自動テレメトリ連携',
         workshop_method: document.getElementById('newReqMethod').value,
+        bu_department: 'Miyagi NPI & Laem Chabang SMT',
         stakeholder_jp: document.getElementById('newReqStakeholder').value,
-        user_business_value: parseInt(document.getElementById('newReqUv').value, 10) || 9,
-        time_criticality: parseInt(document.getElementById('newReqTc').value, 10) || 8,
-        risk_reduction: parseInt(document.getElementById('newReqRr').value, 10) || 9,
-        job_size: parseInt(document.getElementById('newReqJs').value, 10) || 4,
-        technical_spec: document.getElementById('newReqSpec').value || 'IPC-CFX JSON payload to Siemens Opcenter MES Quality Gate.'
+        user_business_value: uv,
+        time_criticality: tc,
+        risk_reduction: rr,
+        job_size: js,
+        cost_of_delay: cod,
+        wsjf_index: wsjf,
+        technical_spec: document.getElementById('newReqSpec').value || 'IPC-CFX JSON payload to Siemens Opcenter MES Quality Gate.',
+        verification_method: 'Shop-Floor Interlock & Bilingual UAT',
+        traceability_status: 'APPROVED'
       };
       closeModal('modalNewReq');
-      await apiCall('/api/celestica/requirements', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      await loadOverviewData();
+      appState.requirements.unshift(payload);
+      renderAllModules();
+      try {
+        await apiCall('/api/celestica/requirements', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
     }
 
     // -----------------------------------------------------------------------
@@ -1658,22 +2262,40 @@
       document.getElementById('simIrrOut').innerText = `${irr}%`;
       document.getElementById('simRoiOut').innerText = `${roi}%`;
       document.getElementById('simPaybackOut').innerText = `${payback} Mo`;
+      return { capex, opex, savings, r, npv, payback, roi, irr };
     }
 
     async function saveSimulatedCba() {
+      const calc = recalcCbaSimulator();
+      const idx = appState.cba_studies.length + 1;
       const payload = {
-        initiative_name: document.getElementById('simCbaName').value,
-        capex_usd: parseFloat(document.getElementById('simCapex').value) || 260000,
-        annual_opex_usd: parseFloat(document.getElementById('simOpex').value) || 38000,
-        annual_gross_savings_usd: parseFloat(document.getElementById('simSavings').value) || 295000,
-        discount_rate_percent: parseFloat(document.getElementById('simWacc').value) || 8.5
+        id: 'CBA-' + Date.now(),
+        study_code: `CBA-2026-JP0${idx}`,
+        approval_ringi_no: `RINGI-JP-2026-${130 + idx}`,
+        initiative_name: document.getElementById('simCbaName').value || 'Automated Optical Inspection (AOI) Edge AI Upgrade',
+        target_site: 'Miyagi Plant (CLS-MYG) & Laem Chabang (CLS-LCB)',
+        as_is_cycle_time_hrs: 24.0,
+        to_be_cycle_time_hrs: 3.5,
+        as_is_oee_percent: 74.0,
+        to_be_oee_percent: 88.5,
+        capex_usd: calc.capex,
+        annual_opex_usd: calc.opex,
+        annual_gross_savings_usd: calc.savings,
+        discount_rate_percent: calc.r * 100,
+        npv_5yr_usd: calc.npv,
+        irr_percent: Number(calc.irr),
+        roi_percent: Number(calc.roi),
+        payback_months: Number(calc.payback) || 12.0
       };
-      await apiCall('/api/celestica/cba-studies', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      await loadOverviewData();
+      appState.cba_studies.unshift(payload);
+      renderAllModules();
+      try {
+        await apiCall('/api/celestica/cba-studies', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {}
     }
 
     function renderCbaAndSowTables() {
@@ -1783,13 +2405,28 @@
     }
 
     async function triggerIntegrationSync(connectorCode) {
+      const conn = appState.integrations.find(c => c.connector_code === connectorCode);
+      if (conn) {
+        conn.records_synced_today = Number(conn.records_synced_today || 0) + 125;
+        conn.last_sync_at = new Date().toISOString().replace('T', ' ').slice(0, 19);
+      }
+      appState.integration_logs.unshift({
+        id: Date.now(),
+        connector_code: connectorCode,
+        event_type: 'MANUAL_REALTIME_SYNC',
+        source_system: 'Celestica ITBP Console',
+        target_system: connectorCode,
+        payload_summary: 'Synchronized 125 delta records across Japan & Thailand shop-floor nodes (0 errors)',
+        status_code: 200,
+        created_at: new Date().toISOString().replace('T', ' ').slice(0, 19)
+      });
+      renderAllModules();
       try {
         await apiCall('/api/celestica/integrations/sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ connector_code: connectorCode })
         });
-        await loadOverviewData();
       } catch (e) {}
     }
 
