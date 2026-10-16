@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOC-01: Feasibility Study, BPR & Cost-Benefit Analysis (CBA) — Celestica IT Business Partner 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0a2540;
+      --accent: #0284c7;
+      --emerald: #059669;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: #e2e8f0;
+      font-size: 12.5px;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-family: 'Prompt', sans-serif;
+    }
+    .toolbar-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn {
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-print { background: #10b981; color: #fff; }
+    .btn-print:hover { background: #059669; }
+    .btn-nav { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+    .btn-nav:hover { background: #334155; }
+    .btn-active { background: #0284c7; color: #fff; }
+
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 18px auto;
+      padding: 15mm 18mm;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .a4-page {
+        margin: 0;
+        padding: 12mm 15mm;
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .brand-box { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 46px; height: 46px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 700;
+    }
+    .doc-title-block h1 {
+      font-family: 'Prompt', sans-serif;
+      font-size: 16px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .doc-title-block p { font-size: 11px; color: var(--muted); }
+    .meta-table {
+      font-size: 11px;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .meta-table td { padding: 1.5px 6px; border: 1px solid var(--border); }
+    .meta-table td.lbl { background: #f8fafc; font-weight: 600; color: var(--primary); }
+
+    .section-hdr {
+      background: var(--primary);
+      color: #fff;
+      font-family: 'Prompt', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin: 12px 0 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table.data-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      font-size: 11.5px;
+    }
+    table.data-tbl th, table.data-tbl td {
+      border: 1px solid var(--border);
+      padding: 5px 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+    table.data-tbl th {
+      background: #f1f5f9;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 11px;
+    }
+    .num { text-align: right !important; font-family: 'JetBrains Mono', monospace; }
+    .ctr { text-align: center !important; }
+    .flow-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    .flow-card { border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; background: #f8fafc; }
+    .flow-card h4 { font-family: 'Prompt', sans-serif; font-size: 12px; margin-bottom: 4px; }
+    .step-pill {
+      display: block;
+      padding: 4px 8px;
+      margin: 4px 0;
+      background: #fff;
+      border-left: 3px solid var(--accent);
+      border-radius: 3px;
+      font-size: 11px;
+    }
+    .sign-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .sign-box {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+      font-size: 11px;
+    }
+    .hanko-seal {
+      width: 38px; height: 38px;
+      border: 2px solid #dc2626;
+      color: #dc2626;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      margin: 6px auto;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-links">
+      <a href="celestica_portal.html" class="btn btn-nav">&larr; กลับหน้า Console หลัก</a>
+      <a href="celestica_doc_charter_cba.html" class="btn btn-active">DOC-01: Feasibility, BPR &amp; CBA</a>
+      <a href="celestica_doc_sow_vmp.html" class="btn btn-nav">DOC-02: Vendor SOW &amp; BABOK RTM</a>
+      <a href="celestica_doc_p6_pmo.html" class="btn btn-nav">DOC-03: Primavera P6 Schedule &amp; SOP</a>
+    </div>
+    <button onclick="window.print()" class="btn btn-print">🖨️ พิมพ์เอกสารฉบับนี้ (Print A4 / Save PDF)</button>
+  </div>
+
+  <!-- PAGE 1: FEASIBILITY STUDY, BPR PROCESS FLOWS & 5-YEAR FINANCIAL CBA -->
+  <div class="a4-page">
+    <div class="doc-header">
+      <div class="brand-box">
+        <div class="logo">
+          <span style="font-size:14px;">CLS</span>
+          <span style="font-size:8px;color:#38bdf8;">ITBP-10</span>
+        </div>
+        <div class="doc-title-block">
+          <h1>CELESTICA (THAILAND) LIMITED &amp; CELESTICA JAPAN K.K.</h1>
+          <p>49/18 Moo 5, Laem Chabang Industrial Estate, Chonburi 20230 &harr; Taiwa-cho, Miyagi 981-3681, Japan</p>
+          <p><strong>OFFICIAL DOSSIER:</strong> FEASIBILITY STUDY, BUSINESS PROCESS RE-ENGINEERING (BPR) &amp; COST-BENEFIT ANALYSIS (稟議書)</p>
+        </div>
+      </div>
+      <table class="meta-table">
+        <tr><td class="lbl">DOC NO:</td><td>CLS-ITBP-CBA-2026-01</td></tr>
+        <tr><td class="lbl">REQ ID:</td><td>133553 (Band 10 Manager)</td></tr>
+        <tr><td class="lbl">RINGI NO:</td><td>RINGI-JP-2026-088</td></tr>
+        <tr><td class="lbl">DATE:</td><td>16 October 2026</td></tr>
+      </table>
+    </div>
+
+    <div class="section-hdr">
+      <span>1. EXECUTIVE SUMMARY &amp; STRATEGIC ALIGNMENT (概要および戦略的整合性)</span>
+      <span>BRM Institute Level 5</span>
+    </div>
+    <p style="margin-bottom:8px;text-align:justify;">
+      เอกสารฉบับนี้จัดทำโดย <strong>Manager, IT Business Partner 2 (Req ID: 133553)</strong> เพื่อรายงานผลการศึกษาความเป็นไปได้ทางเทคนิค (Technical Feasibility Study), การวิเคราะห์และรื้อปรับกระบวนการทางธุรกิจ (Business Process Re-engineering: BPR) และการวิเคราะห์ต้นทุนและผลตอบแทนทางการเงินระยะ 5 ปี (5-Year Cost-Benefit Analysis: CBA) สำหรับโครงการบูรณาการระบบบริหารการผลิต <strong>Next-Gen Siemens Opcenter MES v24 เชื่อมต่อ SAP S/4HANA และระบบ IIoT Edge Telemetry</strong> ระหว่างฐานการผลิต <strong>Celestica Japan (โรงงาน Miyagi NPI Center และสำนักงาน Tokyo)</strong> กับฐานการผลิตหลัก <strong>Celestica Thailand (นิคมอุตสาหกรรมแหลมฉบัง จ.ชลบุรี)</strong>
+    </p>
+
+    <div class="section-hdr">
+      <span>2. AS-IS vs. TO-BE BUSINESS PROCESS RE-ENGINEERING FLOW (業務プロセス再構築図)</span>
+      <span>Lean Six Sigma DMAIC &amp; BPMN 2.0</span>
+    </div>
+    <div class="flow-grid">
+      <div class="flow-card" style="border-color:#fca5a5;background:#fff1f2;">
+        <h4 style="color:#991b1b;">❌ AS-IS PROCESS (ก่อนปรับปรุง — Manual &amp; Batch Latency)</h4>
+        <span class="step-pill" style="border-left-color:#dc2626;"><strong>Step 1 (Miyagi NPI):</strong> วิศวกรญี่ปุ่นส่งออก BOM/BOP เป็นไฟล์ Excel/PDF ทางอีเมลเมื่อจบเฟส Prototype</span>
+        <span class="step-pill" style="border-left-color:#dc2626;"><strong>Step 2 (Laem Chabang):</strong> เจ้าหน้าที่คีย์ข้อมูลลงระบบด้วยมือ และพิมพ์ใบงานกระดาษ (Paper Traveler) ใช้เวลาโอนย้าย NPI เฉลี่ย 28 วัน</span>
+        <span class="step-pill" style="border-left-color:#dc2626;"><strong>Step 3 (SMT Shop Floor):</strong> ตรวจสอบม้วนชิ้นส่วน (Feeder) และเวลาความชื้น (MSD) ด้วยสายตา เสี่ยงเกิดของเสีย (480 DPPM)</span>
+        <span class="step-pill" style="border-left-color:#dc2626;"><strong>Step 4 (ERP Sync):</strong> ตัดสต็อก Backflush ลง SAP แบบ Batch ทุก 12 ชม. ทำให้ไม่เห็นยอด WIP แบบ Real-time (OEE = 74.5%)</span>
+      </div>
+      <div class="flow-card" style="border-color:#6ee7b7;background:#ecfdf5;">
+        <h4 style="color:#065f46;">✅ TO-BE PROCESS (หลังรื้อปรับระบบ — Real-Time ISA-95 Automated Mesh)</h4>
+        <span class="step-pill" style="border-left-color:#059669;"><strong>Step 1 (1-Click NPI Bridge):</strong> ซิงค์ BOM/BOP จาก Mentor Valor &amp; Opcenter Miyagi สู่ Laem Chabang อัตโนมัติ ลดเวลาจาก 28 วัน เหลือ 10 วัน</span>
+        <span class="step-pill" style="border-left-color:#059669;"><strong>Step 2 (Paperless e-DHR):</strong> ใช้บาร์โค้ด 2D/RFID บันทึกประวัติการผลิตอิเล็กทรอนิกส์ (IPC-1782 Traceability) แบบไร้กระดาษ 100%</span>
+        <span class="step-pill" style="border-left-color:#059669;"><strong>Step 3 (SECS/GEM Interlock):</strong> สั่งล็อกเครื่องจักร Fuji NXT / Panasonic NPM อัตโนมัติหากใส่ Feeder ผิดหรือ MSD เกินเวลา (เหลือ 45 DPPM)</span>
+        <span class="step-pill" style="border-left-color:#059669;"><strong>Step 4 (Live SAP S/4HANA):</strong> ส่ง IDoc/OData ตัดสต็อกและอัปเดต Kinaxis CTB ทันทีภายใน 5 วินาที (ยกระดับ OEE เป็น 86.2%)</span>
+      </div>
+    </div>
+
+    <div class="section-hdr">
+      <span>3. PORTFOLIO FEASIBILITY &amp; 5-YEAR COST-BENEFIT ANALYSIS SUMMARY (費用対効果分析一覧)</span>
+      <span>Discount Rate (WACC) = 8.5%</span>
+    </div>
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th>Study Code / Ringi</th>
+          <th>Strategic Initiative &amp; Target Sites</th>
+          <th class="ctr">Cycle Time (As-Is &rarr; To-Be)</th>
+          <th class="ctr">Defect DPPM</th>
+          <th class="ctr">OEE (%)</th>
+          <th class="num">CapEx ($ USD)</th>
+          <th class="num">Annual Net Savings ($)</th>
+          <th class="num">5-Yr NPV ($ USD)</th>
+          <th class="ctr">IRR / Payback</th>
+        </tr>
+      </thead>
+      <tbody id="docCbaBody">
+        <tr>
+          <td><strong>CBA-2026-JP01</strong><br><span style="font-size:10px;color:#059669;">RINGI-JP-2026-088</span></td>
+          <td><strong>Next-Gen MES &amp; SAP S/4HANA Convergence</strong><br>Miyagi Plant &amp; Laem Chabang</td>
+          <td class="ctr">42.0h &rarr; <strong>6.5h</strong></td>
+          <td class="ctr">480 &rarr; <strong>45</strong></td>
+          <td class="ctr">74.5% &rarr; <strong>86.2%</strong></td>
+          <td class="num">$1,250,000</td>
+          <td class="num">$1,035,000</td>
+          <td class="num"><strong>$3,450,000</strong></td>
+          <td class="ctr"><strong>38.4%</strong><br>14.2 Mo</td>
+        </tr>
+        <tr>
+          <td><strong>CBA-2026-JP02</strong><br><span style="font-size:10px;color:#059669;">RINGI-JP-2026-104</span></td>
+          <td><strong>SMT Line IIoT Edge Telemetry (14 Lines)</strong><br>Miyagi Plant &amp; LCB Plant 1</td>
+          <td class="ctr">14.5h &rarr; <strong>1.8h</strong></td>
+          <td class="ctr">310 &rarr; <strong>62</strong></td>
+          <td class="ctr">76.0% &rarr; <strong>85.4%</strong></td>
+          <td class="num">$260,000</td>
+          <td class="num">$257,000</td>
+          <td class="num"><strong>$680,000</strong></td>
+          <td class="ctr"><strong>44.2%</strong><br>11.8 Mo</td>
+        </tr>
+        <tr>
+          <td><strong>CBA-2026-JP03</strong><br><span style="font-size:10px;color:#059669;">RINGI-JP-2026-119</span></td>
+          <td><strong>Kinaxis RapidResponse AI Demand &amp; CTB</strong><br>Tokyo HQ &amp; Laem Chabang SCM</td>
+          <td class="ctr">108.0h &rarr; <strong>4.0h</strong></td>
+          <td class="ctr">1250 &rarr; <strong>120</strong></td>
+          <td class="ctr">71.0% &rarr; <strong>88.0%</strong></td>
+          <td class="num">$290,000</td>
+          <td class="num">$298,000</td>
+          <td class="num"><strong>$810,000</strong></td>
+          <td class="ctr"><strong>46.8%</strong><br>11.5 Mo</td>
+        </tr>
+        <tr>
+          <td><strong>CBA-2026-JP04</strong><br><span style="font-size:10px;color:#059669;">RINGI-JP-2026-127</span></td>
+          <td><strong>J-SOX Automated 3-Way Match &amp; e-Invoice</strong><br>Tokyo Finance &amp; TH Shared Svc</td>
+          <td class="ctr">124.8h &rarr; <strong>2.5h</strong></td>
+          <td class="ctr">890 &rarr; <strong>15</strong></td>
+          <td class="ctr">68.0% &rarr; <strong>94.5%</strong></td>
+          <td class="num">$145,000</td>
+          <td class="num">$156,000</td>
+          <td class="num"><strong>$390,000</strong></td>
+          <td class="ctr"><strong>48.5%</strong><br>11.1 Mo</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-hdr">
+      <span>4. HARDWARE &amp; SOFTWARE MULTI-CRITERIA EVALUATION READOUT (機器・ソフトウェア選定評価表)</span>
+      <span>MCDA Weighted Decision Matrix</span>
+    </div>
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th>Evaluation Package / Category</th>
+          <th>Shortlisted Vendors Compared</th>
+          <th class="ctr">Functional Fit (35%)</th>
+          <th class="ctr">SAP/MES Compat (25%)</th>
+          <th class="ctr">J-SOX / Security (20%)</th>
+          <th class="ctr">5-Yr TCO Score (20%)</th>
+          <th class="ctr">Weighted Total</th>
+          <th>Final ITBP Recommendation to Business</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SMT IIoT Edge Gateway Appliance</strong></td>
+          <td><strong>1. Advantech MIC-770 V3 (Selected)</strong><br>2. Dell NativeEdge (88.4)<br>3. Cisco IC3000 (86.2)</td>
+          <td class="ctr">94</td>
+          <td class="ctr">96</td>
+          <td class="ctr">93</td>
+          <td class="ctr">92</td>
+          <td class="ctr"><strong>94.0 / 100</strong></td>
+          <td><strong>SELECTED:</strong> Native Fuji NXT &amp; Panasonic NPM SECS/GEM driver support; 18% lower 5-year TCO.</td>
+        </tr>
+        <tr>
+          <td><strong>Enterprise MES Platform Upgrade</strong></td>
+          <td><strong>1. Siemens Opcenter v24 (Selected)</strong><br>2. Critical Manufacturing (90.2)</td>
+          <td class="ctr">96</td>
+          <td class="ctr">95</td>
+          <td class="ctr">98</td>
+          <td class="ctr">90</td>
+          <td class="ctr"><strong>95.1 / 100</strong></td>
+          <td><strong>SELECTED:</strong> Full IPC-1782 genealogy &amp; native SAP S/4HANA PP-PI/BAPI connector.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sign-grid">
+      <div class="sign-box">
+        <div><strong>Prepared By (起案者)</strong></div>
+        <div class="hanko-seal">アリトゥット<br>承認済</div>
+        <div><strong>Aritut (Mgr, ITBP 2)</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Req ID: 133553 • Laem Chabang</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Japan Ops Sponsor (宮城工場)</strong></div>
+        <div class="hanko-seal">渡辺<br>決裁</div>
+        <div><strong>Hiroshi Watanabe</strong></div>
+        <div style="color:var(--muted);font-size:10px;">GM Operations, Celestica Miyagi</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Japan Finance (財務統括)</strong></div>
+        <div class="hanko-seal">田中<br>検印</div>
+        <div><strong>Akiko Tanaka</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Finance Controller, Tokyo</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Global IT Approval (本社承認)</strong></div>
+        <div class="hanko-seal">ITBP<br>APPROVED</div>
+        <div><strong>Director of IT Business Partners</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Global IT PMO • Toronto / APAC</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

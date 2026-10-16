@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOC-02: Statement of Work (SOW) & BABOK Requirements Traceability Matrix — Celestica ITBP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0a2540;
+      --accent: #0284c7;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: #e2e8f0;
+      font-size: 12.5px;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-family: 'Prompt', sans-serif;
+    }
+    .toolbar-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn {
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-print { background: #10b981; color: #fff; }
+    .btn-nav { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+    .btn-active { background: #0284c7; color: #fff; }
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 18px auto;
+      padding: 15mm 18mm;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .a4-page {
+        margin: 0;
+        padding: 12mm 15mm;
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+    .brand-box { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 46px; height: 46px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 700;
+    }
+    .doc-title-block h1 { font-family: 'Prompt', sans-serif; font-size: 16px; color: var(--primary); font-weight: 700; }
+    .doc-title-block p { font-size: 11px; color: var(--muted); }
+    .meta-table { font-size: 11px; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; }
+    .meta-table td { padding: 1.5px 6px; border: 1px solid var(--border); }
+    .meta-table td.lbl { background: #f8fafc; font-weight: 600; color: var(--primary); }
+    .section-hdr {
+      background: var(--primary);
+      color: #fff;
+      font-family: 'Prompt', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin: 12px 0 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table.data-tbl { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 11.5px; }
+    table.data-tbl th, table.data-tbl td { border: 1px solid var(--border); padding: 5px 7px; text-align: left; vertical-align: top; }
+    table.data-tbl th { background: #f1f5f9; font-family: 'Prompt', sans-serif; font-weight: 600; color: var(--primary); font-size: 11px; }
+    .num { text-align: right !important; font-family: 'JetBrains Mono', monospace; }
+    .ctr { text-align: center !important; }
+    .sign-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+    .sign-box { border: 1px solid var(--border); border-radius: 6px; padding: 8px; text-align: center; font-size: 11px; }
+    .hanko-seal {
+      width: 38px; height: 38px;
+      border: 2px solid #dc2626;
+      color: #dc2626;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      margin: 6px auto;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-links">
+      <a href="celestica_portal.html" class="btn btn-nav">&larr; กลับหน้า Console หลัก</a>
+      <a href="celestica_doc_charter_cba.html" class="btn btn-nav">DOC-01: Feasibility, BPR &amp; CBA</a>
+      <a href="celestica_doc_sow_vmp.html" class="btn btn-active">DOC-02: Vendor SOW &amp; BABOK RTM</a>
+      <a href="celestica_doc_p6_pmo.html" class="btn btn-nav">DOC-03: Primavera P6 Schedule &amp; SOP</a>
+    </div>
+    <button onclick="window.print()" class="btn btn-print">🖨️ พิมพ์เอกสารฉบับนี้ (Print A4 / Save PDF)</button>
+  </div>
+
+  <div class="a4-page">
+    <div class="doc-header">
+      <div class="brand-box">
+        <div class="logo">
+          <span style="font-size:14px;">CLS</span>
+          <span style="font-size:8px;color:#38bdf8;">SOW-10</span>
+        </div>
+        <div class="doc-title-block">
+          <h1>CELESTICA (THAILAND) LIMITED &amp; CELESTICA JAPAN K.K.</h1>
+          <p>49/18 Moo 5, Laem Chabang Industrial Estate, Chonburi 20230 &harr; Taiwa-cho, Miyagi 981-3681, Japan</p>
+          <p><strong>OFFICIAL DOSSIER:</strong> VENDOR STATEMENT OF WORK (SOW), SLA GOVERNANCE &amp; BABOK RTM + WSJF MATRIX (業務委託仕様書)</p>
+        </div>
+      </div>
+      <table class="meta-table">
+        <tr><td class="lbl">SOW NO:</td><td>SOW-CLS-2026-081</td></tr>
+        <tr><td class="lbl">REQ ID:</td><td>133553 (Mgr, ITBP 2)</td></tr>
+        <tr><td class="lbl">CONTRACT:</td><td>Fixed-Price Milestone</td></tr>
+        <tr><td class="lbl">VALUE:</td><td>$580,000.00 USD</td></tr>
+      </table>
+    </div>
+
+    <div class="section-hdr">
+      <span>1. STATEMENT OF WORK (SOW) — PARTIES, SCOPE &amp; DELIVERABLE MILESTONES (業務委託範囲およびマイルストーン)</span>
+      <span>PMO Vendor Governance</span>
+    </div>
+    <p style="margin-bottom:8px;text-align:justify;">
+      สัญญา Statement of Work (SOW) ฉบับนี้จัดทำขึ้นระหว่าง <strong>Celestica (Thailand) Limited / Celestica Japan K.K. ("Customer")</strong> โดย <strong>Manager, IT Business Partner 2</strong> และ <strong>Siemens Digital Industries &amp; Hitachi Systems ("Vendor")</strong> สำหรับการออกแบบ ติดตั้ง และเชื่อมโยงระบบ <strong>Siemens Opcenter Execution Electronics (Camstar) v24</strong> เข้ากับ <strong>SAP S/4HANA Global ERP</strong> ทั้งที่โรงงาน Miyagi (NPI Center) และโรงงาน Laem Chabang (Mass Production) โดยชำระเงินตามงวดงาน (Fixed-Price Deliverable Milestones) ดังต่อไปนี้:
+    </p>
+
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th class="ctr">Milestone</th>
+          <th>Deliverable Description &amp; Acceptance Criteria (検収基準)</th>
+          <th class="ctr">Target Date</th>
+          <th class="ctr">Payment %</th>
+          <th class="num">Amount ($ USD)</th>
+          <th class="ctr">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ctr"><strong>M1</strong></td>
+          <td><strong>Bilingual BRD/FRD Sign-Off &amp; Architecture Blueprint:</strong> 100% traceability to Design Thinking Workshop outputs (JP/EN).</td>
+          <td class="ctr">28-Aug-2026</td>
+          <td class="ctr">15%</td>
+          <td class="num">$87,000</td>
+          <td class="ctr" style="color:#059669;font-weight:700;">ACCEPTED</td>
+        </tr>
+        <tr>
+          <td class="ctr"><strong>M2</strong></td>
+          <td><strong>Opcenter v24 Core &amp; IPC-1782 Traceability DB Build:</strong> Multi-site HA cluster deployed with Japanese/English/Thai operator screens.</td>
+          <td class="ctr">25-Sep-2026</td>
+          <td class="ctr">20%</td>
+          <td class="num">$116,000</td>
+          <td class="ctr" style="color:#059669;font-weight:700;">ACCEPTED</td>
+        </tr>
+        <tr>
+          <td class="ctr"><strong>M3</strong></td>
+          <td><strong>SAP S/4HANA PP/MM IDoc &amp; SECS/GEM SMT Interlock:</strong> Real-time Work Order sync (&lt; 5 sec latency) &amp; Fuji/Panasonic feeder interlock.</td>
+          <td class="ctr">22-Oct-2026</td>
+          <td class="ctr">25%</td>
+          <td class="num">$145,000</td>
+          <td class="ctr" style="color:#0284c7;font-weight:700;">IN REVIEW (80%)</td>
+        </tr>
+        <tr>
+          <td class="ctr"><strong>M4</strong></td>
+          <td><strong>SIT, Cybersecurity &amp; J-SOX ITGC Audit Verification:</strong> Zero Critical/High vulnerabilities; 100% immutable e-DHR audit trail.</td>
+          <td class="ctr">28-Oct-2026</td>
+          <td class="ctr">15%</td>
+          <td class="num">$87,000</td>
+          <td class="ctr">IN PROGRESS</td>
+        </tr>
+        <tr>
+          <td class="ctr"><strong>M5</strong></td>
+          <td><strong>Bilingual UAT Sign-Off &amp; Production Cutover:</strong> Parallel run of 5 optical/server work orders across Miyagi &amp; Laem Chabang.</td>
+          <td class="ctr">08-Dec-2026</td>
+          <td class="ctr">15%</td>
+          <td class="num">$87,000</td>
+          <td class="ctr">SCHEDULED</td>
+        </tr>
+        <tr>
+          <td class="ctr"><strong>M6</strong></td>
+          <td><strong>30-Day Hypercare &amp; Benefits Realization PIR:</strong> Verified 99.95% SLA uptime and OEE target achievement.</td>
+          <td class="ctr">18-Dec-2026</td>
+          <td class="ctr">10%</td>
+          <td class="num">$58,000</td>
+          <td class="ctr">SCHEDULED</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-hdr">
+      <span>2. BABOK v3 REQUIREMENTS TRACEABILITY MATRIX (RTM) &amp; SAFe WSJF PRIORITIZATION (要件トレーサビリティマトリクス)</span>
+      <span>Design Thinking Workshop Outputs</span>
+    </div>
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th>Req ID</th>
+          <th>Workshop Method &amp; Stakeholder</th>
+          <th>Business Requirement (EN / 日本語)</th>
+          <th>Technical Specification &amp; System Impact</th>
+          <th class="ctr">CoD / Size</th>
+          <th class="ctr">WSJF</th>
+          <th>Verification Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BRD-JP-001</strong></td>
+          <td>Design Thinking<br><strong>H. Watanabe</strong> (Miyagi)</td>
+          <td><strong>Automated e-DHR &amp; Lot Genealogy</strong><br>日タイ拠点間での電子デバイス履歴記録の完全自動化</td>
+          <td>ISA-95 L3 REST/Kafka bridge syncing Opcenter e-DHR XML with SAP S/4HANA Batch Mgmt &amp; Valor BOM.</td>
+          <td class="ctr">29 &divide; 4</td>
+          <td class="ctr"><strong>7.25</strong></td>
+          <td>End-to-End Lot Query (&lt;3s)</td>
+        </tr>
+        <tr>
+          <td><strong>BRD-JP-002</strong></td>
+          <td>Gemba Kaizen Walk<br><strong>D. Ito</strong> (Miyagi SMT)</td>
+          <td><strong>SMT Feeder &amp; MSD Floor-Life Interlock</strong><br>SMTフィーダー異品種装填インターロック・湿度管理遮断</td>
+          <td>SECS/GEM S2F41 Host Command halting Fuji NXT / Panasonic NPM if barcode mismatches BOM or MSD &gt; 72h.</td>
+          <td class="ctr">28 &divide; 4</td>
+          <td class="ctr"><strong>7.00</strong></td>
+          <td>Shop-Floor Interlock Test (100% Block)</td>
+        </tr>
+        <tr>
+          <td><strong>BRD-JP-003</strong></td>
+          <td>J-SOX Audit<br><strong>A. Tanaka</strong> (Tokyo Fin)</td>
+          <td><strong>J-SOX 3-Way Match &amp; Qualified Invoice</strong><br>J-SOX準拠の自動三面照合および適格請求書API検証</td>
+          <td>SAP S/4HANA FI/MM BAPI integration with Japan NTA T-Number API and automated Ringi workflow.</td>
+          <td class="ctr">27 &divide; 5</td>
+          <td class="ctr"><strong>5.40</strong></td>
+          <td>External J-SOX ITGC Sample Audit</td>
+        </tr>
+        <tr>
+          <td><strong>BRD-JP-004</strong></td>
+          <td>BPM SIPOC<br><strong>K. Fujita</strong> (Tokyo OEM)</td>
+          <td><strong>Kinaxis RapidResponse CTB Simulation</strong><br>Kinaxis双方向クリア・トゥ・ビルド(CTB)シミュレーション</td>
+          <td>High-frequency OData delta sync between SAP S/4HANA MRP Live, E2Open, and Kinaxis RapidResponse.</td>
+          <td class="ctr">26 &divide; 5</td>
+          <td class="ctr"><strong>5.20</strong></td>
+          <td>Parallel MRP vs. Kinaxis Playback</td>
+        </tr>
+        <tr>
+          <td><strong>BRD-JP-005</strong></td>
+          <td>Design Thinking<br><strong>K. Takahashi</strong> (Quality)</td>
+          <td><strong>AI Vision Secondary Check for 3D AOI</strong><br>3D AOI/AXI過検出削減のためのAI画像認識二次判定</td>
+          <td>NVIDIA Jetson Orin Industrial edge container receiving Koh Young / Omron 3D AOI crops via gRPC.</td>
+          <td class="ctr">23 &divide; 5</td>
+          <td class="ctr"><strong>4.60</strong></td>
+          <td>Gage R&amp;R &amp; Confusion Matrix</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-hdr">
+      <span>3. SLA PENALTY CLAUSES &amp; PMO ROADBLOCK ESCALATION PROTOCOL (SLA違約金およびエスカレーション規定)</span>
+      <span>PMBOK 7th Ed. Governance</span>
+    </div>
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th>Severity Level</th>
+          <th>Definition &amp; Shop-Floor Impact</th>
+          <th>Response / Resolution SLA</th>
+          <th>PMO Escalation Path &amp; Commercial Credit Penalty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Severity 1 (Critical)</strong></td>
+          <td>Production line stop at Miyagi or Laem Chabang; SAP/MES backflush halt.</td>
+          <td>Response &le; 15 mins<br>Resolution &le; 2 hours</td>
+          <td>Immediate escalation to <strong>Manager, ITBP 2</strong> &amp; Global PMO Director. Penalty: 5% of monthly SOW fee per hour above SLA.</td>
+        </tr>
+        <tr>
+          <td><strong>Severity 2 (High)</strong></td>
+          <td>Project critical path task (Total Float = 0) delayed by &ge; 2 days or PMO non-compliance.</td>
+          <td>Response &le; 1 hour<br>Recovery Plan &le; 24 hours</td>
+          <td>Formal Corrective Action Request (CAR) issued by ITBP; mandatory vendor resource augmentation at zero cost to Celestica.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sign-grid">
+      <div class="sign-box">
+        <div><strong>ITBP Author &amp; Negotiator</strong></div>
+        <div class="hanko-seal">アリトゥット<br>契約済</div>
+        <div><strong>Aritut (Mgr, ITBP 2)</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Celestica (Thailand) Limited</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Global Procurement</strong></div>
+        <div class="hanko-seal">調達<br>承認</div>
+        <div><strong>APAC IT Sourcing Lead</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Celestica Global Supply Chain</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Vendor Executive</strong></div>
+        <div class="hanko-seal">日立<br>契約印</div>
+        <div><strong>Managing Director</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Siemens / Hitachi Systems</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Global IT PMO</strong></div>
+        <div class="hanko-seal">PMO<br>VERIFIED</div>
+        <div><strong>Director of ITBP &amp; PMO</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Celestica Inc. (Toronto HQ)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

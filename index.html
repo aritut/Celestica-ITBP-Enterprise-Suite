@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celestica IT Business Partner 2 (Req ID: 133553) — Japan & Global IT Strategic Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cls: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              200: '#bae0fd',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#0a2540',
+              950: '#061527'
+            }
+          },
+          fontFamily: {
+            sans: ['Prompt', 'Sarabun', 'Noto Sans JP', 'sans-serif'],
+            body: ['Sarabun', 'Noto Sans JP', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            jp: ['Noto Sans JP', 'Prompt', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Prompt', 'Sarabun', 'Noto Sans JP', sans-serif; }
+    .font-body { font-family: 'Sarabun', 'Noto Sans JP', sans-serif; }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+    /* Drag and drop visual cues */
+    .kanban-col.drag-over {
+      background-color: #e0f2fe !important;
+      border-color: #0284c7 !important;
+      box-shadow: inset 0 0 0 2px #0284c7;
+    }
+    .kanban-card {
+      cursor: grab;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .kanban-card:active { cursor: grabbing; }
+    .kanban-card.dragging {
+      opacity: 0.45;
+      transform: scale(0.97);
+    }
+
+    /* Primavera P6 Gantt Bars */
+    .p6-bar-critical {
+      background: linear-gradient(90deg, #dc2626 0%, #ef4444 100%);
+      box-shadow: 0 1px 4px rgba(220, 38, 38, 0.35);
+    }
+    .p6-bar-normal {
+      background: linear-gradient(90deg, #0284c7 0%, #38bdf8 100%);
+      box-shadow: 0 1px 4px rgba(2, 132, 199, 0.3);
+    }
+    .p6-bar-complete {
+      background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+    }
+
+    @media print {
+      header, .no-print { display: none !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .print-expand { display: block !important; }
+      .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl { box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- TOP ENTERPRISE HEADER -->
+  <header class="bg-gradient-to-r from-cls-950 via-cls-900 to-slate-900 text-white shadow-xl sticky top-0 z-50 border-b border-sky-500/30">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6">
+      <div class="flex flex-wrap items-center justify-between py-3 gap-3">
+        <!-- Brand & Position Identity -->
+        <div class="flex items-center space-x-3.5">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex flex-col items-center justify-center font-bold text-white shadow-lg border border-sky-300/40">
+            <span class="text-sm tracking-tighter leading-none">CLS</span>
+            <span class="text-[9px] font-mono text-sky-100 mt-0.5">ITBP-10</span>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <h1 class="font-bold text-base sm:text-lg tracking-tight text-white">CELESTICA (THAILAND) &amp; JAPAN</h1>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40 font-semibold">Req ID: 133553 • Band 10</span>
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-200 border border-rose-400/40 font-jp hidden md:inline-block">セレスティカ・ジャパン戦略IT連携</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">
+              <span class="font-semibold text-amber-300">Manager, IT Business Partner 2</span> — Laem Chabang, Chonburi 🇹🇭 &harr; Miyagi / Tokyo, Japan 🇯🇵 &harr; Toronto Global IT HQ 🇨🇦
+            </p>
+          </div>
+        </div>
+
+        <!-- Live Telemetry & Quick Actions -->
+        <div class="flex items-center flex-wrap gap-2.5">
+          <div id="sqliteBadge" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-emerald-950/90 border border-emerald-500/40 text-xs text-emerald-300">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="sqliteStatusText" class="font-mono">SQLite WAL: Connected</span>
+          </div>
+
+          <div class="hidden xl:flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 text-xs text-slate-300">
+            <i class="fa-solid fa-diagram-project text-sky-400"></i>
+            <span>Primavera P6: <strong id="hdrSpi" class="text-emerald-400 font-mono">SPI 1.02</strong> | <strong id="hdrCpi" class="text-sky-400 font-mono">CPI 1.05</strong></span>
+          </div>
+
+          <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-medium flex items-center space-x-1.5 transition" title="Print Current Active View">
+            <i class="fa-solid fa-print text-sky-400"></i>
+            <span class="hidden sm:inline">Print View</span>
+          </button>
+
+          <button onclick="switchTab('tab-docs')" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-xs flex items-center space-x-1.5 transition shadow-md">
+            <i class="fa-solid fa-file-pdf"></i>
+            <span>ศูนย์พิมพ์เอกสาร A4 (3 ฉบับ)</span>
+          </button>
+
+          <a href="/" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs transition" title="Back to Main Suite Gateway">
+            <i class="fa-solid fa-house"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- NAVIGATION TABS (7 CORE MODULES) -->
+      <nav class="flex space-x-1 overflow-x-auto py-2 border-t border-slate-800 text-xs sm:text-sm font-medium">
+        <button onclick="switchTab('tab-cockpit')" id="btn-tab-cockpit" class="tab-nav-btn px-3.5 py-2 rounded-lg text-white bg-sky-600/90 shadow flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>1. Executive Cockpit &amp; Theories</span>
+        </button>
+        <button onclick="switchTab('tab-kanban')" id="btn-tab-kanban" class="tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-brands fa-trello text-sky-400"></i>
+          <span>2. Trello Kanban Board (Drag &amp; Drop)</span>
+        </button>
+        <button onclick="switchTab('tab-p6')" id="btn-tab-p6" class="tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-solid fa-bars-progress text-rose-400"></i>
+          <span>3. Primavera P6 Schedule &amp; EVM</span>
+        </button>
+        <button onclick="switchTab('tab-babok')" id="btn-tab-babok" class="tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-solid fa-lightbulb text-amber-400"></i>
+          <span>4. Design Thinking, BABOK &amp; WSJF</span>
+        </button>
+        <button onclick="switchTab('tab-cba')" id="btn-tab-cba" class="tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-solid fa-scale-balanced text-emerald-400"></i>
+          <span>5. BPR, Feasibility CBA &amp; Vendor SOW</span>
+        </button>
+        <button onclick="switchTab('tab-integration')" id="btn-tab-integration" class="tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-solid fa-network-wired text-purple-400"></i>
+          <span>6. ERP / MES / APS Integration Hub</span>
+        </button>
+        <button onclick="switchTab('tab-docs')" id="btn-tab-docs" class="tab-nav-btn px-3.5 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 flex items-center space-x-2 whitespace-nowrap transition">
+          <i class="fa-solid fa-print text-amber-300"></i>
+          <span>7. ศูนย์พิมพ์เอกสาร A4 &amp; วิธีทำ (SOP)</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE CONTAINER -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: EXECUTIVE COCKPIT & THEORETICAL FRAMEWORKS                   -->
+    <!-- =================================================================== -->
+    <section id="tab-cockpit" class="tab-panel space-y-6">
+      <!-- Role Mission Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-cls-900 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg border border-sky-500/30">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-8 space-y-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs font-mono font-semibold">POSITION MANDATE • REQ ID: 133553</span>
+              <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-medium">Band 10 Managerial</span>
+              <span class="px-2.5 py-0.5 rounded bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-jp">日本語 JLPT N1/N2 &amp; English Bilingual</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight">Strategic Alignment: Celestica Japan Business Units &amp; Global IT Capabilities</h2>
+            <p class="text-xs sm:text-sm text-slate-300 font-body leading-relaxed">
+              ศูนย์ปฏิบัติการหลักสำหรับตำแหน่ง <strong>Manager, IT Business Partner 2</strong> ประจำนิคมอุตสาหกรรมแหลมฉบัง จ.ชลบุรี (49/18 หมู่ 5) ทำหน้าที่เป็น Strategic Advisor &amp; Liaison เชื่อมโยงความต้องการทางธุรกิจของ <strong>Celestica Japan K.K. (โรงงาน Miyagi NPI Center จ.มิยากิ และสำนักงาน Tokyo)</strong> เข้ากับทีม <strong>Global IT (Toronto HQ &amp; Thailand Engineering Center)</strong> ครอบคลุมการทำ Design Thinking Workshop, การวิเคราะห์และรื้อปรับระบบ (BPR), การศึกษาความเป็นไปได้และวิเคราะห์ความคุ้มค่าทางการเงิน (Feasibility &amp; CBA), การจัดลำดับความสำคัญด้วย WSJF, การประเมิน Hardware/Software, การร่างสัญญา Vendor SOW และการบริหารโครงการด้วย <strong>Oracle Primavera P6 EPPM</strong>
+            </p>
+          </div>
+          <div class="lg:col-span-4 bg-slate-950/70 rounded-xl p-4 border border-slate-700/80 space-y-2 text-xs">
+            <div class="font-semibold text-sky-300 flex items-center justify-between border-b border-slate-800 pb-1.5">
+              <span><i class="fa-solid fa-building-shield mr-1.5"></i>Verified Celestica Footprint</span>
+              <span class="font-mono text-[11px] text-emerald-400">REAL DATA</span>
+            </div>
+            <div class="space-y-1.5 text-slate-300 font-body">
+              <div><strong class="text-white">🇹🇭 CLS-LCB (Thailand Base):</strong> 49/18 Moo 5, Laem Chabang Industrial Estate, Sriracha, Chonburi 20230 (PCBA, Box-Build, FA Lab, IT Hub)</div>
+              <div><strong class="text-white">🇯🇵 CLS-MYG (Miyagi Plant):</strong> 2 Aza-Raijin Yoshioka, Taiwa-cho, Kurokawa-gun, Miyagi 981-3681 (NPI Center of Excellence, Optical/ATS, IPC Center)</div>
+              <div><strong class="text-white">🇯🇵 CLS-TYO (Tokyo Office):</strong> Minato-ku / Hino City, Tokyo (OEM Partnerships, SCM, After-Market ITAD)</div>
+              <div><strong class="text-white">🇨🇦 CLS-TOR (Global HQ):</strong> 5140 Yonge St, Toronto, ON (Global IT PMO &amp; Enterprise Architecture)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 Executive KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-sky-600">
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+            <span>ITBP Active Portfolio</span>
+            <i class="fa-solid fa-layer-group text-sky-600"></i>
+          </div>
+          <div id="kpiActiveCount" class="text-2xl font-bold text-slate-900 mt-1 font-mono">12 Projects</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-1">Budget: <span id="kpiTotalBudget" class="font-mono">$3.90M USD</span></div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-emerald-600">
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+            <span>5-Year Cumulative NPV</span>
+            <i class="fa-solid fa-sack-dollar text-emerald-600"></i>
+          </div>
+          <div id="kpiTotalNpv" class="text-2xl font-bold text-emerald-700 mt-1 font-mono">$10.51M</div>
+          <div class="text-[11px] text-slate-500 mt-1">Avg IRR: <strong class="text-slate-800">44.5%</strong> (WACC 8.5%)</div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-rose-600">
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+            <span>Primavera P6 EVM Index</span>
+            <i class="fa-solid fa-chart-line text-rose-600"></i>
+          </div>
+          <div class="flex items-baseline space-x-2 mt-1">
+            <span id="kpiSpi" class="text-2xl font-bold text-slate-900 font-mono">SPI 1.02</span>
+            <span id="kpiCpi" class="text-sm font-bold text-emerald-600 font-mono">CPI 1.05</span>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-1">10 Critical Path Tasks (TF=0d)</div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-amber-500">
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+            <span>BPR Shop-Floor OEE Gain</span>
+            <i class="fa-solid fa-industry text-amber-500"></i>
+          </div>
+          <div id="kpiOeeGain" class="text-2xl font-bold text-slate-900 mt-1 font-mono">+16.1%</div>
+          <div class="text-[11px] text-emerald-600 font-medium mt-1">Cycle Time: -88.2% Reduction</div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-purple-600">
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+            <span>Vendor SOW Governance</span>
+            <i class="fa-solid fa-file-signature text-purple-600"></i>
+          </div>
+          <div class="text-2xl font-bold text-slate-900 mt-1 font-mono">4 Active SOWs</div>
+          <div class="text-[11px] text-amber-600 font-medium mt-1">1 Escalation Resolved / 1 Active</div>
+        </div>
+
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200/90 border-l-4 border-l-indigo-600">
+          <div class="flex items-center justify-between text-xs text-slate-500 font-medium">
+            <span>ISA-95 Live Integrations</span>
+            <i class="fa-solid fa-plug-circle-check text-indigo-600"></i>
+          </div>
+          <div class="text-2xl font-bold text-emerald-600 mt-1 font-mono">99.98% SLA</div>
+          <div class="text-[11px] text-slate-500 mt-1">SAP S/4 • Opcenter • Kinaxis • P6</div>
+        </div>
+      </div>
+
+      <!-- 4 Interactive Executive Charts -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Chart 1: Primavera P6 EVM S-Curve & Cost Breakdown -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">1. Primavera P6 Earned Value Management (PV vs. EV vs. AC)</h3>
+              <p class="text-xs text-slate-500">PMBOK / P6 EPPM Work Breakdown Structure (WBS 1.1 – 1.6) Cost &amp; Schedule Control</p>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">BAC: $1,350,000</span>
+          </div>
+          <div class="h-64">
+            <canvas id="chartEvm"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: SAFe WSJF Prioritization Matrix -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">2. SAFe WSJF Requirement Prioritization under Resource Constraints</h3>
+              <p class="text-xs text-slate-500">WSJF = Cost of Delay (Business Value + Time Criticality + Risk Reduction) &divide; Job Size</p>
+            </div>
+            <button onclick="switchTab('tab-babok')" class="text-xs text-sky-600 hover:underline font-medium">Open Calculator &rarr;</button>
+          </div>
+          <div class="h-64">
+            <canvas id="chartWsjf"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: BPR As-Is vs To-Be OEE & Cycle Time -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">3. Business Process Re-Engineering (BPR): As-Is vs. To-Be OEE (%) &amp; Cycle Time</h3>
+              <p class="text-xs text-slate-500">Lean Six Sigma DMAIC &amp; ISA-95 Automation Impact across Miyagi &amp; Laem Chabang</p>
+            </div>
+            <button onclick="switchTab('tab-cba')" class="text-xs text-sky-600 hover:underline font-medium">Inspect CBA &rarr;</button>
+          </div>
+          <div class="h-64">
+            <canvas id="chartBpr"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 4: Hardware & Software Multi-Criteria Evaluation Readout -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">4. Hardware &amp; Software Evaluation Matrix (MCDA Score / 100)</h3>
+              <p class="text-xs text-slate-500">Functional Fit (35%) • SAP/MES Compatibility (25%) • J-SOX/Security (20%) • 5-Yr TCO (20%)</p>
+            </div>
+            <button onclick="switchTab('tab-cba')" class="text-xs text-sky-600 hover:underline font-medium">View SOWs &rarr;</button>
+          </div>
+          <div class="h-64">
+            <canvas id="chartVendorEval"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 Core Theoretical Pillars Applied to Req ID 133553 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-200">
+          <div>
+            <h3 class="text-base sm:text-lg font-bold text-slate-900">
+              <i class="fa-solid fa-graduation-cap text-sky-600 mr-2"></i>ทฤษฎีและมาตรฐานระดับสากลที่ใช้ขับเคลื่อนตำแหน่ง Manager, IT Business Partner 2 (Req ID: 133553)
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">ออกแบบตามขอบเขตงานจริงของ Celestica ครบทุกข้อใน Job Description</p>
+          </div>
+          <button onclick="switchTab('tab-docs')" class="px-3 py-1.5 rounded-lg bg-cls-900 text-white text-xs font-medium hover:bg-cls-800 transition">
+            อ่านคู่มือวิธีทำและพิมพ์เอกสาร A4 &rarr;
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-4 text-xs font-body">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="font-bold text-sky-800 text-sm flex items-center justify-between">
+              <span>1. BRM Institute &amp; Ringi-sho</span>
+              <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-700 font-mono text-[10px]">Strategic Alignment</span>
+            </div>
+            <p class="text-slate-600 leading-relaxed">
+              ประยุกต์ใช้ <strong>BRM Competency Model</strong> ยกระดับบทบาท IT จาก Order-Taker สู่ <strong>Strategic Partner (Level 5)</strong> ผสานวัฒนธรรมการตัดสินใจแบบญี่ปุ่น <strong>Nemawashi (根回し)</strong> และเอกสาร <strong>Ringi-sho (稟議書)</strong> เข้ากับ Global IT Governance ของสำนักงานใหญ่ Toronto
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="font-bold text-amber-800 text-sm flex items-center justify-between">
+              <span>2. Design Thinking &amp; BABOK v3</span>
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-700 font-mono text-[10px]">Elicitation &amp; RTM</span>
+            </div>
+            <p class="text-slate-600 leading-relaxed">
+              จัด Workshop เก็บความต้องการกับ SMEs ด้วย <strong>Stanford d.school 5-Stage Design Thinking</strong> (Empathize, Define, Ideate, Prototype, Test) พร้อมจัดทำ <strong>Requirements Traceability Matrix (RTM)</strong> และจัดลำดับความสำคัญด้วยสูตร <strong>SAFe WSJF</strong> เมื่อมีข้อจำกัดด้านงบประมาณหรือทรัพยากร IT
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="font-bold text-emerald-800 text-sm flex items-center justify-between">
+              <span>3. BPR, Lean DMAIC &amp; CBA</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-mono text-[10px]">Feasibility &amp; ROI</span>
+            </div>
+            <p class="text-slate-600 leading-relaxed">
+              วิเคราะห์กระบวนการผลิตอิเล็กทรอนิกส์ (PCBA / SMT / Box-Build) แบบ <strong>As-Is vs. To-Be (BPMN 2.0)</strong> เพื่อเพิ่มค่า <strong>OEE</strong> และลด DPPM พร้อมคำนวณความคุ้มค่าทางการเงิน 5 ปี (<strong>NPV, IRR, ROI, TCO, Payback Period</strong>) และประเมิน Hardware/Software อย่างเป็นภววิสัย
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="font-bold text-rose-800 text-sm flex items-center justify-between">
+              <span>4. Oracle Primavera P6 &amp; SOW</span>
+              <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700 font-mono text-[10px]">CPM &amp; EVM Control</span>
+            </div>
+            <p class="text-slate-600 leading-relaxed">
+              ควบคุมโครงการด้วย <strong>Oracle Primavera P6 EPPM</strong> วิเคราะห์สายงานวิกฤต <strong>Critical Path Method (CPM: ES, EF, LS, LF, Total Float = 0)</strong> วัดผลด้วย <strong>Earned Value Management (SPI, CPI, EAC)</strong> และบริหารสัญญา <strong>Vendor SOW / Escalation Matrix</strong> ร่วมกับ PMO
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: TRELLO-STYLE INTERACTIVE DRAG-AND-DROP KANBAN BOARD          -->
+    <!-- =================================================================== -->
+    <section id="tab-kanban" class="tab-panel hidden space-y-5">
+      <!-- Board Control Bar -->
+      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="px-2.5 py-0.5 rounded bg-sky-100 text-sky-800 text-xs font-mono font-bold">TRELLO-STYLE INTERACTIVE PROCESS BOARD</span>
+            <span class="text-xs text-emerald-600 font-medium"><i class="fa-solid fa-arrows-up-down-left-right mr-1"></i>ลากการ์ดข้ามคอลัมน์เพื่อเปลี่ยนสถานะและบันทึกลง SQLite ทันที</span>
+          </div>
+          <h2 class="text-lg font-bold text-slate-900 mt-1">End-to-End ITBP Project Lifecycle Board (Ideation &rarr; Feasibility &rarr; WSJF/Eval &rarr; SOW &rarr; Primavera P6 &rarr; Value Realized)</h2>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <select id="kanbanSiteFilter" onchange="renderKanbanBoard()" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-slate-50 font-medium text-slate-700">
+            <option value="ALL">🌐 All Celestica Sites (Japan / Thailand / Global)</option>
+            <option value="CLS-MYG">🇯🇵 CLS-MYG (Miyagi Plant NPI &amp; SMT)</option>
+            <option value="CLS-TYO">🇯🇵 CLS-TYO (Tokyo Commercial &amp; OEM)</option>
+            <option value="CLS-LCB">🇹🇭 CLS-LCB (Laem Chabang Chonburi)</option>
+            <option value="CLS-GLOBAL">🇨🇦 CLS-GLOBAL (Toronto / Cross-Site)</option>
+          </select>
+
+          <input id="kanbanSearchInput" oninput="renderKanbanBoard()" type="text" placeholder="ค้นหาโครงการ / รหัส / ผู้รับผิดชอบ..." class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white w-52">
+
+          <button onclick="openNewCardModal()" class="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition">
+            <i class="fa-solid fa-plus"></i>
+            <span>เพิ่มการ์ดโครงการใหม่ (Add Card)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 6 Kanban Columns Container -->
+      <div id="kanbanBoardContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-4 items-start">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: ORACLE PRIMAVERA P6 EPPM — CPM SCHEDULE, WBS & EVM           -->
+    <!-- =================================================================== -->
+    <section id="tab-p6" class="tab-panel hidden space-y-5">
+      <!-- Primavera P6 Professional Header Banner -->
+      <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-lg border border-slate-700">
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div class="flex items-center space-x-3">
+            <div class="w-11 h-11 rounded-xl bg-rose-600 flex flex-col items-center justify-center font-bold text-white shadow">
+              <span class="text-sm leading-none">P6</span>
+              <span class="text-[9px] font-mono">EPPM</span>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <h2 class="text-base sm:text-lg font-bold">Oracle Primavera P6 Enterprise Project Portfolio Management</h2>
+                <span class="px-2 py-0.5 rounded bg-rose-500/20 border border-rose-400/40 text-rose-300 text-[11px] font-mono">CPM Retained Logic</span>
+              </div>
+              <p class="text-xs text-slate-300 font-mono mt-0.5">
+                EPS: <strong>CLS-APAC-ITBP</strong> | Project ID: <strong>PRJ-JP-2026-MES</strong> (Next-Gen MES &amp; SAP S/4HANA Convergence) | Data Date: <strong>16-Oct-2026</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openNewP6Modal()" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold flex items-center space-x-1.5 transition">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add P6 WBS Activity</span>
+            </button>
+            <button onclick="exportP6XerCsv()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center space-x-1.5 transition">
+              <i class="fa-solid fa-file-export"></i>
+              <span>Export P6 (.CSV / .XER)</span>
+            </button>
+            <a href="celestica_doc_p6_pmo.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold flex items-center space-x-1.5 transition">
+              <i class="fa-solid fa-print"></i>
+              <span>พิมพ์รายงาน Primavera P6 (A4)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- P6 Earned Value Management (EVM) Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 pt-4 text-xs font-mono">
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">BAC (Total Budget)</div>
+            <div id="p6Bac" class="text-sm font-bold text-white mt-0.5">$1,350,000</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">PV (Planned Value)</div>
+            <div id="p6Pv" class="text-sm font-bold text-sky-300 mt-0.5">$788,000</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">EV (Earned Value)</div>
+            <div id="p6Ev" class="text-sm font-bold text-emerald-400 mt-0.5">$804,500</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">AC (Actual Cost)</div>
+            <div id="p6Ac" class="text-sm font-bold text-amber-300 mt-0.5">$769,000</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">SPI (EV / PV)</div>
+            <div id="p6Spi" class="text-sm font-bold text-emerald-400 mt-0.5">1.02 (Ahead)</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">CPI (EV / AC)</div>
+            <div id="p6Cpi" class="text-sm font-bold text-emerald-400 mt-0.5">1.05 (Under Cost)</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+            <div class="text-slate-400 text-[10px]">EAC (BAC / CPI)</div>
+            <div id="p6Eac" class="text-sm font-bold text-sky-300 mt-0.5">$1,285,714</div>
+          </div>
+          <div class="bg-slate-800/90 p-2.5 rounded-lg border border-rose-500/40">
+            <div class="text-rose-300 text-[10px]">Critical Path (TF=0)</div>
+            <div id="p6CritCount" class="text-sm font-bold text-rose-400 mt-0.5">10 / 14 Tasks</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primavera P6 Activity Table + Interactive Gantt Chart -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center space-x-4">
+            <span class="font-bold text-slate-800">WBS &amp; CPM Activity Schedule Table (คลิกปุ่มอัปเดต % เพื่อคำนวณ EV/SPI/CPI ใหม่แบบ Real-Time)</span>
+            <span class="inline-flex items-center"><span class="w-3 h-3 rounded-sm bg-rose-600 inline-block mr-1"></span>Critical Path (Total Float = 0d)</span>
+            <span class="inline-flex items-center"><span class="w-3 h-3 rounded-sm bg-sky-600 inline-block mr-1"></span>Non-Critical (Positive Float)</span>
+            <span class="inline-flex items-center"><span class="w-3 h-3 rounded-sm bg-emerald-600 inline-block mr-1"></span>Completed (100%)</span>
+          </div>
+          <div class="font-mono text-slate-500">Calendar: 5-Day Japan/Thailand Mfg Workweek</div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 font-mono text-[11px] uppercase">
+                <th class="py-2.5 px-3 border-r border-slate-700">Act ID</th>
+                <th class="py-2.5 px-3 border-r border-slate-700 min-w-[230px]">WBS / Activity Name</th>
+                <th class="py-2.5 px-2 border-r border-slate-700 text-center">OD</th>
+                <th class="py-2.5 px-2 border-r border-slate-700 text-center">RD</th>
+                <th class="py-2.5 px-2 border-r border-slate-700 text-center">% Comp</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700">Early Start</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700">Early Finish</th>
+                <th class="py-2.5 px-2 border-r border-slate-700 text-center">Float</th>
+                <th class="py-2.5 px-2 border-r border-slate-700">Pred</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right">BAC ($)</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right">EV ($)</th>
+                <th class="py-2.5 px-3 border-r border-slate-700 min-w-[220px]">Gantt Timeline (Jul – Dec 2026)</th>
+                <th class="py-2.5 px-3 text-center">Update %</th>
+              </tr>
+            </thead>
+            <tbody id="p6TableBody" class="divide-y divide-slate-200 font-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: DESIGN THINKING WORKSHOP, BABOK RTM & WSJF PRIORITIZATION    -->
+    <!-- =================================================================== -->
+    <section id="tab-babok" class="tab-panel hidden space-y-6">
+      <!-- 5-Stage Design Thinking Workshop Framework (Miyagi & Tokyo SMEs) -->
+      <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="px-2.5 py-0.5 rounded bg-amber-100 text-amber-800 text-xs font-mono font-bold">STANFORD d.SCHOOL DESIGN THINKING + BABOK v3 ELICITATION</span>
+            <h2 class="text-lg font-bold text-slate-900 mt-1">Bilingual Requirements Gathering Workshop Blueprint (Japan SMEs &amp; Global IT)</h2>
+          </div>
+          <button onclick="openNewReqModal()" class="px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold flex items-center space-x-1.5 shadow-sm">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Requirement &amp; Calculate WSJF</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs font-body">
+          <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200 space-y-1.5">
+            <div class="font-bold text-sky-900 flex items-center justify-between">
+              <span>1. EMPATHIZE (共感)</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-sky-200 text-sky-900">Gemba Walk</span>
+            </div>
+            <p class="text-slate-700">ลงพื้นที่หน้างานจริง (Gemba) ณ สายการผลิต SMT โรงงาน Miyagi และ Laem Chabang สัมภาษณ์ Operator และวิศวกรเป็นภาษาญี่ปุ่น/อังกฤษ เพื่อเข้าใจ Pain Points ที่แท้จริง</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-indigo-50 border border-indigo-200 space-y-1.5">
+            <div class="font-bold text-indigo-900 flex items-center justify-between">
+              <span>2. DEFINE (問題定義)</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-indigo-200 text-indigo-900">SIPOC &amp; 5-Whys</span>
+            </div>
+            <p class="text-slate-700">สกัด Problem Statement และตั้งเป้าหมาย KPI ที่วัดผลได้ เช่น ลดเวลาโอนย้าย NPI-to-MP จาก 28 วัน เหลือ 10 วัน และกำจัดความผิดพลาดจากการโหลด Feeder ผิดม้วน</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5">
+            <div class="font-bold text-amber-900 flex items-center justify-between">
+              <span>3. IDEATE (創造)</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-amber-200 text-amber-900">Brainwriting</span>
+            </div>
+            <p class="text-slate-700">ระดมสมองร่วมกับทีม Global IT Architecture ออกแบบโซลูชัน เช่น SECS/GEM Interlock, e-DHR XML Bridge และจัดลำดับด้วยสูตร <strong>WSJF</strong></p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1.5">
+            <div class="font-bold text-emerald-900 flex items-center justify-between">
+              <span>4. PROTOTYPE (試作)</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-emerald-200 text-emerald-900">Wireframe &amp; PoC</span>
+            </div>
+            <p class="text-slate-700">สร้าง Interactive Mockup 2 ภาษา (JP/EN) และทำ Proof-of-Concept บน SMT Line 4 เพื่อ Playback ให้ Business SMEs ยืนยันก่อนเริ่มเขียนโค้ดจริง</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 space-y-1.5">
+            <div class="font-bold text-rose-900 flex items-center justify-between">
+              <span>5. TEST (検証)</span>
+              <span class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-rose-200 text-rose-900">Bilingual UAT</span>
+            </div>
+            <p class="text-slate-700">ทดสอบ SIT, J-SOX ITGC Audit และ Bilingual UAT เทียบกับตาราง <strong>Requirements Traceability Matrix (RTM)</strong> ก่อนลงนามอนุมัติ Go-Live</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive WSJF Calculator + Requirements Traceability Matrix (RTM) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Interactive WSJF Simulator -->
+        <div class="lg:col-span-4 bg-slate-900 text-white rounded-2xl p-5 shadow-md border border-slate-700 space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <span class="text-[11px] font-mono text-sky-400 uppercase">SAFe Agile Prioritization Engine</span>
+            <h3 class="text-base font-bold mt-0.5">Interactive WSJF Calculator</h3>
+            <p class="text-xs text-slate-400 mt-0.5">ใช้คัดกรองและจัดลำดับความสำคัญเมื่อมีข้อจำกัดด้านงบประมาณหรือทรัพยากร IT (Qualify &amp; Prioritize under Constraints)</p>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>1. User-Business Value (คุณค่าต่อธุรกิจ):</span>
+                <strong id="wsjfUvVal" class="font-mono text-sky-400">9 / 10</strong>
+              </div>
+              <input id="wsjfUv" type="range" min="1" max="10" value="9" oninput="recalcWsjfSimulator()" class="w-full accent-sky-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>2. Time Criticality (ความเร่งด่วน/เวลา):</span>
+                <strong id="wsjfTcVal" class="font-mono text-amber-400">8 / 10</strong>
+              </div>
+              <input id="wsjfTc" type="range" min="1" max="10" value="8" oninput="recalcWsjfSimulator()" class="w-full accent-amber-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>3. Risk Reduction / Opportunity (ลดความเสี่ยง):</span>
+                <strong id="wsjfRrVal" class="font-mono text-emerald-400">9 / 10</strong>
+              </div>
+              <input id="wsjfRr" type="range" min="1" max="10" value="9" oninput="recalcWsjfSimulator()" class="w-full accent-emerald-500">
+            </div>
+
+            <div class="pt-1 border-t border-slate-800">
+              <div class="flex justify-between mb-1">
+                <span>4. Job Size / IT Effort (ขนาดงาน/ทรัพยากรที่ใช้):</span>
+                <strong id="wsjfJsVal" class="font-mono text-rose-400">4 / 10</strong>
+              </div>
+              <input id="wsjfJs" type="range" min="1" max="10" value="4" oninput="recalcWsjfSimulator()" class="w-full accent-rose-500">
+            </div>
+          </div>
+
+          <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[11px] text-slate-400">Cost of Delay = <span id="wsjfCodOut" class="font-mono text-white">26</span></div>
+              <div id="wsjfRecommendation" class="text-xs font-semibold text-emerald-400 mt-0.5">Priority Rank: DO FIRST (Q4 Sprint 1)</div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-slate-400 font-mono">WSJF SCORE</div>
+              <div id="wsjfScoreOut" class="text-2xl font-bold font-mono text-sky-400">6.50</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BABOK Requirements Traceability Matrix Table -->
+        <div class="lg:col-span-8 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 text-sm sm:text-base">BABOK Requirements Traceability Matrix (RTM) &amp; WSJF Ranking</h3>
+              <p class="text-xs text-slate-500">เชื่อมโยงความต้องการธุรกิจญี่ปุ่น (JP/EN) สู่ข้อกำหนดทางเทคนิคและวิธีทดสอบ UAT</p>
+            </div>
+            <a href="celestica_doc_sow_vmp.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-medium">
+              <i class="fa-solid fa-print mr-1"></i>Print BRD/RTM
+            </a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 font-mono text-[11px] uppercase border-b border-slate-200">
+                  <th class="py-2.5 px-3">Req ID</th>
+                  <th class="py-2.5 px-3">Workshop &amp; Stakeholder</th>
+                  <th class="py-2.5 px-3 min-w-[240px]">Requirement (EN / 日本語) &amp; Technical Spec</th>
+                  <th class="py-2.5 px-2 text-center">CoD / Size</th>
+                  <th class="py-2.5 px-2.5 text-center">WSJF</th>
+                  <th class="py-2.5 px-3">Verification &amp; Status</th>
+                </tr>
+              </thead>
+              <tbody id="rtmTableBody" class="divide-y divide-slate-200 font-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 5: BPR PROCESS RE-ENGINEERING, FEASIBILITY CBA & VENDOR SOW     -->
+    <!-- =================================================================== -->
+    <section id="tab-cba" class="tab-panel hidden space-y-6">
+      <!-- Visual As-Is vs To-Be Process Flow Diagram -->
+      <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-800 text-xs font-mono font-bold">BPR (HAMMER &amp; CHAMPY) + BPMN 2.0 PROCESS RE-ENGINEERING</span>
+            <h2 class="text-lg font-bold text-slate-900 mt-1">As-Is vs. To-Be Manufacturing &amp; Supply Chain Process Flow Diagram</h2>
+          </div>
+          <a href="celestica_doc_charter_cba.html" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold flex items-center space-x-1.5 shadow-sm">
+            <i class="fa-solid fa-print"></i>
+            <span>พิมพ์เอกสาร Feasibility &amp; CBA ฉบับเต็ม (A4)</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs font-body">
+          <!-- AS-IS -->
+          <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-rose-900 text-sm"><i class="fa-solid fa-triangle-exclamation text-rose-600 mr-1.5"></i>AS-IS PROCESS (ก่อนปรับปรุง — Manual &amp; Fragmented)</span>
+              <span class="px-2 py-0.5 rounded bg-rose-200 text-rose-900 font-mono text-[11px]">Lead Time: 42.0 Hrs | OEE: 74.5%</span>
+            </div>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 text-[11px]">
+              <div class="p-2.5 rounded-lg bg-white border border-rose-200 flex-1">
+                <strong class="text-rose-800 block">1. Miyagi NPI BOM</strong>
+                Export Excel/PDF จากวิศวกรญี่ปุ่น ส่งอีเมลข้ามประเทศ
+              </div>
+              <i class="fa-solid fa-arrow-right text-rose-400 self-center hidden sm:block"></i>
+              <div class="p-2.5 rounded-lg bg-white border border-rose-200 flex-1">
+                <strong class="text-rose-800 block">2. Manual Data Entry</strong>
+                คีย์ข้อมูลลง SAP &amp; พิมพ์กระดาษ Traveler (เสี่ยงคีย์ผิด 480 DPPM)
+              </div>
+              <i class="fa-solid fa-arrow-right text-rose-400 self-center hidden sm:block"></i>
+              <div class="p-2.5 rounded-lg bg-white border border-rose-200 flex-1">
+                <strong class="text-rose-800 block">3. Batch Sync (12h)</strong>
+                อัปเดตยอดผลิตล่าช้า 12 ชม. ไม่เห็นสถานะ WIP Real-time
+              </div>
+            </div>
+          </div>
+
+          <!-- TO-BE -->
+          <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i>TO-BE PROCESS (หลังรื้อปรับระบบ — Automated ISA-95 Mesh)</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 font-mono text-[11px]">Lead Time: 6.5 Hrs (-84%) | OEE: 86.2%</span>
+            </div>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 text-[11px]">
+              <div class="p-2.5 rounded-lg bg-white border border-emerald-200 flex-1">
+                <strong class="text-emerald-800 block">1. Valor &amp; PLM Sync</strong>
+                1-Click BOM/BOP XML โอนจาก Miyagi สู่ Laem Chabang อัตโนมัติ
+              </div>
+              <i class="fa-solid fa-arrow-right text-emerald-500 self-center hidden sm:block"></i>
+              <div class="p-2.5 rounded-lg bg-white border border-emerald-200 flex-1">
+                <strong class="text-emerald-800 block">2. SECS/GEM Interlock</strong>
+                สแกนบาร์โค้ดตรวจ Feeder &amp; MSD อัตโนมัติ (45 DPPM)
+              </div>
+              <i class="fa-solid fa-arrow-right text-emerald-500 self-center hidden sm:block"></i>
+              <div class="p-2.5 rounded-lg bg-white border border-emerald-200 flex-1">
+                <strong class="text-emerald-800 block">3. Live SAP Backflush</strong>
+                ตัดสต็อกและบันทึก e-DHR ลง SAP S/4HANA ทันที (&lt; 5 วินาที)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial CBA Interactive Calculator + Seeded CBA Studies Table -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Interactive 5-Year CBA & NPV Simulator -->
+        <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl p-5 shadow-md border border-slate-700 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <span class="text-[11px] font-mono text-emerald-400 uppercase">Capital Budgeting &amp; Ringi-sho Model</span>
+              <h3 class="text-base font-bold mt-0.5">5-Year Cost-Benefit Analysis (NPV / IRR)</h3>
+            </div>
+            <button onclick="saveSimulatedCba()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold">
+              <i class="fa-solid fa-floppy-disk mr-1"></i>Save to SQLite
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div class="col-span-2">
+              <label class="block text-slate-400 mb-1">Initiative Name (ชื่อโครงการ):</label>
+              <input id="simCbaName" type="text" value="Automated Optical Inspection (AOI) Edge AI Upgrade" class="w-full px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Initial CapEx ($ USD):</label>
+              <input id="simCapex" type="number" value="260000" oninput="recalcCbaSimulator()" class="w-full px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Annual OpEx ($ USD/yr):</label>
+              <input id="simOpex" type="number" value="38000" oninput="recalcCbaSimulator()" class="w-full px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Annual Gross Savings ($/yr):</label>
+              <input id="simSavings" type="number" value="295000" oninput="recalcCbaSimulator()" class="w-full px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">Discount Rate / WACC (%):</label>
+              <input id="simWacc" type="number" step="0.1" value="8.5" oninput="recalcCbaSimulator()" class="w-full px-3 py-1.5 rounded bg-slate-800 border border-slate-700 text-white font-mono">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-4 gap-2 bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-center font-mono">
+            <div>
+              <div class="text-[10px] text-slate-400">5-YR NPV</div>
+              <div id="simNpvOut" class="text-sm font-bold text-emerald-400 mt-0.5">$752,748</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-400">IRR (%)</div>
+              <div id="simIrrOut" class="text-sm font-bold text-sky-400 mt-0.5">44.2%</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-400">5-YR ROI</div>
+              <div id="simRoiOut" class="text-sm font-bold text-amber-400 mt-0.5">394.2%</div>
+            </div>
+            <div>
+              <div class="text-[10px] text-slate-400">PAYBACK</div>
+              <div id="simPaybackOut" class="text-sm font-bold text-white mt-0.5">12.1 Mo</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CBA Portfolio Table -->
+        <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-5 py-4 bg-slate-50 border-b border-slate-200">
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Feasibility Studies &amp; Cost-Benefit Analysis Portfolio (SQLite Database)</h3>
+            <p class="text-xs text-slate-500">เปรียบเทียบกระบวนการ As-Is vs. To-Be และผลตอบแทนทางการเงินที่ผ่านการอนุมัติ Ringi-sho</p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-100 text-slate-700 font-mono text-[11px] uppercase border-b border-slate-200">
+                  <th class="py-2.5 px-3">Study / Ringi</th>
+                  <th class="py-2.5 px-3">Initiative &amp; Site</th>
+                  <th class="py-2.5 px-2.5 text-center">Cycle Time</th>
+                  <th class="py-2.5 px-2.5 text-center">OEE Gain</th>
+                  <th class="py-2.5 px-2.5 text-right">CapEx</th>
+                  <th class="py-2.5 px-2.5 text-right">5-Yr NPV</th>
+                  <th class="py-2.5 px-2.5 text-center">IRR / Payback</th>
+                </tr>
+              </thead>
+              <tbody id="cbaTableBody" class="divide-y divide-slate-200 font-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vendor SOW & Hardware/Software Evaluation Table -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm sm:text-base">Vendor Statement of Work (SOW), Hardware/Software Evaluation &amp; PMO Escalation Matrix</h3>
+            <p class="text-xs text-slate-500">ติดตามความคืบหน้า Milestone ของ Vendor, คะแนนประเมิน HW/SW และการจัดการปัญหาติดขัด (PMO Roadblock Escalation)</p>
+          </div>
+          <a href="celestica_doc_sow_vmp.html" target="_blank" class="px-3 py-1.5 rounded-lg bg-cls-900 hover:bg-cls-800 text-white text-xs font-medium">
+            <i class="fa-solid fa-file-contract mr-1"></i>เปิดเอกสารสัญญา SOW ฉบับพิมพ์ A4
+          </a>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-900 text-slate-200 font-mono text-[11px] uppercase">
+                <th class="py-2.5 px-3">SOW No.</th>
+                <th class="py-2.5 px-3">Vendor &amp; Solution</th>
+                <th class="py-2.5 px-2.5 text-right">Value ($)</th>
+                <th class="py-2.5 px-2.5 text-center">HW/SW Eval Score</th>
+                <th class="py-2.5 px-2.5 text-center">Milestones</th>
+                <th class="py-2.5 px-3">SLA Target</th>
+                <th class="py-2.5 px-3">PMO Governance &amp; Roadblock Escalation Notes</th>
+              </tr>
+            </thead>
+            <tbody id="sowTableBody" class="divide-y divide-slate-200 font-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 6: ENTERPRISE INTEGRATION HUB (SAP / MES / KINAXIS / P6)        -->
+    <!-- =================================================================== -->
+    <section id="tab-integration" class="tab-panel hidden space-y-6">
+      <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="px-2.5 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-mono font-bold">ISA-95 / PURDUE ENTERPRISE INTEGRATION ARCHITECTURE</span>
+            <h2 class="text-lg font-bold text-slate-900 mt-1">Flexible Real-Time Integration Bridge (SAP S/4HANA &harr; Siemens Opcenter MES &harr; Kinaxis APS &harr; Primavera P6)</h2>
+          </div>
+          <button onclick="triggerIntegrationSync('SAP-S4-MES-BRIDGE')" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center space-x-2 shadow">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Trigger Live ERP/MES Sync Now</span>
+          </button>
+        </div>
+
+        <!-- 4 Live Connector Cards -->
+        <div id="integrationCardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Live Integration Audit Logs -->
+      <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-md border border-slate-700 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <h3 class="font-bold text-sm font-mono">SQLite Integration Audit Trail (itbp_integration_logs)</h3>
+          </div>
+          <span class="text-xs text-slate-400 font-mono">POST /api/celestica/integrations/sync</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs font-mono">
+            <thead>
+              <tr class="text-slate-400 border-b border-slate-800 text-[11px]">
+                <th class="py-2 px-2.5">Timestamp</th>
+                <th class="py-2 px-2.5">Connector</th>
+                <th class="py-2 px-2.5">Event Type</th>
+                <th class="py-2 px-2.5">Source &rarr; Target</th>
+                <th class="py-2 px-2.5">Payload Summary</th>
+                <th class="py-2 px-2.5 text-center">HTTP</th>
+              </tr>
+            </thead>
+            <tbody id="integrationLogsBody" class="divide-y divide-slate-800/80 text-slate-200">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 7: OFFICIAL A4 DOCUMENT CENTER & STEP-BY-STEP SOP PLAYBOOK      -->
+    <!-- =================================================================== -->
+    <section id="tab-docs" class="tab-panel hidden space-y-6">
+      <!-- 3 Official A4 Printable Dossiers -->
+      <div class="bg-gradient-to-r from-cls-950 via-cls-900 to-slate-900 text-white rounded-2xl p-6 shadow-lg border border-sky-500/30">
+        <div class="max-w-3xl space-y-2">
+          <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-mono font-semibold">OFFICIAL A4 ENTERPRISE DOCUMENT SUITE</span>
+          <h2 class="text-xl sm:text-2xl font-bold">ศูนย์พิมพ์เอกสารทางการระดับองค์กร (Official A4 Printable Dossiers)</h2>
+          <p class="text-xs sm:text-sm text-slate-300 font-body">
+            เอกสารทุกฉบับถูกจัดหน้าตามมาตรฐานกระดาษ A4 (`@media print`) พร้อมหัวกระดาษ Celestica (Thailand) &amp; Celestica Japan K.K., ตารางข้อมูลจริงจากฐานข้อมูล SQLite, แผนผังกระบวนการ, ตาราง Primavera P6 CPM/EVM และช่องลงนามอนุมัติ 2 ภาษา (Ringi-sho Sign-off Matrix)
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+          <!-- Doc 1 -->
+          <div class="bg-slate-900/90 border border-slate-700 rounded-xl p-5 flex flex-col justify-between space-y-4 hover:border-sky-400 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-xs font-bold">DOC-01 • BPR &amp; CBA</span>
+                <i class="fa-solid fa-chart-pie text-sky-400 text-lg"></i>
+              </div>
+              <h3 class="font-bold text-base text-white">1. รายงานการศึกษาความเป็นไปได้ การรื้อปรับระบบ (BPR) และการวิเคราะห์ความคุ้มค่า (CBA)</h3>
+              <p class="text-xs text-slate-300 font-body leading-relaxed">
+                ประกอบด้วย: ผลลัพธ์ Design Thinking Workshop, แผนผัง As-Is vs. To-Be Process Flow, ตารางคำนวณความคุ้มค่าทางการเงิน 5 ปี (NPV, IRR, ROI, Payback) และผลประเมินคัดเลือก Hardware/Software (MCDA Readout)
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-800 flex items-center gap-2">
+              <a href="celestica_doc_charter_cba.html" target="_blank" class="flex-1 py-2 px-3 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs text-center transition">
+                <i class="fa-solid fa-up-right-from-square mr-1"></i>เปิดดูและพิมพ์ A4 (DOC-01)
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 2 -->
+          <div class="bg-slate-900/90 border border-slate-700 rounded-xl p-5 flex flex-col justify-between space-y-4 hover:border-emerald-400 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold">DOC-02 • SOW &amp; BRD/RTM</span>
+                <i class="fa-solid fa-file-signature text-emerald-400 text-lg"></i>
+              </div>
+              <h3 class="font-bold text-base text-white">2. เอกสารขอบเขตงานผู้รับเหมา (Vendor SOW) และตาราง Requirements Traceability (RTM)</h3>
+              <p class="text-xs text-slate-300 font-body leading-relaxed">
+                ประกอบด้วย: Statement of Work (SOW) มาตรฐาน Celestica, ตารางส่งมอบงานตามงวด (Milestones &amp; Payment), เกณฑ์ SLA &amp; Penalty Clause, ขั้นตอนการ Escalate ปัญหาร่วมกับ PMO และตาราง BABOK RTM + WSJF 2 ภาษา (JP/EN)
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-800 flex items-center gap-2">
+              <a href="celestica_doc_sow_vmp.html" target="_blank" class="flex-1 py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs text-center transition">
+                <i class="fa-solid fa-up-right-from-square mr-1"></i>เปิดดูและพิมพ์ A4 (DOC-02)
+              </a>
+            </div>
+          </div>
+
+          <!-- Doc 3 -->
+          <div class="bg-slate-900/90 border border-slate-700 rounded-xl p-5 flex flex-col justify-between space-y-4 hover:border-amber-400 transition">
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">DOC-03 • PRIMAVERA P6 &amp; SOP</span>
+                <i class="fa-solid fa-bars-progress text-amber-400 text-lg"></i>
+              </div>
+              <h3 class="font-bold text-base text-white">3. แผนแม่บทโครงการ Oracle Primavera P6 (CPM / EVM) และคู่มือปฏิบัติงาน ITBP</h3>
+              <p class="text-xs text-slate-300 font-body leading-relaxed">
+                ประกอบด้วย: ตาราง WBS &amp; Critical Path Schedule (A1000–A1130), การวิเคราะห์ Earned Value (PV, EV, AC, SPI, CPI, EAC), ทะเบียนความเสี่ยง (RAID Log) และคู่มือขั้นตอนการทำงาน (How-To SOP) สำหรับตำแหน่ง Req ID 133553
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-800 flex items-center gap-2">
+              <a href="celestica_doc_p6_pmo.html" target="_blank" class="flex-1 py-2 px-3 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs text-center transition">
+                <i class="fa-solid fa-up-right-from-square mr-1"></i>เปิดดูและพิมพ์ A4 (DOC-03)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Operational Playbook (วิธีทำอย่างละเอียดทุกส่วนงาน) -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-4">
+          <div>
+            <span class="px-2.5 py-0.5 rounded bg-sky-100 text-sky-800 text-xs font-mono font-bold">STANDARD OPERATING PROCEDURE (SOP) &amp; HOW-TO PLAYBOOK</span>
+            <h3 class="text-lg font-bold text-slate-900 mt-1">วิธีปฏิบัติงานจริงอย่างละเอียดครบทุกขั้นตอน (End-to-End Execution Methodology — Req ID: 133553)</h3>
+          </div>
+          <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold">
+            <i class="fa-solid fa-print mr-1.5"></i>พิมพ์คู่มือปฏิบัติงานหน้านี้
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 text-xs font-body">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center font-mono text-xs">1</span>
+              <span>การทำ Workshop เก็บ Requirements (Design Thinking)</span>
+            </div>
+            <ol class="list-decimal list-inside space-y-1 text-slate-700 leading-relaxed">
+              <li>เตรียมเอกสาร Pre-read 2 ภาษา (日本語 / English) และทำ <strong>Nemawashi</strong> (หารือนอกรอบ) กับหัวหน้าฝ่ายผลิตที่โรงงาน Miyagi และ Laem Chabang</li>
+              <li>จัด Workshop 5 ขั้นตอน: <em>Empathize</em> (สัมภาษณ์หน้าสายการผลิต SMT) &rarr; <em>Define</em> (เขียน SIPOC &amp; ปัญหาคอขวด) &rarr; <em>Ideate</em> &rarr; <em>Prototype</em> &rarr; <em>Test</em></li>
+              <li>บันทึกความต้องการลงในแท็บที่ 4 (<strong>BABOK RTM</strong>) พร้อมทำ Playback ให้ทีมธุรกิจยืนยันความถูกต้อง (Sign-off)</li>
+            </ol>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-mono text-xs">2</span>
+              <span>การวิเคราะห์ BPR, Feasibility &amp; Cost-Benefit (CBA)</span>
+            </div>
+            <ol class="list-decimal list-inside space-y-1 text-slate-700 leading-relaxed">
+              <li>จับเวลาและวัดผลกระบวนการเดิม (<strong>As-Is</strong>): Cycle Time (ชม.), อัตราของเสีย (DPPM) และค่า OEE (%)</li>
+              <li>ออกแบบกระบวนการใหม่ (<strong>To-Be</strong>) โดยตัดขั้นตอน Manual ด้วยการเชื่อม API ระหว่าง SAP S/4HANA และ Siemens Opcenter MES</li>
+              <li>คำนวณงบลงทุน (CapEx), ค่าดูแลรายปี (OpEx) และผลประหยัดรายปีในแท็บที่ 5 เพื่อหาค่า <strong>5-Year NPV, IRR, ROI และ Payback Period</strong> สำหรับแนบใบขออนุมัติ <strong>Ringi-sho (稟議書)</strong></li>
+            </ol>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-full bg-amber-600 text-white flex items-center justify-center font-mono text-xs">3</span>
+              <span>การคัดกรองและจัดลำดับความสำคัญด้วย WSJF</span>
+            </div>
+            <ol class="list-decimal list-inside space-y-1 text-slate-700 leading-relaxed">
+              <li>เมื่อทรัพยากรทีม IT หรืองบประมาณมีจำกัด ให้ประเมินคะแนน 1–10 ใน 3 มิติ: <em>User-Business Value</em> + <em>Time Criticality</em> + <em>Risk Reduction</em> (= <strong>Cost of Delay</strong>)</li>
+              <li>หารด้วย <em>Job Size</em> (ขนาดความยาก/Man-days) เพื่อได้ค่า <strong>WSJF Index</strong></li>
+              <li>นำโครงการที่ได้ WSJF สูงสุดเข้าสู่ Sprint ถัดไปบนบอร์ด <strong>Trello Kanban (แท็บที่ 2)</strong></li>
+            </ol>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center font-mono text-xs">4</span>
+              <span>การประเมิน HW/SW และการร่างสัญญา Vendor SOW</span>
+            </div>
+            <ol class="list-decimal list-inside space-y-1 text-slate-700 leading-relaxed">
+              <li>ตั้งเกณฑ์ถ่วงน้ำหนัก (MCDA): Functional Fit (35%), ความเข้ากันได้กับระบบเดิม (25%), ความปลอดภัย/J-SOX (20%), และ TCO 5 ปี (20%)</li>
+              <li>จัดทำรายงานสรุป (Readout) เสนอผู้บริหารญี่ปุ่นและไทยเพื่อตัดสินใจ</li>
+              <li>ร่างสัญญา <strong>Statement of Work (SOW)</strong> กำหนด Deliverables, เกณฑ์การตรวจรับ (Acceptance Criteria) และค่าปรับ SLA อย่างรัดกุม</li>
+            </ol>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center font-mono text-xs">5</span>
+              <span>การควบคุมโครงการด้วย Primavera P6 &amp; PMO Governance</span>
+            </div>
+            <ol class="list-decimal list-inside space-y-1 text-slate-700 leading-relaxed">
+              <li>แตกโครงสร้างงาน (WBS 1.1 – 1.6) และผูกความสัมพันธ์ (FS/SS) ใน <strong>Oracle Primavera P6 (แท็บที่ 3)</strong></li>
+              <li>เฝ้าระวังกิจกรรมบน <strong>Critical Path (Total Float = 0)</strong> ไม่ให้ล่าช้า</li>
+              <li>วัดผลด้วยดัชนี <strong>SPI (Schedule)</strong> และ <strong>CPI (Cost)</strong> ทุกสัปดาห์ หากพบ Roadblock หรือทีมไม่ปฏิบัติตามมาตรฐาน PMO ให้เจรจาและ Escalate ทันที</li>
+            </ol>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <div class="font-bold text-slate-900 text-sm flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-mono text-xs">6</span>
+              <span>การเชื่อมต่อระบบ (Integration) &amp; การวัดผลหลัง Go-Live</span>
+            </div>
+            <ol class="list-decimal list-inside space-y-1 text-slate-700 leading-relaxed">
+              <li>ตรวจสอบสถานะการเชื่อมต่อข้อมูลระหว่าง SAP S/4HANA, Opcenter MES, Kinaxis RapidResponse และ SMT Edge Gateways ใน <strong>แท็บที่ 6</strong></li>
+              <li>ดำเนินการทดสอบ Bilingual UAT ร่วมกับ Key Users ทั้งที่ Miyagi และ Laem Chabang</li>
+              <li>จัดทำ Post-Implementation Review (PIR) ยืนยันผลลัพธ์ OEE และ Cost Savings จริงเทียบกับ CBA ที่ตั้งไว้</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: ADD NEW KANBAN INITIATIVE CARD                               -->
+  <!-- ===================================================================== -->
+  <div id="modalNewCard" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 text-xs">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 class="text-base font-bold text-slate-900"><i class="fa-brands fa-trello text-sky-600 mr-1.5"></i>เพิ่มการ์ดโครงการใหม่ (New ITBP Kanban Card)</h3>
+        <button onclick="closeModal('modalNewCard')" class="text-slate-400 hover:text-slate-700 text-base">&times;</button>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Project / Initiative Title (EN/TH):</label>
+          <input id="newCardTitle" type="text" placeholder="e.g., Automated X-Ray BGA Void Inspection Integration" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+        </div>
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Japanese Title (日本語件名):</label>
+          <input id="newCardTitleJp" type="text" placeholder="e.g., X線BGAボイド自動検査システム統合" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-jp">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Lifecycle Stage:</label>
+          <select id="newCardStage" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+            <option value="IDEATION_WORKSHOP">1. Design Thinking &amp; Elicitation</option>
+            <option value="FEASIBILITY_CBA">2. Feasibility, BPR &amp; CBA</option>
+            <option value="WSJF_HWSW_EVAL">3. WSJF &amp; HW/SW Evaluation</option>
+            <option value="SOW_VENDOR_GOV">4. Vendor SOW &amp; PMO Governance</option>
+            <option value="P6_EXECUTION">5. Primavera P6 Execution</option>
+            <option value="UAT_VALUE_REALIZED">6. UAT &amp; Value Realized</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Priority:</label>
+          <select id="newCardPriority" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+            <option value="CRITICAL">CRITICAL</option>
+            <option value="HIGH" selected>HIGH</option>
+            <option value="MEDIUM">MEDIUM</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Business Unit / Site:</label>
+          <select id="newCardSite" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+            <option value="CLS-MYG (Miyagi Plant)">CLS-MYG (Miyagi Plant)</option>
+            <option value="CLS-TYO (Tokyo HQ)">CLS-TYO (Tokyo HQ)</option>
+            <option value="CLS-LCB (Laem Chabang)">CLS-LCB (Laem Chabang)</option>
+            <option value="CLS-GLOBAL (Toronto/APAC)">CLS-GLOBAL (Toronto/APAC)</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Functional Area:</label>
+          <select id="newCardFunc" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+            <option value="Manufacturing & MES">Manufacturing &amp; MES</option>
+            <option value="Supply Chain & APS">Supply Chain &amp; APS</option>
+            <option value="Quality & IPC">Quality &amp; IPC</option>
+            <option value="Finance & J-SOX">Finance &amp; J-SOX</option>
+            <option value="IT Infrastructure">IT Infrastructure</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Budget ($ USD):</label>
+          <input id="newCardBudget" type="number" value="180000" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">WSJF Score:</label>
+          <input id="newCardWsjf" type="number" step="0.1" value="5.8" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Japanese Stakeholder:</label>
+          <input id="newCardStakeholder" type="text" value="Kenji Takahashi (Miyagi Quality)" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Target Due Date:</label>
+          <input id="newCardDue" type="date" value="2026-12-15" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Executive Summary &amp; Scope:</label>
+          <textarea id="newCardSummary" rows="2" class="w-full px-3 py-2 rounded-lg border border-slate-300" placeholder="Describe business problem, technical solution, and expected ROI..."></textarea>
+        </div>
+      </div>
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
+        <button onclick="closeModal('modalNewCard')" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium">Cancel</button>
+        <button onclick="submitNewKanbanCard()" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold">Save Card to SQLite</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: ADD PRIMAVERA P6 WBS ACTIVITY                                -->
+  <!-- ===================================================================== -->
+  <div id="modalNewP6" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 text-xs">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 class="text-base font-bold text-slate-900"><i class="fa-solid fa-bars-progress text-rose-600 mr-1.5"></i>Add Oracle Primavera P6 WBS Activity</h3>
+        <button onclick="closeModal('modalNewP6')" class="text-slate-400 hover:text-slate-700 text-base">&times;</button>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Activity ID:</label>
+          <input id="newP6ActId" type="text" value="A1140" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">WBS Code &amp; Name:</label>
+          <select id="newP6Wbs" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+            <option value="1.4|1.4 Core Engineering & System Integration">1.4 Core Engineering &amp; Integration</option>
+            <option value="1.5|1.5 Verification, J-SOX Audit & Bilingual UAT">1.5 Verification, J-SOX &amp; UAT</option>
+            <option value="1.6|1.6 Cutover, Hypercare & Value Harvesting">1.6 Cutover &amp; Value Harvesting</option>
+          </select>
+        </div>
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Activity Name:</label>
+          <input id="newP6Name" type="text" placeholder="e.g., Automated Failover Drill for Miyagi-LCB Kafka Cluster" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Original Duration (Days):</label>
+          <input id="newP6Dur" type="number" value="10" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Total Float (Days, 0 = Critical):</label>
+          <input id="newP6Float" type="number" value="0" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Early Start:</label>
+          <input id="newP6Es" type="date" value="2026-11-02" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Early Finish:</label>
+          <input id="newP6Ef" type="date" value="2026-11-16" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Predecessors:</label>
+          <input id="newP6Pred" type="text" value="A1090" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Budget at Completion (BAC $):</label>
+          <input id="newP6Bac" type="number" value="65000" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+      </div>
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
+        <button onclick="closeModal('modalNewP6')" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium">Cancel</button>
+        <button onclick="submitNewP6Activity()" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-semibold">Add to Primavera P6 Schedule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 3: ADD BABOK REQUIREMENT & WSJF ENTRY                           -->
+  <!-- ===================================================================== -->
+  <div id="modalNewReq" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 text-xs">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <h3 class="text-base font-bold text-slate-900"><i class="fa-solid fa-lightbulb text-amber-500 mr-1.5"></i>Add Workshop Requirement (BABOK RTM &amp; WSJF)</h3>
+        <button onclick="closeModal('modalNewReq')" class="text-slate-400 hover:text-slate-700 text-base">&times;</button>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Requirement Title (English):</label>
+          <input id="newReqTitle" type="text" placeholder="e.g., Automated Stencil Tension & Paste Height Closed-Loop Check" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+        </div>
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Japanese Title (日本語要件名):</label>
+          <input id="newReqTitleJp" type="text" placeholder="e.g., ステンシル張力および半田印刷高さクローズドループ自動検証" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-jp">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Workshop Methodology:</label>
+          <select id="newReqMethod" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+            <option value="Design Thinking (5-Stage)">Design Thinking (5-Stage)</option>
+            <option value="Gemba Kaizen Walk">Gemba Kaizen Walk</option>
+            <option value="BPM SIPOC Workshop">BPM SIPOC Workshop</option>
+            <option value="J-SOX Compliance Audit">J-SOX Compliance Audit</option>
+          </select>
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Japanese SME / Stakeholder:</label>
+          <input id="newReqStakeholder" type="text" value="Daisuke Ito (生産技術部長)" class="w-full px-3 py-2 rounded-lg border border-slate-300">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">User-Business Value (1-10):</label>
+          <input id="newReqUv" type="number" min="1" max="10" value="9" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Time Criticality (1-10):</label>
+          <input id="newReqTc" type="number" min="1" max="10" value="8" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Risk Reduction (1-10):</label>
+          <input id="newReqRr" type="number" min="1" max="10" value="9" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">Job Size / Effort (1-10):</label>
+          <input id="newReqJs" type="number" min="1" max="10" value="4" class="w-full px-3 py-2 rounded-lg border border-slate-300 font-mono">
+        </div>
+        <div class="col-span-2">
+          <label class="font-semibold text-slate-700 block mb-1">Technical Specification &amp; Architecture:</label>
+          <textarea id="newReqSpec" rows="2" class="w-full px-3 py-2 rounded-lg border border-slate-300" placeholder="Specify API, ISA-95 level, ERP/MES tables, and verification method..."></textarea>
+        </div>
+      </div>
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-200">
+        <button onclick="closeModal('modalNewReq')" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium">Cancel</button>
+        <button onclick="submitNewRequirement()" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold">Save Requirement to RTM</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 4: KANBAN CARD DETAIL & SINGLE-PROJECT PRINT BRIEF              -->
+  <!-- ===================================================================== -->
+  <div id="modalCardDetail" class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 text-xs">
+      <div id="cardDetailContent"></div>
+      <div class="flex justify-between items-center pt-3 border-t border-slate-200 no-print">
+        <button id="btnDeleteCard" class="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 font-medium">
+          <i class="fa-solid fa-trash-can mr-1"></i>Delete Card
+        </button>
+        <div class="flex space-x-2">
+          <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-semibold">
+            <i class="fa-solid fa-print mr-1"></i>Print Project Card
+          </button>
+          <button onclick="closeModal('modalCardDetail')" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-4 px-6 text-xs mt-8 no-print">
+    <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div>
+        <strong class="text-white">Celestica (Thailand) Limited &amp; Celestica Japan K.K.</strong> — Manager, IT Business Partner 2 (Req ID: 133553 • Band 10 • Laem Chabang, Chonburi)
+      </div>
+      <div class="font-mono text-[11px] text-slate-400">
+        SQLite WAL Engine • BRM Institute • BABOK v3 • SAFe WSJF • Oracle Primavera P6 EPPM • ISA-95
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- APPLICATION JAVASCRIPT & LIVE SQLITE REST CLIENT                      -->
+  <!-- ===================================================================== -->
+  <script>
+    const KANBAN_STAGES = [
+      { key: 'IDEATION_WORKSHOP', label: '1. Design Thinking & Elicitation', jp: 'デザイン思考・要件定義', badgeBg: 'bg-sky-600' },
+      { key: 'FEASIBILITY_CBA', label: '2. Feasibility, BPR & CBA', jp: 'BPR・実現可能性・費用対効果', badgeBg: 'bg-indigo-600' },
+      { key: 'WSJF_HWSW_EVAL', label: '3. WSJF & HW/SW Evaluation', jp: 'WSJF優先順位・機器選定', badgeBg: 'bg-amber-600' },
+      { key: 'SOW_VENDOR_GOV', label: '4. Vendor SOW & PMO Governance', jp: 'SOW契約・ベンダー管理', badgeBg: 'bg-purple-600' },
+      { key: 'P6_EXECUTION', label: '5. Primavera P6 Execution', jp: 'Primavera P6 プロジェクト実行', badgeBg: 'bg-rose-600' },
+      { key: 'UAT_VALUE_REALIZED', label: '6. UAT, Go-Live & Value Realized', jp: 'UAT検収・本番稼働・効果創出', badgeBg: 'bg-emerald-600' }
+    ];
+
+    const REMOTE_API_HOST = "https://zabb-delivery-71o1.onrender.com";
+    let apiBaseUrl = "";
+    const REMOTE_API_HOST = "https://zabb-delivery-71o1.onrender.com";
+    let apiBaseUrl = "";
+    let appState = {"kanban":[{"id":"KBN-01","card_code":"CLS-ITBP-101","title":"AI Visual Solder Joint Inspection (AOI) Edge Integration for High-Density Optical PCBA","title_jp":"高密度光通信基板向けAI外観検査(AOI)エッジ統合ワークショップ","stage":"IDEATION_WORKSHOP","priority":"HIGH","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Quality & IPC","wsjf_score":4.8,"budget_usd":185000,"npv_usd":420000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Kenji Takahashi (VP Quality, Miyagi)","due_date":"2026-11-15","progress_percent":35,"checklist_done":2,"checklist_total":5,"tags":"Design Thinking,IPC-A-610,Computer Vision,ATS","summary":"Facilitating 5-stage Design Thinking workshop with Miyagi NPI quality engineers to reduce false-call rates on 800G optical transceiver SMT lines by 62%.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-03","card_code":"CLS-ITBP-103","title":"BPR & Feasibility: Digital Twin Box-Build Traceability (Miyagi NPI to Laem Chabang Mass Prod)","title_jp":"宮城NPIからレムチャバン量産へのデジタルツイン筐体組立トレーサビリティBPR","stage":"FEASIBILITY_CBA","priority":"CRITICAL","bu_site":"CLS-GLOBAL (Toronto/APAC)","functional_area":"Manufacturing & MES","wsjf_score":6.75,"budget_usd":420000,"npv_usd":1180000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Hiroshi Watanabe (GM Operations, Miyagi)","due_date":"2026-11-05","progress_percent":70,"checklist_done":4,"checklist_total":5,"tags":"BPR,Feasibility,CBA,NPI-to-MP,DFM","summary":"Cost-benefit analysis & As-Is/To-Be process re-engineering unifying BOM/BOP transfer from Miyagi NPI Center to Laem Chabang Plant 2, cutting NPI transfer lead time by 18 days.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-05","card_code":"CLS-ITBP-105","title":"SMT Line IIoT Edge Gateway & SECS/GEM Protocol Hardware/Software Evaluation Readout","title_jp":"SMTラインIIoTエッジゲートウェイおよびSECS/GEMプロトコル機器選定評価","stage":"WSJF_HWSW_EVAL","priority":"CRITICAL","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"IT Infrastructure","wsjf_score":6.25,"budget_usd":260000,"npv_usd":680000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Daisuke Ito (Chief Mfg Engineer, Miyagi)","due_date":"2026-10-28","progress_percent":85,"checklist_done":5,"checklist_total":6,"tags":"HW/SW Eval,SECS/GEM,OPC-UA,Fuji NXT","summary":"Evaluating Advantech vs. Dell NativeEdge vs. Cisco Industrial Gateways for real-time telemetry across 14 Fuji NXT & Panasonic NPM pick-and-place lines.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-07","card_code":"CLS-ITBP-107","title":"Vendor SOW & Governance: Siemens Opcenter Execution Electronics (Camstar) v24 Upgrade","title_jp":"シーメンスOpcenter Execution Electronics (Camstar) v24アップグレードSOW契約管理","stage":"SOW_VENDOR_GOV","priority":"CRITICAL","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Manufacturing & MES","wsjf_score":7.25,"budget_usd":580000,"npv_usd":1640000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Taro Nakamura (IT Director, APAC)","due_date":"2026-10-25","progress_percent":90,"checklist_done":5,"checklist_total":5,"tags":"SOW,Vendor Mgmt,Siemens MES,PMO Escalation","summary":"Finalized Statement of Work with Siemens Digital Industries & Hitachi Systems; resolved DB migration roadblock via PMO escalation protocol.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-09","card_code":"CLS-ITBP-109","title":"Master Program: Next-Gen MES & SAP S/4HANA Shop-Floor Convergence (Japan-Thailand Bridge)","title_jp":"次世代MES・SAP S/4HANAショップフロア統合マスタープログラム（日タイ連携）","stage":"P6_EXECUTION","priority":"CRITICAL","bu_site":"CLS-GLOBAL (Toronto/APAC)","functional_area":"Manufacturing & MES","wsjf_score":7.5,"budget_usd":1250000,"npv_usd":3450000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Exec SteerCo (Toronto / Tokyo / Chonburi)","due_date":"2026-12-20","progress_percent":68,"checklist_done":7,"checklist_total":10,"tags":"Primavera P6,CPM,EVM,SAP S/4HANA,MES","summary":"Active execution tracked in Oracle Primavera P6 EPPM (14 WBS activities). Current SPI = 1.02, CPI = 1.05; Critical Path on API Gateway & Bilingual UAT.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-11","card_code":"CLS-ITBP-111","title":"Bilingual EDI 850/856/810 ASN Hub for Japanese Semiconductor & Capital Equipment OEMs","title_jp":"日本の半導体・製造装置OEM向け日英バイリンガルEDI/ASN自動連携ハブ","stage":"UAT_VALUE_REALIZED","priority":"HIGH","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Supply Chain & APS","wsjf_score":6.4,"budget_usd":175000,"npv_usd":540000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Kazuo Fujita (VP Commercial, Tokyo)","due_date":"2026-10-10","progress_percent":100,"checklist_done":6,"checklist_total":6,"tags":"Go-Live,EDI/B2B,E2Open,Value Realized","summary":"Completed UAT and Go-Live across 12 Japanese Tier-1 OEM customers. Achieved 99.94% ASN accuracy and reduced order entry cycle time from 4.5 hrs to 3 mins.","display_order":1,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-02","card_code":"CLS-ITBP-102","title":"Automated Reverse Logistics & ITAD RMA Customer Portal for Tokyo Enterprise OEMs","title_jp":"東京エンタープライズOEM向けRMA・ITAD逆物流自動化ポータル","stage":"IDEATION_WORKSHOP","priority":"MEDIUM","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Supply Chain & APS","wsjf_score":3.75,"budget_usd":110000,"npv_usd":265000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Yuki Sato (Director After-Market, Tokyo)","due_date":"2026-11-30","progress_percent":25,"checklist_done":1,"checklist_total":4,"tags":"BABOK,Customer Portal,After-Market,ITAD","summary":"Requirements solicitation & playback sessions with Tokyo Commercial & Hino Repair Depot to automate RMA serialization and warranty entitlement checks.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-04","card_code":"CLS-ITBP-104","title":"J-SOX & Global Finance Automated Three-Way Match (SAP S/4HANA & Japan e-Tax Invoice)","title_jp":"J-SOX対応・SAP S/4HANA自動三面照合およびインボイス制度統合","stage":"FEASIBILITY_CBA","priority":"HIGH","bu_site":"CLS-TYO (Tokyo HQ)","functional_area":"Finance & J-SOX","wsjf_score":5.25,"budget_usd":145000,"npv_usd":390000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Akiko Tanaka (Finance Controller, Japan)","due_date":"2026-11-12","progress_percent":80,"checklist_done":4,"checklist_total":5,"tags":"J-SOX,SAP FICO,BPR,Compliance","summary":"Objective analysis of AP/AR reconciliation between Japanese subcontractors and Global SAP S/4HANA ledger; eliminates 1,400 manual hours/quarter.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-06","card_code":"CLS-ITBP-106","title":"Kinaxis RapidResponse AI Demand Sensing & Semiconductor Buffer Allocation Prioritization","title_jp":"Kinaxis RapidResponse AI需要予測・半導体在庫アロケーション優先順位付け","stage":"WSJF_HWSW_EVAL","priority":"HIGH","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Supply Chain & APS","wsjf_score":5.6,"budget_usd":290000,"npv_usd":810000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Somchai K. (SCM Dir, LCB) & K. Yamamoto","due_date":"2026-11-02","progress_percent":65,"checklist_done":3,"checklist_total":5,"tags":"WSJF,Kinaxis APS,Supply Chain,Buffer Stock","summary":"Qualifying and prioritizing 19 business requirements under Q4 IT execution capacity constraints using SAFe WSJF scoring matrix.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-08","card_code":"CLS-ITBP-108","title":"Automated ESD & Cleanroom Environmental Telemetry SOW (Omron IoT Sensors)","title_jp":"クリーンルーム環境・ESD自動監視テレメトリSOW契約（オムロンIoT）","stage":"SOW_VENDOR_GOV","priority":"MEDIUM","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Quality & IPC","wsjf_score":4.2,"budget_usd":95000,"npv_usd":240000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Nattapong S. (Quality Mgr, Laem Chabang)","due_date":"2026-11-10","progress_percent":75,"checklist_done":3,"checklist_total":4,"tags":"SOW,Omron IIoT,ESD Compliance,Aerospace","summary":"Prepared vendor SOW and SLA penalty matrix for AS9100 Aerospace & Defense cleanroom humidity/ESD real-time compliance logging.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-10","card_code":"CLS-ITBP-110","title":"Valor Process Preparation & Automated SMT Stencil/Feeder Verification Rollout","title_jp":"Valor工程設計・SMTステンシル/フィーダー自動照合システム展開","stage":"P6_EXECUTION","priority":"HIGH","bu_site":"CLS-MYG (Miyagi Plant)","functional_area":"Manufacturing & MES","wsjf_score":5.8,"budget_usd":215000,"npv_usd":590000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Shinji Abe (NPI Engineering Lead, Miyagi)","due_date":"2026-11-28","progress_percent":55,"checklist_done":3,"checklist_total":5,"tags":"Primavera P6,Valor DFM,SMT Setup,Zero-Defect","summary":"P6 WBS 1.3 execution phase: integrating Mentor Valor NPI package with shop-floor barcode scanners to prevent wrong-reel feeder loading.","display_order":2,"updated_at":"2026-10-16 04:35:37"},{"id":"KBN-12","card_code":"CLS-ITBP-112","title":"Automated Failure Analysis Lab LIMS & X-Ray Inspection Archive (Laem Chabang & Miyagi)","title_jp":"故障解析ラボLIMSおよびX線検査画像アーカイブ統合（レムチャバン・宮城）","stage":"UAT_VALUE_REALIZED","priority":"MEDIUM","bu_site":"CLS-LCB (Laem Chabang)","functional_area":"Quality & IPC","wsjf_score":4.5,"budget_usd":130000,"npv_usd":310000,"owner_name":"Aritut (Mgr, ITBP 2)","stakeholder_jp":"Dr. Pornchai V. (FA Lab Lead, LCB)","due_date":"2026-10-01","progress_percent":100,"checklist_done":5,"checklist_total":5,"tags":"LIMS,Failure Analysis,Quality,Cloud S3","summary":"Delivered cross-site Failure Analysis knowledge repository linking Laem Chabang and Miyagi labs; cut root-cause 8D report turnaround by 44%.","display_order":2,"updated_at":"2026-10-16 04:35:37"}],"p6_activities":[{"id":"P6-01","project_id":"PRJ-JP-2026-MES","wbs_code":"1.1","wbs_name":"1.1 Initiation & Japan Ringi-sho Alignment","activity_id":"A1000","activity_name":"Project Charter & Japan Ringi-sho (稟議書) Executive Sign-Off","activity_type":"Start Milestone","original_duration_days":5,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-01","early_finish":"2026-07-07","late_start":"2026-07-01","late_finish":"2026-07-07","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"-","relationship_type":"FS","primary_resource":"Aritut (Mgr, ITBP 2)","resource_role":"IT Business Partner Lead","planned_value_usd":35000,"earned_value_usd":35000,"actual_cost_usd":33500,"bac_usd":35000,"status":"COMPLETED","notes":"Approved by Director of ITBP (Toronto), GM Miyagi Plant, and VP Operations Laem Chabang."},{"id":"P6-02","project_id":"PRJ-JP-2026-MES","wbs_code":"1.1","wbs_name":"1.1 Initiation & Japan Ringi-sho Alignment","activity_id":"A1010","activity_name":"Design Thinking & Gemba Requirements Workshop (Miyagi & Tokyo)","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-08","early_finish":"2026-07-28","late_start":"2026-07-08","late_finish":"2026-07-28","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1000","relationship_type":"FS","primary_resource":"Aritut / K. Takahashi","resource_role":"ITBP & Japan SMEs","planned_value_usd":65000,"earned_value_usd":65000,"actual_cost_usd":62000,"bac_usd":65000,"status":"COMPLETED","notes":"5-Stage Design Thinking conducted in Japanese/English; 42 user stories & BABOK BRD baseline signed."},{"id":"P6-03","project_id":"PRJ-JP-2026-MES","wbs_code":"1.2","wbs_name":"1.2 BPR, Feasibility & Architecture Blueprint","activity_id":"A1020","activity_name":"As-Is / To-Be BPR Flowcharts & 5-Year Financial CBA Readout","activity_type":"Task Dependent","original_duration_days":12,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-29","early_finish":"2026-08-13","late_start":"2026-07-29","late_finish":"2026-08-13","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1010","relationship_type":"FS","primary_resource":"Aritut / A. Tanaka","resource_role":"ITBP & Finance Controller","planned_value_usd":55000,"earned_value_usd":55000,"actual_cost_usd":51800,"bac_usd":55000,"status":"COMPLETED","notes":"Validated NPV = $3.45M, IRR = 38.4%, Payback = 14.2 months across Miyagi & Laem Chabang."},{"id":"P6-04","project_id":"PRJ-JP-2026-MES","wbs_code":"1.2","wbs_name":"1.2 BPR, Feasibility & Architecture Blueprint","activity_id":"A1030","activity_name":"Hardware/Software Evaluation (IIoT Edge Gateways & SECS/GEM)","activity_type":"Task Dependent","original_duration_days":10,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-07-29","early_finish":"2026-08-11","late_start":"2026-08-03","late_finish":"2026-08-16","total_float_days":4,"free_float_days":4,"is_critical":0,"predecessors":"A1010","relationship_type":"FS","primary_resource":"Daisuke Ito / Infra Team","resource_role":"Solutions Architect","planned_value_usd":48000,"earned_value_usd":48000,"actual_cost_usd":47200,"bac_usd":48000,"status":"COMPLETED","notes":"Non-critical path (4d Float). Selected Advantech MIC-770 V3 + OPC-UA/SECS-GEM Broker."},{"id":"P6-05","project_id":"PRJ-JP-2026-MES","wbs_code":"1.3","wbs_name":"1.3 Vendor SOW & PMO Procurement Governance","activity_id":"A1040","activity_name":"Vendor RFP, Statement of Work (SOW) & SLA Contract Execution","activity_type":"Task Dependent","original_duration_days":14,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-08-14","early_finish":"2026-09-02","late_start":"2026-08-14","late_finish":"2026-09-02","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1020, A1030","relationship_type":"FS","primary_resource":"Aritut / Global Procurement","resource_role":"ITBP & Legal/Vendor Mgmt","planned_value_usd":70000,"earned_value_usd":70000,"actual_cost_usd":68000,"bac_usd":70000,"status":"COMPLETED","notes":"Signed fixed-price milestone SOW ($580k) with Siemens Digital Industries & Hitachi Systems."},{"id":"P6-06","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1050","activity_name":"Siemens Opcenter MES v24 Core Schema & Bilingual UI Localization","activity_type":"Task Dependent","original_duration_days":22,"remaining_duration_days":0,"percent_complete":100,"early_start":"2026-09-03","early_finish":"2026-10-02","late_start":"2026-09-03","late_finish":"2026-10-02","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1040","relationship_type":"FS","primary_resource":"Hitachi MES Squad / LCB Dev","resource_role":"MES Lead Engineer","planned_value_usd":180000,"earned_value_usd":180000,"actual_cost_usd":171500,"bac_usd":180000,"status":"COMPLETED","notes":"Japanese/English/Thai operator terminal screens and IPC-1782 traceability schema deployed."},{"id":"P6-07","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1060","activity_name":"SAP S/4HANA PP/MM IDoc & REST API Integration Bridge (BAPI/OData)","activity_type":"Task Dependent","original_duration_days":20,"remaining_duration_days":4,"percent_complete":80,"early_start":"2026-09-25","early_finish":"2026-10-22","late_start":"2026-09-25","late_finish":"2026-10-22","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1050","relationship_type":"SS+15d","primary_resource":"Global SAP CoE (Toronto/LCB)","resource_role":"ERP Integration Specialist","planned_value_usd":135000,"earned_value_usd":144000,"actual_cost_usd":136000,"bac_usd":180000,"status":"IN_PROGRESS","notes":"CRITICAL PATH: Real-time Production Order & Backflush confirmation sync between SAP and Opcenter."},{"id":"P6-08","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1070","activity_name":"SMT Pick-and-Place (Fuji NXT / Panasonic NPM) Edge Telemetry Setup","activity_type":"Task Dependent","original_duration_days":16,"remaining_duration_days":3,"percent_complete":81.25,"early_start":"2026-09-28","early_finish":"2026-10-19","late_start":"2026-10-05","late_finish":"2026-10-26","total_float_days":5,"free_float_days":2,"is_critical":0,"predecessors":"A1050","relationship_type":"FS","primary_resource":"Miyagi Automation Team","resource_role":"IIoT Field Engineer","planned_value_usd":90000,"earned_value_usd":97500,"actual_cost_usd":93000,"bac_usd":120000,"status":"IN_PROGRESS","notes":"11 of 14 SMT lines streaming live feeder splice & nozzle vacuum telemetry via Kafka."},{"id":"P6-09","project_id":"PRJ-JP-2026-MES","wbs_code":"1.4","wbs_name":"1.4 Core Engineering & System Integration","activity_id":"A1080","activity_name":"Kinaxis RapidResponse APS & E2Open Supplier Portal Connector","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":5,"percent_complete":66.7,"early_start":"2026-10-05","early_finish":"2026-10-23","late_start":"2026-10-12","late_finish":"2026-10-30","total_float_days":5,"free_float_days":5,"is_critical":0,"predecessors":"A1060","relationship_type":"SS+7d","primary_resource":"SCM IT Team (Laem Chabang)","resource_role":"Supply Chain Architect","planned_value_usd":72000,"earned_value_usd":73370,"actual_cost_usd":71000,"bac_usd":110000,"status":"IN_PROGRESS","notes":"Automated WIP visibility feed for Tokyo OEM order promising and CTB (Clear-to-Build) checks."},{"id":"P6-10","project_id":"PRJ-JP-2026-MES","wbs_code":"1.5","wbs_name":"1.5 Verification, J-SOX Audit & Bilingual UAT","activity_id":"A1090","activity_name":"End-to-End SIT & Cybersecurity / J-SOX ITGC Penetration Testing","activity_type":"Task Dependent","original_duration_days":12,"remaining_duration_days":8,"percent_complete":33.3,"early_start":"2026-10-12","early_finish":"2026-10-28","late_start":"2026-10-12","late_finish":"2026-10-28","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1060, A1070","relationship_type":"FS","primary_resource":"Global InfoSec & Japan Audit","resource_role":"Security & J-SOX Auditor","planned_value_usd":38000,"earned_value_usd":36630,"actual_cost_usd":35000,"bac_usd":110000,"status":"IN_PROGRESS","notes":"CRITICAL PATH: Validating role-based access control (RBAC) and immutable audit trails."},{"id":"P6-11","project_id":"PRJ-JP-2026-MES","wbs_code":"1.5","wbs_name":"1.5 Verification, J-SOX Audit & Bilingual UAT","activity_id":"A1100","activity_name":"Bilingual User Acceptance Testing (UAT) — Miyagi NPI & LCB Plant 2","activity_type":"Task Dependent","original_duration_days":14,"remaining_duration_days":14,"percent_complete":0,"early_start":"2026-10-29","early_finish":"2026-11-17","late_start":"2026-10-29","late_finish":"2026-11-17","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1090","relationship_type":"FS","primary_resource":"Aritut / Shop Floor Key Users","resource_role":"ITBP UAT Facilitator","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":105000,"status":"NOT_STARTED","notes":"CRITICAL PATH: Parallel simulation of 5 optical & server blade work orders across JP and TH."},{"id":"P6-12","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1110","activity_name":"Operator Training & Bilingual SOP Handover (JP/EN/TH)","activity_type":"Task Dependent","original_duration_days":10,"remaining_duration_days":10,"percent_complete":0,"early_start":"2026-11-05","early_finish":"2026-11-18","late_start":"2026-11-11","late_finish":"2026-11-24","total_float_days":4,"free_float_days":4,"is_critical":0,"predecessors":"A1090","relationship_type":"FS","primary_resource":"HRD & ITBP Change Mgmt","resource_role":"Change Management Lead","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":52000,"status":"NOT_STARTED","notes":"Training 180 line leaders in Miyagi (Japanese) and 420 operators in Laem Chabang (Thai/EN)."},{"id":"P6-13","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1120","activity_name":"Production Cutover, Go-Live & 24x7 War-Room Hypercare","activity_type":"Task Dependent","original_duration_days":15,"remaining_duration_days":15,"percent_complete":0,"early_start":"2026-11-18","early_finish":"2026-12-08","late_start":"2026-11-18","late_finish":"2026-12-08","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1100, A1110","relationship_type":"FS","primary_resource":"Aritut / Global PMO / Vendors","resource_role":"Cutover Commander","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":85000,"status":"NOT_STARTED","notes":"CRITICAL PATH: Zero-downtime weekend cutover during scheduled plant maintenance window."},{"id":"P6-14","project_id":"PRJ-JP-2026-MES","wbs_code":"1.6","wbs_name":"1.6 Cutover, Hypercare & Value Harvesting","activity_id":"A1130","activity_name":"Post-Implementation Review (PIR) & Benefits Realization Sign-Off","activity_type":"Finish Milestone","original_duration_days":8,"remaining_duration_days":8,"percent_complete":0,"early_start":"2026-12-09","early_finish":"2026-12-18","late_start":"2026-12-09","late_finish":"2026-12-18","total_float_days":0,"free_float_days":0,"is_critical":1,"predecessors":"A1120","relationship_type":"FS","primary_resource":"Aritut / Director of ITBP","resource_role":"IT Business Partner Lead","planned_value_usd":0,"earned_value_usd":0,"actual_cost_usd":0,"bac_usd":35000,"status":"NOT_STARTED","notes":"Final readout to Toronto PMO & Japan Executive Board verifying OEE (+6.8%) and Cycle Time KPIs."}],"p6_summary":{"total_activities":14,"critical_activities":10,"completed_activities":6,"pv_usd":788000,"ev_usd":804500,"ac_usd":769000,"bac_usd":1250000,"spi":1.02,"cpi":1.05,"eac_usd":1190476,"vac_usd":59524,"overall_progress_percent":64.4},"requirements":[{"id":"REQ-01","req_code":"BRD-JP-001","project_code":"CLS-ITBP-109","workshop_method":"Design Thinking (5-Stage)","bu_department":"Miyagi NPI & Laem Chabang Box-Build","stakeholder_jp":"Hiroshi Watanabe (宮城工場長)","requirement_title":"Automated e-DHR & Lot Genealogy Across Japan NPI and Thailand Mass Production","requirement_title_jp":"日タイ拠点間での電子デバイス履歴記録(e-DHR)およびロット追跡の完全自動化","business_need":"Eliminate manual Excel/PDF serialization handoffs during NPI-to-MP transfer, reducing transfer cycle time from 28 days to 10 days.","technical_spec":"ISA-95 Level 3 REST/Kafka bridge syncing Siemens Opcenter e-DHR XML packages with SAP S/4HANA Batch Management (MSC1N) & Valor BOM.","user_business_value":10,"time_criticality":9,"risk_reduction":10,"job_size":4,"cost_of_delay":29,"wsjf_index":7.25,"moscow_priority":"MUST_HAVE","verification_method":"End-to-End Lot Traceability Audit (< 3 sec query)","traceability_status":"IN_DEV"},{"id":"REQ-02","req_code":"BRD-JP-002","project_code":"CLS-ITBP-105","workshop_method":"Gemba Kaizen Walk","bu_department":"Miyagi SMT Assembly Line 1-14","stakeholder_jp":"Daisuke Ito (生産技術部長)","requirement_title":"Real-Time SMT Feeder Wrong-Reel Interlock & MSD (Moisture Sensitive Device) Floor-Life Timer","requirement_title_jp":"SMTフィーダー異품種装填インターロックおよびMSD湿度管理タイマー自動遮断","business_need":"Prevent costly PCBA scrap on high-density optical modules caused by expired J-STD-033 moisture exposure time.","technical_spec":"SECS/GEM S2F41 Host Command interlock to Fuji NXT / Panasonic NPM halting machine start if barcode scan mismatches BOM or MSD floor-life > 72 hrs.","user_business_value":10,"time_criticality":9,"risk_reduction":9,"job_size":4,"cost_of_delay":28,"wsjf_index":7,"moscow_priority":"MUST_HAVE","verification_method":"Shop-Floor Interlock Simulation (100% Block Rate)","traceability_status":"APPROVED"},{"id":"REQ-03","req_code":"BRD-JP-003","project_code":"CLS-ITBP-104","workshop_method":"J-SOX Compliance Audit","bu_department":"Japan Finance & Global Shared Services","stakeholder_jp":"Akiko Tanaka (財務統括部長)","requirement_title":"J-SOX Compliant Automated Three-Way Match & Qualified Invoice System (適格請求書) Validation","requirement_title_jp":"J-SOX準拠の自動三面照合および適格請求書（インボイス制度）NTA API検証","business_need":"Ensure 100% statutory compliance with Japan National Tax Agency (NTA) invoice registration and eliminate manual PO-GR-IR discrepancies.","technical_spec":"SAP S/4HANA FI/MM BAPI integration with NTA T-Number validation API and automated workflow approval matrix.","user_business_value":9,"time_criticality":8,"risk_reduction":10,"job_size":5,"cost_of_delay":27,"wsjf_index":5.4,"moscow_priority":"MUST_HAVE","verification_method":"External Auditor J-SOX ITGC Sample Test (0 Findings)","traceability_status":"VALIDATED"},{"id":"REQ-04","req_code":"BRD-JP-004","project_code":"CLS-ITBP-106","workshop_method":"BPM SIPOC Workshop","bu_department":"Global Supply Chain & Tokyo OEM Sales","stakeholder_jp":"Kazuo Fujita (営業本部長)","requirement_title":"Bi-Directional Kinaxis RapidResponse Clear-to-Build (CTB) & Allocation Simulation","requirement_title_jp":"Kinaxis RapidResponse双方向クリア・トゥ・ビルド(CTB)および部材引当シミュレーション","business_need":"Provide Japanese OEM customers with real-time commit dates when long-lead semiconductor components experience allocation constraints.","technical_spec":"High-frequency OData delta sync between SAP S/4HANA MD04 MRP Live, E2Open Supplier commits, and Kinaxis RapidResponse.","user_business_value":9,"time_criticality":9,"risk_reduction":8,"job_size":5,"cost_of_delay":26,"wsjf_index":5.2,"moscow_priority":"SHOULD_HAVE","verification_method":"Parallel MRP vs. Kinaxis Scenario Playback","traceability_status":"APPROVED"},{"id":"REQ-05","req_code":"BRD-JP-005","project_code":"CLS-ITBP-101","workshop_method":"Design Thinking (5-Stage)","bu_department":"Miyagi & Laem Chabang Quality Assurance","stakeholder_jp":"Kenji Takahashi (品質保証部長)","requirement_title":"AI Computer Vision Secondary Verification for 3D AOI / AXI False Calls","requirement_title_jp":"3D AOI/AXI過検出削減のためのAI画像認識二次判定エンジン統合","business_need":"Reduce manual operator re-inspection workload by 60% while maintaining zero escape rate (0 DPPM) for IPC-A-610 Class 3 assemblies.","technical_spec":"NVIDIA Jetson Orin Industrial edge inference container receiving Koh Young / Omron 3D AOI image crops via gRPC.","user_business_value":8,"time_criticality":7,"risk_reduction":8,"job_size":5,"cost_of_delay":23,"wsjf_index":4.6,"moscow_priority":"SHOULD_HAVE","verification_method":"Gage R&R & Confusion Matrix Validation (AUC > 0.994)","traceability_status":"ELICITED"},{"id":"REQ-06","req_code":"BRD-JP-006","project_code":"CLS-ITBP-102","workshop_method":"Design Thinking (5-Stage)","bu_department":"Tokyo After-Market & Hino Repair Hub","stakeholder_jp":"Yuki Sato (アフターマーケット部長)","requirement_title":"Self-Service Japanese/English Customer RMA & ITAD Certificate Portal","requirement_title_jp":"日英対応セルフサービスRMA申請・ITADデータ消去証明書発行ポータル","business_need":"Allow enterprise cloud & telecom customers in Japan to track RMA repair TAT and download NIST 800-88 data sanitization certificates.","technical_spec":"React/Tailwind portal integrated with ServiceNow CSM and shop-floor repair routing via OAuth2/OIDC.","user_business_value":7,"time_criticality":6,"risk_reduction":6,"job_size":5,"cost_of_delay":19,"wsjf_index":3.8,"moscow_priority":"COULD_HAVE","verification_method":"Customer UAT Playback with 3 Pilot Tokyo OEMs","traceability_status":"ELICITED"}],"cba_studies":[{"id":"CBA-01","study_code":"CBA-2026-JP01","initiative_name":"Next-Gen MES & SAP S/4HANA Shop-Floor Convergence (Japan-Thailand Bridge)","target_site":"Miyagi Plant (CLS-MYG) & Laem Chabang (CLS-LCB)","functional_domain":"Manufacturing Operations & MES","as_is_process_desc":"Manual paper traveler & fragmented legacy shop-floor logs; batch ERP backflushing every 12 hours causing WIP blind spots and 18-day NPI handoff delays.","as_is_cycle_time_hrs":42,"as_is_defect_dppm":480,"as_is_oee_percent":74.5,"to_be_process_desc":"Unified Siemens Opcenter v24 + SAP S/4HANA real-time event mesh; barcode/RFID automated e-DHR genealogy, instant SECS/GEM machine interlocks, and 1-click NPI-to-MP BOM/BOP transfer.","to_be_cycle_time_hrs":6.5,"to_be_defect_dppm":45,"to_be_oee_percent":86.2,"capex_usd":1250000,"annual_opex_usd":145000,"annual_gross_savings_usd":1180000,"discount_rate_percent":8.5,"npv_5yr_usd":3450000,"irr_percent":38.4,"roi_percent":276,"payback_months":14.2,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-088"},{"id":"CBA-03","study_code":"CBA-2026-JP03","initiative_name":"Kinaxis RapidResponse AI Demand Sensing & Automated Supplier CTB Portal","target_site":"Tokyo Commercial HQ (CLS-TYO) & Laem Chabang SCM","functional_domain":"Supply Chain & Production Planning","as_is_process_desc":"Weekly spreadsheet-based Clear-to-Build (CTB) consolidation across 340+ suppliers; 4.5-day latency in responding to Japanese OEM forecast changes.","as_is_cycle_time_hrs":108,"as_is_defect_dppm":1250,"as_is_oee_percent":71,"to_be_process_desc":"Bi-directional Kinaxis RapidResponse + E2Open B2B EDI hub with automated constraints simulation, real-time supplier commit updates, and instant ATP/CTP readouts.","to_be_cycle_time_hrs":4,"to_be_defect_dppm":120,"to_be_oee_percent":88,"capex_usd":290000,"annual_opex_usd":42000,"annual_gross_savings_usd":340000,"discount_rate_percent":8.5,"npv_5yr_usd":810000,"irr_percent":46.8,"roi_percent":279.3,"payback_months":11.5,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-119"},{"id":"CBA-02","study_code":"CBA-2026-JP02","initiative_name":"SMT Line IIoT Edge Telemetry & Predictive Maintenance (14 High-Speed Lines)","target_site":"Miyagi Plant (CLS-MYG) & Laem Chabang Plant 1","functional_domain":"Industrial IoT & Production Engineering","as_is_process_desc":"Reactive nozzle/feeder maintenance; manual USB log extraction from Fuji NXT & Panasonic NPM machines; unplanned line stops averaging 5.8 hrs/week.","as_is_cycle_time_hrs":14.5,"as_is_defect_dppm":310,"as_is_oee_percent":76,"to_be_process_desc":"Real-time IPC-CFX / SECS-GEM edge streaming to Kafka & AI anomaly detection; automated splice validation and predictive nozzle cleaning alerts before pickup errors occur.","to_be_cycle_time_hrs":1.8,"to_be_defect_dppm":62,"to_be_oee_percent":85.4,"capex_usd":260000,"annual_opex_usd":38000,"annual_gross_savings_usd":295000,"discount_rate_percent":8.5,"npv_5yr_usd":680000,"irr_percent":44.2,"roi_percent":261.5,"payback_months":11.8,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-104"},{"id":"CBA-04","study_code":"CBA-2026-JP04","initiative_name":"J-SOX Automated 3-Way Match & Qualified e-Invoice (インボイス) FinOps Suite","target_site":"Tokyo Finance & Thailand Regional Shared Services","functional_domain":"Finance, Accounting & Compliance","as_is_process_desc":"Manual PDF invoice data entry, physical hanko/stamp routing, and manual NTA tax registration verification taking 5.2 days per voucher batch.","as_is_cycle_time_hrs":124.8,"as_is_defect_dppm":890,"as_is_oee_percent":68,"to_be_process_desc":"OCR + RPA + SAP S/4HANA BAPI automated 3-way match (PO/GR/IR) with real-time Japan NTA API tax ID verification and digital Ringi-sho workflow.","to_be_cycle_time_hrs":2.5,"to_be_defect_dppm":15,"to_be_oee_percent":94.5,"capex_usd":145000,"annual_opex_usd":22000,"annual_gross_savings_usd":178000,"discount_rate_percent":8.5,"npv_5yr_usd":390000,"irr_percent":48.5,"roi_percent":268.9,"payback_months":11.1,"feasibility_rating":"HIGHLY_VIABLE","approval_ringi_no":"RINGI-JP-2026-127"}],"sow_vendors":[{"id":"SOW-01","sow_number":"SOW-CLS-2026-081","vendor_name":"Siemens Digital Industries & Hitachi Systems (日立システムズ)","solution_category":"MES_SHOPFLOOR","project_title":"Opcenter Execution Electronics v24 Multi-Site Deployment (Miyagi & Laem Chabang)","contract_type":"Fixed-Price Milestone","total_contract_usd":580000,"start_date":"2026-08-15","end_date":"2026-12-18","functional_fit_score":96,"compatibility_score":95,"cybersecurity_jsox_score":98,"tco_commercial_score":90,"weighted_eval_score":95.1,"sla_uptime_target":"99.95% (P1 Response < 15m)","milestones_completed":4,"milestones_total":6,"governance_status":"ON_TRACK","escalation_note":"Resolved Milestone 3 Oracle-to-PostgreSQL partitioning delay via PMO escalation on 02-Oct-2026; vendor added 2 senior Japanese-speaking MES architects at zero extra cost."},{"id":"SOW-02","sow_number":"SOW-CLS-2026-094","vendor_name":"Advantech Japan & NTT Communications","solution_category":"IIOT_HARDWARE_EDGE","project_title":"MIC-770 V3 Industrial Edge Gateways & SECS/GEM Telemetry Appliance (14 SMT Lines)","contract_type":"Fixed-Price Milestone","total_contract_usd":260000,"start_date":"2026-09-01","end_date":"2026-11-30","functional_fit_score":94,"compatibility_score":96,"cybersecurity_jsox_score":93,"tco_commercial_score":92,"weighted_eval_score":94,"sla_uptime_target":"99.98% Edge High-Availability","milestones_completed":3,"milestones_total":4,"governance_status":"ON_TRACK","escalation_note":"Outscored Dell NativeEdge (88.4) and Cisco IC3000 (86.2) in multi-criteria HW/SW evaluation due to native Fuji NXT & Panasonic NPM driver compatibility and 18% lower 5-year TCO."},{"id":"SOW-03","sow_number":"SOW-CLS-2026-103","vendor_name":"Kinaxis Inc. & Nomura Research Institute (NRI / 野村総合研究所)","solution_category":"ERP_SUPPLY_CHAIN","project_title":"RapidResponse AI Demand Sensing & Japan OEM CTB Integration Pack","contract_type":"Time & Materials (Capped)","total_contract_usd":290000,"start_date":"2026-09-15","end_date":"2026-12-10","functional_fit_score":95,"compatibility_score":92,"cybersecurity_jsox_score":96,"tco_commercial_score":88,"weighted_eval_score":93.1,"sla_uptime_target":"99.90% Cloud SaaS SLA","milestones_completed":2,"milestones_total":5,"governance_status":"ROADBLOCK_ESCALATED","escalation_note":"PMO Escalation Active: SAP S/4HANA custom Z-table field mapping for consigned Japanese OEM silicon wafers delayed by 3 days. Negotiated fast-track CR review with Toronto Global ERP CoE."},{"id":"SOW-04","sow_number":"SOW-CLS-2026-112","vendor_name":"Koh Young Technology & Omron Automation","solution_category":"QUALITY_AOI_VISION","project_title":"KSMART AI True3D SPI/AOI Closed-Loop Feedback & IPC-CFX Bridge","contract_type":"Fixed-Price Milestone","total_contract_usd":185000,"start_date":"2026-10-10","end_date":"2027-01-31","functional_fit_score":93,"compatibility_score":91,"cybersecurity_jsox_score":94,"tco_commercial_score":89,"weighted_eval_score":92,"sla_uptime_target":"99.90% Vision Server SLA","milestones_completed":1,"milestones_total":4,"governance_status":"EVALUATION_READOUT","escalation_note":"Hardware & software readout presented to Miyagi & Laem Chabang Quality SteerCo; awaiting final Q4 CapEx release."}],"integrations":[{"id":"INT-01","connector_code":"SAP-S4-MES-BRIDGE","system_name":"SAP S/4HANA Global ERP <-> Siemens Opcenter MES (Miyagi & LCB)","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"OData v4 / SAP IDoc (PP_ORDER / BAPI_PRODORDCONF)","source_endpoint":"https://sap-s4.celestica.global/sap/opu/odata/sap/API_PRODUCTION_ORDER","target_endpoint":"https://mes-apac.celestica.global/api/v24/workorders/sync","sync_frequency":"Real-Time Event (< 5s)","latency_ms":42,"records_synced_today":18420,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"message_id\":\"IDOC-PP-20261016-8841\",\"plant_code\":\"JP01_MIYAGI_TO_TH02_LCB\",\"production_order\":\"PO-800G-OPT-99201\",\"material_sku\":\"CLS-OPT-800G-DR8-REV3\",\"order_qty\":2500,\"bom_revision\":\"REV-3.4-IPC3\",\"j_sox_control_hash\":\"SHA256:9f84b2c1e7a04891d23a\"}"},{"id":"INT-02","connector_code":"SECS-GEM-SMT-EDGE","system_name":"Fuji NXT / Panasonic NPM SMT Lines <-> Kafka IIoT Telemetry Broker","isa95_level":"Level 2 (SMT/IIoT Edge)","protocol_standard":"SECS/GEM (E5/E30/E37) & IPC-CFX over MQTT/TLS","source_endpoint":"tcp://10.148.22.101:5000/secsgem/miyagi-smt-line04","target_endpoint":"kafka://msk-apac.celestica.global:9094/topic/smt-telemetry-events","sync_frequency":"Streaming (100ms)","latency_ms":14,"records_synced_today":142500,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"machine_id\":\"MYG-SMT-L04-FUJI-NXT3\",\"event\":\"IPC_CFX_UNITS_PROCESSED\",\"board_barcode\":\"SN-MYG264100892\",\"placement_rate_cph\":38400,\"pickup_rate_percent\":99.97,\"msd_floor_life_remaining_hrs\":58.4,\"solder_paste_spi_status\":\"PASS_IPC_CLASS_3\"}"},{"id":"INT-03","connector_code":"KINAXIS-APS-E2OPEN","system_name":"Kinaxis RapidResponse APS <-> E2Open Multi-Tier Supplier Hub","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"REST JSON / AS2 EDI (850/856/860)","source_endpoint":"https://celestica.kinaxis.net/integration/v1/ctb-simulation","target_endpoint":"https://b2b.celestica.global/e2open/jp-oem-allocation","sync_frequency":"Every 15 Minutes","latency_ms":118,"records_synced_today":6340,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"simulation_id\":\"KIN-CTB-JP-2026-441\",\"customer_oem\":\"TOKYO_CLOUD_INFRA_OEM\",\"target_plant\":\"TH02_LAEM_CHABANG\",\"clear_to_build_percent\":98.5,\"critical_component\":\"DSP-7NM-ASIC-BGA\",\"allocated_buffer_qty\":12000,\"expedite_recommendation\":\"NO_ACTION_REQUIRED\"}"},{"id":"INT-04","connector_code":"PRIMAVERA-P6-SERVICENOW","system_name":"Oracle Primavera P6 EPPM <-> ServiceNow ITBM & Global PMO Cockpit","isa95_level":"Level 4 (ERP/APS/PMO)","protocol_standard":"Primavera P6 REST API / XER Web Services","source_endpoint":"https://p6.celestica.global/p6ws/restapi/activity?projectId=PRJ-JP-2026-MES","target_endpoint":"https://celestica.service-now.com/api/now/table/pm_project_task","sync_frequency":"Hourly / On-Demand","latency_ms":85,"records_synced_today":940,"health_status":"HEALTHY","last_sync_at":"2026-10-16 04:35:38","sample_payload_json":"{\"eps_node\":\"CLS-APAC-ITBP\",\"project_id\":\"PRJ-JP-2026-MES\",\"data_date\":\"2026-10-16\",\"cpi\":1.05,\"spi\":1.02,\"critical_activities_count\":10,\"total_float_min_days\":0}"}],"integration_logs":[{"id":4,"connector_code":"KINAXIS-APS-E2OPEN","event_type":"CTB_ALLOCATION_SYNC","source_system":"Kinaxis RapidResponse","target_system":"Tokyo OEM Portal & LCB Warehouse","payload_summary":"Updated Clear-to-Build (98.5%) for Q4 High-Speed Switch Box-Build","status_code":200,"triggered_by":"SCM Batch Sync","created_at":"2026-10-16 04:35:38"},{"id":3,"connector_code":"PRIMAVERA-P6-SERVICENOW","event_type":"CPM_SCHEDULE_CALC","source_system":"Oracle Primavera P6 EPPM","target_system":"Global IT PMO Dashboard","payload_summary":"Recalculated Critical Path (Data Date: 16-Oct-2026): SPI=1.02, CPI=1.05","status_code":200,"triggered_by":"Aritut (Mgr, ITBP 2)","created_at":"2026-10-16 04:35:38"},{"id":2,"connector_code":"SECS-GEM-SMT-EDGE","event_type":"MSD_INTERLOCK_VERIFY","source_system":"Fuji NXT III Line 04 (Miyagi)","target_system":"Opcenter Camstar Quality Gate","payload_summary":"Verified J-STD-033 floor-life timer (58.4h remaining) — Line Start Authorized","status_code":200,"triggered_by":"Edge Gateway MIC-770","created_at":"2026-10-16 04:35:38"},{"id":1,"connector_code":"SAP-S4-MES-BRIDGE","event_type":"WORK_ORDER_RELEASE","source_system":"SAP S/4HANA (Global)","target_system":"Siemens Opcenter MES (Miyagi/LCB)","payload_summary":"Synced PO-800G-OPT-99201 (2,500 units) with e-DHR BOM Rev 3.4","status_code":200,"triggered_by":"System Auto-Scheduler","created_at":"2026-10-16 04:35:38"}],"kpis":{"active_initiatives":12,"total_portfolio_budget_usd":3855000,"total_portfolio_npv_usd":10515000,"avg_oee_improvement_pct":16.1,"p6_spi":1.02,"p6_cpi":1.05,"p6_overall_progress":64.4}};
+        if (stageProgressMap[newStage] !== undefined) {
+          card.progress_percent = stageProgressMap[newStage];
+        }
+        renderKanbanBoard();
+      }
+      try {
+        await apiCall(`/api/celestica/kanban/${encodeURIComponent(cardId)}/move`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ stage: newStage })
+        });
+        await loadOverviewData();
+      } catch (err) {
+        console.warn('Move persisted locally:', err.message);
+      }
+    }
+
+    async function submitNewKanbanCard() {
+      const payload = {
+        title: document.getElementById('newCardTitle').value || 'Automated Optical Transceiver Traceability Initiative',
+        title_jp: document.getElementById('newCardTitleJp').value || '光トランシーバ自動トレーサビリティ統合プロジェクト',
+        stage: document.getElementById('newCardStage').value,
+        priority: document.getElementById('newCardPriority').value,
+        bu_site: document.getElementById('newCardSite').value,
+        functional_area: document.getElementById('newCardFunc').value,
+        budget_usd: parseFloat(document.getElementById('newCardBudget').value) || 180000,
+        wsjf_score: parseFloat(document.getElementById('newCardWsjf').value) || 5.8,
+        stakeholder_jp: document.getElementById('newCardStakeholder').value,
+        due_date: document.getElementById('newCardDue').value,
+        summary: document.getElementById('newCardSummary').value
+      };
+      closeModal('modalNewCard');
+      try {
+        await apiCall('/api/celestica/kanban', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        await loadOverviewData();
+      } catch (e) {}
+    }
+
+    function openCardDetail(cardId) {
+      const card = appState.kanban.find(c => c.id === cardId);
+      if (!card) return;
+      const content = document.getElementById('cardDetailContent');
+      content.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-start justify-between border-b border-slate-200 pb-3">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="font-mono font-bold px-2.5 py-0.5 rounded bg-slate-900 text-sky-300">${card.card_code}</span>
+                <span class="font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold">${card.priority}</span>
+                <span class="font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">WSJF: ${card.wsjf_score}</span>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mt-2">${card.title}</h3>
+              <p class="text-xs text-slate-500 font-jp">${card.title_jp || ''}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 font-mono text-xs">
+            <div><span class="text-slate-400 block text-[10px]">SITE / BU</span><strong>${card.bu_site}</strong></div>
+            <div><span class="text-slate-400 block text-[10px]">FUNCTIONAL AREA</span><strong>${card.functional_area}</strong></div>
+            <div><span class="text-slate-400 block text-[10px]">CURRENT STAGE</span><strong>${card.stage}</strong></div>
+            <div><span class="text-slate-400 block text-[10px]">APPROVED BUDGET</span><strong class="text-sky-700">$${Number(card.budget_usd).toLocaleString()} USD</strong></div>
+            <div><span class="text-slate-400 block text-[10px]">5-YEAR NPV</span><strong class="text-emerald-700">$${Number(card.npv_usd).toLocaleString()} USD</strong></div>
+            <div><span class="text-slate-400 block text-[10px]">TARGET COMPLETION</span><strong>${card.due_date}</strong></div>
+          </div>
+
+          <div class="space-y-1.5 font-body">
+            <div class="font-bold text-slate-800">Executive Summary &amp; Business Value:</div>
+            <p class="text-slate-700 bg-slate-50 p-3 rounded-lg border border-slate-200 leading-relaxed">${card.summary}</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-lg border border-slate-200">
+              <span class="text-slate-400 block text-[10px]">ITBP LEAD (THAILAND)</span>
+              <strong class="text-slate-900">${card.owner_name}</strong>
+            </div>
+            <div class="p-3 rounded-lg border border-slate-200">
+              <span class="text-slate-400 block text-[10px]">BUSINESS SPONSOR (JAPAN)</span>
+              <strong class="text-slate-900">${card.stakeholder_jp}</strong>
+            </div>
+          </div>
+        </div>
+      `;
+      const delBtn = document.getElementById('btnDeleteCard');
+      delBtn.onclick = async () => {
+        closeModal('modalCardDetail');
+        await apiCall(`/api/celestica/kanban/${encodeURIComponent(card.id)}`, { method: 'DELETE' });
+        await loadOverviewData();
+      };
+      openModal('modalCardDetail');
+    }
+
+    // -----------------------------------------------------------------------
+    // 3. RENDER ORACLE PRIMAVERA P6 SCHEDULE & GANTT TIMELINE
+    // -----------------------------------------------------------------------
+    function renderP6Schedule() {
+      const s = appState.p6_summary || {};
+      if (s.bac_usd !== undefined) {
+        document.getElementById('p6Bac').innerText = `$${Number(s.bac_usd).toLocaleString()}`;
+        document.getElementById('p6Pv').innerText = `$${Number(s.pv_usd).toLocaleString()}`;
+        document.getElementById('p6Ev').innerText = `$${Number(s.ev_usd).toLocaleString()}`;
+        document.getElementById('p6Ac').innerText = `$${Number(s.ac_usd).toLocaleString()}`;
+        document.getElementById('p6Spi').innerText = `${s.spi} (${s.spi >= 1 ? 'Ahead' : 'Behind'})`;
+        document.getElementById('p6Cpi').innerText = `${s.cpi} (${s.cpi >= 1 ? 'Under Cost' : 'Over Cost'})`;
+        document.getElementById('p6Eac').innerText = `$${Number(s.eac_usd).toLocaleString()}`;
+        document.getElementById('p6CritCount').innerText = `${s.critical_activities} / ${s.total_activities} Tasks`;
+      }
+
+      const tbody = document.getElementById('p6TableBody');
+      if (!tbody) return;
+
+      const minTime = new Date('2026-07-01').getTime();
+      const maxTime = new Date('2026-12-25').getTime();
+      const totalSpan = maxTime - minTime;
+
+      tbody.innerHTML = appState.p6_activities.map(act => {
+        const esTime = new Date(act.early_start).getTime();
+        const efTime = new Date(act.early_finish).getTime();
+        const leftPct = Math.max(0, Math.min(92, ((esTime - minTime) / totalSpan) * 100));
+        const widthPct = Math.max(4, Math.min(100 - leftPct, ((efTime - esTime) / totalSpan) * 100));
+
+        const isCrit = Number(act.is_critical) === 1;
+        const isDone = Number(act.percent_complete) >= 100;
+        const barClass = isDone ? 'p6-bar-complete' : (isCrit ? 'p6-bar-critical' : 'p6-bar-normal');
+
+        return `
+          <tr class="hover:bg-slate-50 transition ${isCrit && !isDone ? 'bg-rose-50/30' : ''}">
+            <td class="py-2.5 px-3 font-mono font-bold ${isCrit ? 'text-rose-700' : 'text-slate-800'}">
+              ${act.activity_id}
+              ${isCrit ? '<span class="ml-1 text-[9px] px-1 py-0.5 rounded bg-rose-600 text-white">CP</span>' : ''}
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="text-[10px] font-mono text-slate-400">${act.wbs_name}</div>
+              <div class="font-semibold text-slate-900">${act.activity_name}</div>
+              <div class="text-[10px] text-slate-500">${act.primary_resource}</div>
+            </td>
+            <td class="py-2.5 px-2 text-center font-mono">${act.original_duration_days}d</td>
+            <td class="py-2.5 px-2 text-center font-mono font-bold">${act.remaining_duration_days}d</td>
+            <td class="py-2.5 px-2 text-center font-mono">
+              <span class="px-2 py-0.5 rounded font-bold ${isDone ? 'bg-emerald-100 text-emerald-800' : 'bg-sky-100 text-sky-800'}">${act.percent_complete}%</span>
+            </td>
+            <td class="py-2.5 px-2.5 font-mono text-[11px]">${act.early_start}</td>
+            <td class="py-2.5 px-2.5 font-mono text-[11px]">${act.early_finish}</td>
+            <td class="py-2.5 px-2 text-center font-mono ${isCrit ? 'text-rose-600 font-bold' : 'text-slate-600'}">${act.total_float_days}d</td>
+            <td class="py-2.5 px-2 font-mono text-[11px] text-slate-600">${act.predecessors || '-'}</td>
+            <td class="py-2.5 px-2.5 text-right font-mono">$${Number(act.bac_usd).toLocaleString()}</td>
+            <td class="py-2.5 px-2.5 text-right font-mono font-bold text-emerald-700">$${Number(act.earned_value_usd).toLocaleString()}</td>
+            <td class="py-2.5 px-3">
+              <div class="w-full bg-slate-200 h-4 rounded-md relative overflow-hidden">
+                <div class="${barClass} h-full rounded-md flex items-center justify-center text-[9px] font-mono text-white font-bold"
+                     style="margin-left: ${leftPct.toFixed(1)}%; width: ${widthPct.toFixed(1)}%;">
+                  ${act.percent_complete}%
+                </div>
+              </div>
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <div class="inline-flex items-center space-x-1">
+                <button onclick="updateP6Progress('${act.id}', ${Math.min(100, Number(act.percent_complete) + 25)})"
+                        class="px-2 py-1 rounded bg-sky-600 hover:bg-sky-700 text-white font-mono text-[10px] font-semibold"
+                        title="Advance Progress +25%">+25%</button>
+                <button onclick="updateP6Progress('${act.id}', 100)"
+                        class="px-2 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-[10px] font-semibold"
+                        title="Mark 100% Complete">100%</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateP6Progress(actId, newPct) {
+      try {
+        await apiCall(`/api/celestica/p6-activities/${encodeURIComponent(actId)}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ percent_complete: newPct })
+        });
+        await loadOverviewData();
+      } catch (e) {}
+    }
+
+    async function submitNewP6Activity() {
+      const wbsRaw = document.getElementById('newP6Wbs').value.split('|');
+      const payload = {
+        activity_id: document.getElementById('newP6ActId').value,
+        wbs_code: wbsRaw[0],
+        wbs_name: wbsRaw[1],
+        activity_name: document.getElementById('newP6Name').value || 'Automated Bilingual UAT Regression Pack',
+        original_duration_days: parseInt(document.getElementById('newP6Dur').value, 10) || 10,
+        total_float_days: parseInt(document.getElementById('newP6Float').value, 10) || 0,
+        early_start: document.getElementById('newP6Es').value,
+        early_finish: document.getElementById('newP6Ef').value,
+        predecessors: document.getElementById('newP6Pred').value,
+        bac_usd: parseFloat(document.getElementById('newP6Bac').value) || 65000,
+        percent_complete: 20
+      };
+      closeModal('modalNewP6');
+      await apiCall('/api/celestica/p6-activities', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      await loadOverviewData();
+    }
+
+    function exportP6XerCsv() {
+      const headers = ['Project_ID', 'WBS_Code', 'Activity_ID', 'Activity_Name', 'Orig_Dur_Days', 'Rem_Dur_Days', 'Pct_Complete', 'Early_Start', 'Early_Finish', 'Total_Float_Days', 'Critical_Path', 'Predecessors', 'BAC_USD', 'PV_USD', 'EV_USD', 'AC_USD'];
+      const rows = appState.p6_activities.map(a => [
+        a.project_id, a.wbs_code, a.activity_id, `"${(a.activity_name || '').replace(/"/g, '""')}"`,
+        a.original_duration_days, a.remaining_duration_days, a.percent_complete,
+        a.early_start, a.early_finish, a.total_float_days, a.is_critical ? 'CRITICAL' : 'NORMAL',
+        `"${a.predecessors || ''}"`, a.bac_usd, a.planned_value_usd, a.earned_value_usd, a.actual_cost_usd
+      ]);
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const link = document.createElement('a');
+      link.setAttribute('href', encodeURI(csvContent));
+      link.setAttribute('download', 'Celestica_Primavera_P6_PRJ-JP-2026-MES.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // -----------------------------------------------------------------------
+    // 4. RENDER BABOK RTM & WSJF CALCULATOR
+    // -----------------------------------------------------------------------
+    function recalcWsjfSimulator() {
+      const uv = parseInt(document.getElementById('wsjfUv').value, 10) || 8;
+      const tc = parseInt(document.getElementById('wsjfTc').value, 10) || 8;
+      const rr = parseInt(document.getElementById('wsjfRr').value, 10) || 8;
+      const js = parseInt(document.getElementById('wsjfJs').value, 10) || 4;
+      document.getElementById('wsjfUvVal').innerText = `${uv} / 10`;
+      document.getElementById('wsjfTcVal').innerText = `${tc} / 10`;
+      document.getElementById('wsjfRrVal').innerText = `${rr} / 10`;
+      document.getElementById('wsjfJsVal').innerText = `${js} / 10`;
+      const cod = uv + tc + rr;
+      const wsjf = (cod / js).toFixed(2);
+      document.getElementById('wsjfCodOut').innerText = cod;
+      document.getElementById('wsjfScoreOut').innerText = wsjf;
+      const recEl = document.getElementById('wsjfRecommendation');
+      if (wsjf >= 6.0) {
+        recEl.innerText = 'Priority Rank: IMMEDIATE EXECUTION (Critical Must-Have)';
+        recEl.className = 'text-xs font-semibold text-emerald-400 mt-0.5';
+      } else if (wsjf >= 4.0) {
+        recEl.innerText = 'Priority Rank: HIGH PRIORITY (Next Sprint Wave)';
+        recEl.className = 'text-xs font-semibold text-sky-400 mt-0.5';
+      } else {
+        recEl.innerText = 'Priority Rank: BACKLOG / PHASE 2';
+        recEl.className = 'text-xs font-semibold text-amber-400 mt-0.5';
+      }
+    }
+
+    function renderRtmTable() {
+      const tbody = document.getElementById('rtmTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = appState.requirements.map(r => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-3 font-mono font-bold text-sky-800">
+            ${r.req_code}
+            <div class="text-[10px] text-slate-400">${r.project_code}</div>
+          </td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-[10px] font-medium">${r.workshop_method}</span>
+            <div class="font-semibold text-slate-800 mt-1">${r.stakeholder_jp}</div>
+            <div class="text-[11px] text-slate-500">${r.bu_department}</div>
+          </td>
+          <td class="py-3 px-3">
+            <div class="font-bold text-slate-900">${r.requirement_title}</div>
+            <div class="text-[11px] text-slate-500 font-jp">${r.requirement_title_jp || ''}</div>
+            <div class="text-[11px] text-slate-600 mt-1 bg-slate-50 p-2 rounded border border-slate-200"><strong>Tech Spec:</strong> ${r.technical_spec}</div>
+          </td>
+          <td class="py-3 px-2 text-center font-mono">
+            <div class="text-xs font-bold text-slate-800">CoD: ${r.cost_of_delay}</div>
+            <div class="text-[10px] text-slate-500">(${r.user_business_value}+${r.time_criticality}+${r.risk_reduction}) &divide; ${r.job_size}</div>
+          </td>
+          <td class="py-3 px-2.5 text-center font-mono">
+            <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-sky-300 font-bold text-xs">${Number(r.wsjf_index).toFixed(2)}</span>
+          </td>
+          <td class="py-3 px-3">
+            <div class="text-[11px] text-slate-700">${r.verification_method}</div>
+            <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-100 text-emerald-800">${r.traceability_status}</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function submitNewRequirement() {
+      const payload = {
+        requirement_title: document.getElementById('newReqTitle').value || 'Automated SMT Stencil Tension Telemetry',
+        requirement_title_jp: document.getElementById('newReqTitleJp').value || 'SMTステンシル張力自動テレメトリ連携',
+        workshop_method: document.getElementById('newReqMethod').value,
+        stakeholder_jp: document.getElementById('newReqStakeholder').value,
+        user_business_value: parseInt(document.getElementById('newReqUv').value, 10) || 9,
+        time_criticality: parseInt(document.getElementById('newReqTc').value, 10) || 8,
+        risk_reduction: parseInt(document.getElementById('newReqRr').value, 10) || 9,
+        job_size: parseInt(document.getElementById('newReqJs').value, 10) || 4,
+        technical_spec: document.getElementById('newReqSpec').value || 'IPC-CFX JSON payload to Siemens Opcenter MES Quality Gate.'
+      };
+      closeModal('modalNewReq');
+      await apiCall('/api/celestica/requirements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      await loadOverviewData();
+    }
+
+    // -----------------------------------------------------------------------
+    // 5. RENDER BPR / CBA & VENDOR SOW TABLES
+    // -----------------------------------------------------------------------
+    function recalcCbaSimulator() {
+      const capex = parseFloat(document.getElementById('simCapex').value) || 260000;
+      const opex = parseFloat(document.getElementById('simOpex').value) || 38000;
+      const savings = parseFloat(document.getElementById('simSavings').value) || 295000;
+      const r = (parseFloat(document.getElementById('simWacc').value) || 8.5) / 100;
+      const netAnnual = savings - opex;
+      let pv = 0;
+      for (let t = 1; t <= 5; t++) pv += netAnnual / Math.pow(1 + r, t);
+      const npv = Math.round(pv - capex);
+      const payback = netAnnual > 0 ? ((capex / netAnnual) * 12).toFixed(1) : 'N/A';
+      const roi = capex > 0 ? (((netAnnual * 5 - capex) / capex) * 100).toFixed(1) : '0';
+      const irr = Math.min(79, Math.max(11, ((netAnnual / capex) * 100) * 0.62)).toFixed(1);
+
+      document.getElementById('simNpvOut').innerText = `$${npv.toLocaleString()}`;
+      document.getElementById('simIrrOut').innerText = `${irr}%`;
+      document.getElementById('simRoiOut').innerText = `${roi}%`;
+      document.getElementById('simPaybackOut').innerText = `${payback} Mo`;
+    }
+
+    async function saveSimulatedCba() {
+      const payload = {
+        initiative_name: document.getElementById('simCbaName').value,
+        capex_usd: parseFloat(document.getElementById('simCapex').value) || 260000,
+        annual_opex_usd: parseFloat(document.getElementById('simOpex').value) || 38000,
+        annual_gross_savings_usd: parseFloat(document.getElementById('simSavings').value) || 295000,
+        discount_rate_percent: parseFloat(document.getElementById('simWacc').value) || 8.5
+      };
+      await apiCall('/api/celestica/cba-studies', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      await loadOverviewData();
+    }
+
+    function renderCbaAndSowTables() {
+      const cbaBody = document.getElementById('cbaTableBody');
+      if (cbaBody) {
+        cbaBody.innerHTML = appState.cba_studies.map(c => `
+          <tr class="hover:bg-slate-50">
+            <td class="py-3 px-3 font-mono font-bold text-slate-800">
+              ${c.study_code}
+              <div class="text-[10px] text-emerald-700">${c.approval_ringi_no}</div>
+            </td>
+            <td class="py-3 px-3">
+              <div class="font-bold text-slate-900">${c.initiative_name}</div>
+              <div class="text-[11px] text-slate-500">${c.target_site}</div>
+            </td>
+            <td class="py-3 px-2.5 text-center font-mono">
+              <span class="line-through text-rose-500 text-[11px]">${c.as_is_cycle_time_hrs}h</span>
+              <span class="font-bold text-emerald-700 block">&rarr; ${c.to_be_cycle_time_hrs}h</span>
+            </td>
+            <td class="py-3 px-2.5 text-center font-mono">
+              <span class="text-slate-500 text-[11px]">${c.as_is_oee_percent}%</span>
+              <span class="font-bold text-sky-700 block">&rarr; ${c.to_be_oee_percent}%</span>
+            </td>
+            <td class="py-3 px-2.5 text-right font-mono">$${Number(c.capex_usd).toLocaleString()}</td>
+            <td class="py-3 px-2.5 text-right font-mono font-bold text-emerald-700">$${Number(c.npv_5yr_usd).toLocaleString()}</td>
+            <td class="py-3 px-2.5 text-center font-mono">
+              <span class="font-bold text-slate-900">${c.irr_percent}% IRR</span>
+              <span class="block text-[10px] text-slate-500">${c.payback_months} Mo</span>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      const sowBody = document.getElementById('sowTableBody');
+      if (sowBody) {
+        sowBody.innerHTML = appState.sow_vendors.map(v => {
+          const stBadge = v.governance_status === 'ROADBLOCK_ESCALATED'
+            ? 'bg-rose-100 text-rose-800 border-rose-300'
+            : 'bg-emerald-100 text-emerald-800 border-emerald-300';
+          return `
+            <tr class="hover:bg-slate-50">
+              <td class="py-3 px-3 font-mono font-bold text-slate-900">
+                ${v.sow_number}
+                <div class="text-[10px] text-slate-500">${v.contract_type}</div>
+              </td>
+              <td class="py-3 px-3">
+                <div class="font-bold text-slate-900">${v.vendor_name}</div>
+                <div class="text-xs text-sky-800">${v.project_title}</div>
+              </td>
+              <td class="py-3 px-2.5 text-right font-mono font-bold">$${Number(v.total_contract_usd).toLocaleString()}</td>
+              <td class="py-3 px-2.5 text-center font-mono">
+                <span class="px-2.5 py-1 rounded bg-slate-900 text-amber-300 font-bold">${v.weighted_eval_score} / 100</span>
+                <div class="text-[10px] text-slate-500 mt-0.5">Fit:${v.functional_fit_score} Comp:${v.compatibility_score} Sec:${v.cybersecurity_jsox_score}</div>
+              </td>
+              <td class="py-3 px-2.5 text-center font-mono font-bold">${v.milestones_completed} / ${v.milestones_total}</td>
+              <td class="py-3 px-3 font-mono text-[11px] text-emerald-700 font-semibold">${v.sla_uptime_target}</td>
+              <td class="py-3 px-3">
+                <span class="px-2 py-0.5 rounded border text-[10px] font-mono font-bold ${stBadge}">${v.governance_status}</span>
+                <p class="text-[11px] text-slate-600 mt-1">${v.escalation_note}</p>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    // -----------------------------------------------------------------------
+    // 6. RENDER ENTERPRISE INTEGRATIONS HUB
+    // -----------------------------------------------------------------------
+    function renderIntegrationsHub() {
+      const grid = document.getElementById('integrationCardsGrid');
+      if (grid) {
+        grid.innerHTML = appState.integrations.map(conn => `
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3">
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs font-bold px-2.5 py-0.5 rounded bg-slate-900 text-sky-300">${conn.connector_code}</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-mono font-semibold">● ${conn.health_status} (${conn.latency_ms}ms)</span>
+              </div>
+              <h4 class="font-bold text-sm text-slate-900">${conn.system_name}</h4>
+              <div class="text-xs text-slate-500 font-mono">${conn.isa95_level} • ${conn.protocol_standard}</div>
+              <pre class="bg-slate-900 text-emerald-300 p-2.5 rounded-lg text-[10px] font-mono overflow-x-auto">${conn.sample_payload_json}</pre>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-200 text-xs">
+              <span class="font-mono text-slate-600">Synced Today: <strong>${Number(conn.records_synced_today).toLocaleString()}</strong> records</span>
+              <button onclick="triggerIntegrationSync('${conn.connector_code}')" class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs">
+                <i class="fa-solid fa-rotate mr-1"></i>Sync Connector
+              </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      const logsBody = document.getElementById('integrationLogsBody');
+      if (logsBody) {
+        logsBody.innerHTML = appState.integration_logs.map(l => `
+          <tr>
+            <td class="py-2 px-2.5 text-slate-400">${l.created_at}</td>
+            <td class="py-2 px-2.5 text-sky-300 font-bold">${l.connector_code}</td>
+            <td class="py-2 px-2.5 text-amber-300">${l.event_type}</td>
+            <td class="py-2 px-2.5">${l.source_system} &rarr; ${l.target_system}</td>
+            <td class="py-2 px-2.5 text-emerald-300">${l.payload_summary}</td>
+            <td class="py-2 px-2.5 text-center"><span class="px-1.5 py-0.5 rounded bg-emerald-900 text-emerald-300">${l.status_code}</span></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    async function triggerIntegrationSync(connectorCode) {
+      try {
+        await apiCall('/api/celestica/integrations/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ connector_code: connectorCode })
+        });
+        await loadOverviewData();
+      } catch (e) {}
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      recalcWsjfSimulator();
+      recalcCbaSimulator();
+      loadOverviewData();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/celestica",
+      "destination": "/celestica_portal.html"
+    },
+    {
+      "source": "/celestica/doc/cba",
+      "destination": "/celestica_doc_charter_cba.html"
+    },
+    {
+      "source": "/celestica/doc/sow",
+      "destination": "/celestica_doc_sow_vmp.html"
+    },
+    {
+      "source": "/celestica/doc/p6",
+      "destination": "/celestica_doc_p6_pmo.html"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    }
+  ]
+}

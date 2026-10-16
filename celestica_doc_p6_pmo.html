@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOC-03: Oracle Primavera P6 Master Schedule (CPM/EVM) & ITBP Playbook — Celestica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0a2540;
+      --accent: #0284c7;
+      --crit: #dc2626;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', 'Noto Sans JP', sans-serif;
+      color: var(--text);
+      background: #e2e8f0;
+      font-size: 12px;
+      line-height: 1.45;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-family: 'Prompt', sans-serif;
+    }
+    .toolbar-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn {
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-print { background: #10b981; color: #fff; }
+    .btn-nav { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; }
+    .btn-active { background: #0284c7; color: #fff; }
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 18px auto;
+      padding: 14mm 16mm;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .a4-page {
+        margin: 0;
+        padding: 11mm 14mm;
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 9px;
+      margin-bottom: 12px;
+    }
+    .brand-box { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 46px; height: 46px;
+      background: #dc2626;
+      color: #fff;
+      border-radius: 8px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Prompt', sans-serif;
+      font-weight: 700;
+    }
+    .doc-title-block h1 { font-family: 'Prompt', sans-serif; font-size: 15.5px; color: var(--primary); font-weight: 700; }
+    .doc-title-block p { font-size: 11px; color: var(--muted); }
+    .meta-table { font-size: 10.5px; border-collapse: collapse; font-family: 'JetBrains Mono', monospace; }
+    .meta-table td { padding: 1.5px 6px; border: 1px solid var(--border); }
+    .meta-table td.lbl { background: #f8fafc; font-weight: 600; color: var(--primary); }
+    .section-hdr {
+      background: var(--primary);
+      color: #fff;
+      font-family: 'Prompt', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4.5px 10px;
+      border-radius: 4px;
+      margin: 10px 0 7px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table.data-tbl { width: 100%; border-collapse: collapse; margin-bottom: 9px; font-size: 10.8px; }
+    table.data-tbl th, table.data-tbl td { border: 1px solid var(--border); padding: 4px 6px; text-align: left; vertical-align: middle; }
+    table.data-tbl th { background: #f1f5f9; font-family: 'Prompt', sans-serif; font-weight: 600; color: var(--primary); font-size: 10.5px; }
+    .num { text-align: right !important; font-family: 'JetBrains Mono', monospace; }
+    .ctr { text-align: center !important; font-family: 'JetBrains Mono', monospace; }
+    .cp-badge { background: #fee2e2; color: #991b1b; font-weight: 700; padding: 1px 4px; border-radius: 3px; font-size: 9.5px; }
+    .evm-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .evm-box { border: 1px solid var(--border); background: #f8fafc; padding: 5px 7px; border-radius: 5px; text-align: center; }
+    .evm-box span { display: block; font-size: 9.5px; color: var(--muted); }
+    .evm-box strong { font-size: 12px; color: var(--primary); }
+    .sign-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+    .sign-box { border: 1px solid var(--border); border-radius: 6px; padding: 7px; text-align: center; font-size: 10.5px; }
+    .hanko-seal {
+      width: 36px; height: 36px;
+      border: 2px solid #dc2626;
+      color: #dc2626;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9.5px;
+      font-weight: 700;
+      margin: 5px auto;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-links">
+      <a href="celestica_portal.html" class="btn btn-nav">&larr; กลับหน้า Console หลัก</a>
+      <a href="celestica_doc_charter_cba.html" class="btn btn-nav">DOC-01: Feasibility, BPR &amp; CBA</a>
+      <a href="celestica_doc_sow_vmp.html" class="btn btn-nav">DOC-02: Vendor SOW &amp; BABOK RTM</a>
+      <a href="celestica_doc_p6_pmo.html" class="btn btn-active">DOC-03: Primavera P6 Schedule &amp; SOP</a>
+    </div>
+    <button onclick="window.print()" class="btn btn-print">🖨️ พิมพ์เอกสารฉบับนี้ (Print A4 / Save PDF)</button>
+  </div>
+
+  <div class="a4-page">
+    <div class="doc-header">
+      <div class="brand-box">
+        <div class="logo">
+          <span style="font-size:14px;">P6</span>
+          <span style="font-size:8px;">EPPM</span>
+        </div>
+        <div class="doc-title-block">
+          <h1>ORACLE PRIMAVERA P6 MASTER SCHEDULE &amp; ITBP OPERATIONAL PLAYBOOK</h1>
+          <p>EPS: CLS-APAC-ITBP • Project ID: PRJ-JP-2026-MES (Next-Gen MES &amp; SAP S/4HANA Convergence)</p>
+          <p><strong>ROLE MANDATE:</strong> Manager, IT Business Partner 2 (Req ID: 133553 • Band 10 • Laem Chabang, Chonburi &harr; Japan)</p>
+        </div>
+      </div>
+      <table class="meta-table">
+        <tr><td class="lbl">P6 PROJ ID:</td><td>PRJ-JP-2026-MES</td></tr>
+        <tr><td class="lbl">DATA DATE:</td><td>16-Oct-2026</td></tr>
+        <tr><td class="lbl">METHOD:</td><td>CPM Retained Logic</td></tr>
+        <tr><td class="lbl">CALENDAR:</td><td>5-Day JP/TH Mfg</td></tr>
+      </table>
+    </div>
+
+    <div class="section-hdr">
+      <span>1. EARNED VALUE MANAGEMENT (EVM) &amp; SCHEDULE PERFORMANCE SUMMARY (EVM実績サマリー)</span>
+      <span>PMBOK 7th Ed. / ANSI/EIA-748</span>
+    </div>
+    <div class="evm-strip">
+      <div class="evm-box"><span>BAC (Budget)</span><strong>$1,350,000</strong></div>
+      <div class="evm-box"><span>PV (Planned)</span><strong>$788,000</strong></div>
+      <div class="evm-box"><span>EV (Earned)</span><strong style="color:#059669;">$804,500</strong></div>
+      <div class="evm-box"><span>AC (Actual)</span><strong>$769,000</strong></div>
+      <div class="evm-box"><span>SPI (EV/PV)</span><strong style="color:#059669;">1.02 (Ahead)</strong></div>
+      <div class="evm-box"><span>CPI (EV/AC)</span><strong style="color:#059669;">1.05 (Under)</strong></div>
+      <div class="evm-box"><span>EAC (Forecast)</span><strong>$1,285,714</strong></div>
+    </div>
+
+    <div class="section-hdr">
+      <span>2. ORACLE PRIMAVERA P6 — WBS &amp; CRITICAL PATH METHOD (CPM) SCHEDULE (A1000 – A1130)</span>
+      <span>Critical Path: Total Float (TF) = 0 Days</span>
+    </div>
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th>Act ID</th>
+          <th>WBS</th>
+          <th>Activity Name &amp; Primary Resource</th>
+          <th class="ctr">OD</th>
+          <th class="ctr">RD</th>
+          <th class="ctr">%</th>
+          <th class="ctr">Early Start</th>
+          <th class="ctr">Early Finish</th>
+          <th class="ctr">Float</th>
+          <th class="ctr">Pred</th>
+          <th class="num">BAC ($)</th>
+          <th class="num">EV ($)</th>
+          <th class="num">AC ($)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1000</span></td>
+          <td class="ctr">1.1</td>
+          <td><strong>Project Charter &amp; Japan Ringi-sho Sign-Off</strong> (Aritut)</td>
+          <td class="ctr">5d</td><td class="ctr">0d</td><td class="ctr">100%</td>
+          <td class="ctr">2026-07-01</td><td class="ctr">2026-07-07</td><td class="ctr">0d</td><td class="ctr">-</td>
+          <td class="num">35,000</td><td class="num">35,000</td><td class="num">33,500</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1010</span></td>
+          <td class="ctr">1.1</td>
+          <td><strong>Design Thinking &amp; Gemba Workshop (Miyagi &amp; Tokyo)</strong></td>
+          <td class="ctr">15d</td><td class="ctr">0d</td><td class="ctr">100%</td>
+          <td class="ctr">2026-07-08</td><td class="ctr">2026-07-28</td><td class="ctr">0d</td><td class="ctr">A1000</td>
+          <td class="num">65,000</td><td class="num">65,000</td><td class="num">62,000</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1020</span></td>
+          <td class="ctr">1.2</td>
+          <td><strong>As-Is / To-Be BPR Flowcharts &amp; 5-Yr Financial CBA</strong></td>
+          <td class="ctr">12d</td><td class="ctr">0d</td><td class="ctr">100%</td>
+          <td class="ctr">2026-07-29</td><td class="ctr">2026-08-13</td><td class="ctr">0d</td><td class="ctr">A1010</td>
+          <td class="num">55,000</td><td class="num">55,000</td><td class="num">51,800</td>
+        </tr>
+        <tr>
+          <td class="ctr">A1030</td>
+          <td class="ctr">1.2</td>
+          <td>Hardware/Software Eval (IIoT Edge Gateways &amp; SECS/GEM)</td>
+          <td class="ctr">10d</td><td class="ctr">0d</td><td class="ctr">100%</td>
+          <td class="ctr">2026-07-29</td><td class="ctr">2026-08-11</td><td class="ctr">4d</td><td class="ctr">A1010</td>
+          <td class="num">48,000</td><td class="num">48,000</td><td class="num">47,200</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1040</span></td>
+          <td class="ctr">1.3</td>
+          <td><strong>Vendor RFP, Statement of Work (SOW) &amp; SLA Execution</strong></td>
+          <td class="ctr">14d</td><td class="ctr">0d</td><td class="ctr">100%</td>
+          <td class="ctr">2026-08-14</td><td class="ctr">2026-09-02</td><td class="ctr">0d</td><td class="ctr">A1020,30</td>
+          <td class="num">70,000</td><td class="num">70,000</td><td class="num">68,000</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1050</span></td>
+          <td class="ctr">1.4</td>
+          <td><strong>Siemens Opcenter MES v24 Core &amp; Bilingual UI Build</strong></td>
+          <td class="ctr">22d</td><td class="ctr">0d</td><td class="ctr">100%</td>
+          <td class="ctr">2026-09-03</td><td class="ctr">2026-10-02</td><td class="ctr">0d</td><td class="ctr">A1040</td>
+          <td class="num">180,000</td><td class="num">180,000</td><td class="num">171,500</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1060</span></td>
+          <td class="ctr">1.4</td>
+          <td><strong>SAP S/4HANA PP/MM IDoc &amp; OData Integration Bridge</strong></td>
+          <td class="ctr">20d</td><td class="ctr">4d</td><td class="ctr">80%</td>
+          <td class="ctr">2026-09-25</td><td class="ctr">2026-10-22</td><td class="ctr">0d</td><td class="ctr">A1050SS</td>
+          <td class="num">180,000</td><td class="num">144,000</td><td class="num">136,000</td>
+        </tr>
+        <tr>
+          <td class="ctr">A1070</td>
+          <td class="ctr">1.4</td>
+          <td>SMT Pick-and-Place (Fuji/Panasonic) Edge Telemetry</td>
+          <td class="ctr">16d</td><td class="ctr">3d</td><td class="ctr">81%</td>
+          <td class="ctr">2026-09-28</td><td class="ctr">2026-10-19</td><td class="ctr">5d</td><td class="ctr">A1050</td>
+          <td class="num">120,000</td><td class="num">97,500</td><td class="num">94,000</td>
+        </tr>
+        <tr>
+          <td class="ctr">A1080</td>
+          <td class="ctr">1.4</td>
+          <td>Kinaxis RapidResponse APS &amp; E2Open Supplier Connector</td>
+          <td class="ctr">15d</td><td class="ctr">5d</td><td class="ctr">67%</td>
+          <td class="ctr">2026-10-05</td><td class="ctr">2026-10-23</td><td class="ctr">5d</td><td class="ctr">A1060SS</td>
+          <td class="num">110,000</td><td class="num">73,370</td><td class="num">71,000</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1090</span></td>
+          <td class="ctr">1.5</td>
+          <td><strong>End-to-End SIT &amp; Cybersecurity / J-SOX ITGC Audit</strong></td>
+          <td class="ctr">12d</td><td class="ctr">8d</td><td class="ctr">33%</td>
+          <td class="ctr">2026-10-12</td><td class="ctr">2026-10-28</td><td class="ctr">0d</td><td class="ctr">A1060,70</td>
+          <td class="num">110,000</td><td class="num">36,630</td><td class="num">35,000</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1100</span></td>
+          <td class="ctr">1.5</td>
+          <td><strong>Bilingual UAT — Miyagi NPI Center &amp; Laem Chabang Plant 2</strong></td>
+          <td class="ctr">14d</td><td class="ctr">14d</td><td class="ctr">0%</td>
+          <td class="ctr">2026-10-29</td><td class="ctr">2026-11-17</td><td class="ctr">0d</td><td class="ctr">A1090</td>
+          <td class="num">105,000</td><td class="num">0</td><td class="num">0</td>
+        </tr>
+        <tr>
+          <td class="ctr">A1110</td>
+          <td class="ctr">1.6</td>
+          <td>Operator Training &amp; Bilingual SOP Handover (JP/EN/TH)</td>
+          <td class="ctr">10d</td><td class="ctr">10d</td><td class="ctr">0%</td>
+          <td class="ctr">2026-11-05</td><td class="ctr">2026-11-18</td><td class="ctr">4d</td><td class="ctr">A1090</td>
+          <td class="num">52,000</td><td class="num">0</td><td class="num">0</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1120</span></td>
+          <td class="ctr">1.6</td>
+          <td><strong>Production Cutover, Go-Live &amp; 24x7 War-Room Hypercare</strong></td>
+          <td class="ctr">15d</td><td class="ctr">15d</td><td class="ctr">0%</td>
+          <td class="ctr">2026-11-18</td><td class="ctr">2026-12-08</td><td class="ctr">0d</td><td class="ctr">A1100,10</td>
+          <td class="num">85,000</td><td class="num">0</td><td class="num">0</td>
+        </tr>
+        <tr>
+          <td class="ctr"><span class="cp-badge">A1130</span></td>
+          <td class="ctr">1.6</td>
+          <td><strong>Post-Implementation Review (PIR) &amp; Value Sign-Off</strong></td>
+          <td class="ctr">8d</td><td class="ctr">8d</td><td class="ctr">0%</td>
+          <td class="ctr">2026-12-09</td><td class="ctr">2026-12-18</td><td class="ctr">0d</td><td class="ctr">A1120</td>
+          <td class="num">35,000</td><td class="num">0</td><td class="num">0</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-hdr">
+      <span>3. STEP-BY-STEP OPERATIONAL SOP FOR MANAGER, IT BUSINESS PARTNER 2 (REQ ID: 133553)</span>
+      <span>Full Lifecycle Execution Guide</span>
+    </div>
+    <table class="data-tbl">
+      <thead>
+        <tr>
+          <th>Phase &amp; Methodology</th>
+          <th>Actionable Step-by-Step Procedure (วิธีปฏิบัติงานจริงตามมาตรฐาน Celestica)</th>
+          <th>Key Deliverable Artifact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Elicitation &amp; Design Thinking</strong></td>
+          <td>Conduct Gemba walk in Miyagi &amp; Laem Chabang; run 5-stage Design Thinking workshop in Japanese (JLPT N1/N2) &amp; English; perform playback to SMEs.</td>
+          <td>Signed Bilingual BRD &amp; BABOK RTM</td>
+        </tr>
+        <tr>
+          <td><strong>2. BPR, Feasibility &amp; CBA</strong></td>
+          <td>Map As-Is vs. To-Be BPMN 2.0 flows; model 5-year CapEx/OpEx, NPV, IRR, and OEE impact; prepare Japanese Ringi-sho (稟議書) approval pack.</td>
+          <td>DOC-01 Feasibility &amp; CBA Dossier</td>
+        </tr>
+        <tr>
+          <td><strong>3. WSJF &amp; HW/SW Evaluation</strong></td>
+          <td>Rank competing requests via SAFe WSJF under IT budget/resource constraints; score hardware/software options using weighted MCDA criteria.</td>
+          <td>WSJF Backlog &amp; HW/SW Readout Deck</td>
+        </tr>
+        <tr>
+          <td><strong>4. SOW &amp; Primavera P6 Control</strong></td>
+          <td>Draft milestone-based Vendor SOW; baseline WBS &amp; Critical Path in Primavera P6; monitor weekly SPI/CPI and escalate roadblocks via PMO.</td>
+          <td>DOC-02 SOW &amp; DOC-03 P6 Schedule</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sign-grid">
+      <div class="sign-box">
+        <div><strong>Schedule Owner (P6 Planner)</strong></div>
+        <div class="hanko-seal">アリトゥット<br>計画済</div>
+        <div><strong>Aritut (Mgr, ITBP 2)</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Req ID: 133553 • Chonburi</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Miyagi Plant Lead</strong></div>
+        <div class="hanko-seal">伊藤<br>確認</div>
+        <div><strong>Daisuke Ito</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Chief Mfg Engineer, Miyagi</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Laem Chabang Ops</strong></div>
+        <div class="hanko-seal">LCB<br>OPS</div>
+        <div><strong>VP Manufacturing Thailand</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Celestica (Thailand) Limited</div>
+      </div>
+      <div class="sign-box">
+        <div><strong>Global IT PMO</strong></div>
+        <div class="hanko-seal">PMO<br>BASELINE</div>
+        <div><strong>Director of ITBP &amp; PMO</strong></div>
+        <div style="color:var(--muted);font-size:10px;">Celestica Inc. (Toronto HQ)</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

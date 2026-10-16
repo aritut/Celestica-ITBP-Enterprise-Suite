@@ -1,0 +1,12 @@
+{
+  "name": "celestica-itbp-enterprise-suite",
+  "version": "1.0.0",
+  "description": "Celestica (Thailand & Japan) — Manager, IT Business Partner 2 (Req ID: 133553) Enterprise Console, Trello Kanban, Primavera P6 & A4 Document Suite",
+  "main": "celestica_server.js",
+  "scripts": {
+    "start": "node celestica_server.js"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}
